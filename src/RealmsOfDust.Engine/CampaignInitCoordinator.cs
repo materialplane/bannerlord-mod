@@ -34,22 +34,32 @@ public sealed class CampaignInitCoordinator
     }
 
     /// <summary>
-    /// Executes the full initialization pipeline in deterministic order.
+    /// Executes the initialization pipeline.
+    /// In Sandbox mode, immediately elevates the player to monarch.
+    /// In Campaign mode, elevates the 52 AI realms and returns the reserved player domain for deferred reclamation.
     /// </summary>
+    /// <param name="reservedPlayerDomain">Outputs the reserved player domain.</param>
     /// <returns>The computed MapAllocationResult.</returns>
-    public MapAllocationResult ExecuteFullInitialization()
+    public MapAllocationResult ExecuteFullInitialization(out RealmDomain reservedPlayerDomain)
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
 
         // 1. Phase 03: Proximity Allocation & Bound Village Rebinding
         MapAllocationResult allocation = _allocationService.AllocateMap();
 
-        // 2. Phase 05: Player Domain Selection & Sovereign Realm Setup
-        RealmDomain playerDomain = _playerInitializer.SelectPlayerDomain(allocation.Domains);
-        _playerInitializer.InitializePlayerRealm(playerDomain);
+        // 2. Phase 05: Player Domain Selection
+        reservedPlayerDomain = _playerInitializer.SelectPlayerDomain(allocation.Domains);
+
+        bool isCampaignStoryMode = Campaign.Current?.GameMode == CampaignGameMode.Campaign;
+
+        if (!isCampaignStoryMode)
+        {
+            // Immediate Day 1 elevation for Sandbox mode
+            _playerInitializer.InitializePlayerRealm(reservedPlayerDomain);
+        }
 
         // 3. Phase 04: Elevation of Noble Clans to Kingdoms & Mutual Day 1 Peace
-        _elevationService.ElevateRealms(allocation.Domains, playerDomain);
+        _elevationService.ElevateRealms(allocation.Domains, reservedPlayerDomain);
         _elevationService.EstablishInitialPeace();
 
         // 4. Phase 06: Military Wipe, Retinue Reset & Garrison Seeding
@@ -58,18 +68,29 @@ public sealed class CampaignInitCoordinator
         _militaryResetService.InitializeCivicBaselines();
 
         stopwatch.Stop();
-        LogInitializationSuccess(allocation, stopwatch.ElapsedMilliseconds);
+        LogInitializationSuccess(allocation, stopwatch.ElapsedMilliseconds, isCampaignStoryMode, reservedPlayerDomain);
 
         return allocation;
     }
 
-    private void LogInitializationSuccess(MapAllocationResult allocation, long elapsedMs)
+    private void LogInitializationSuccess(
+        MapAllocationResult allocation,
+        long elapsedMs,
+        bool isCampaignMode,
+        RealmDomain reservedDomain)
     {
         string message = $"[Realms of Dust] Continental partition complete in {elapsedMs}ms: " +
                          $"{allocation.Domains.Count} Sovereign Realms, " +
                          $"{allocation.FrontierHolds.Count} Frontier Strongholds.";
 
         InformationManager.DisplayMessage(new InformationMessage(message, Colors.Cyan));
+
+        if (isCampaignMode && reservedDomain?.Capital != null)
+        {
+            string narrativeMsg = $"[Realms of Dust] The usurper Radagos has seized your ancestral seat of " +
+                                  $"{reservedDomain.Capital.Name}! Defeat him in the wilderness to reclaim your throne.";
+            InformationManager.DisplayMessage(new InformationMessage(narrativeMsg, Colors.Yellow));
+        }
     }
 
     /// <summary>
