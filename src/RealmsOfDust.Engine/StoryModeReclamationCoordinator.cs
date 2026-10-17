@@ -10,8 +10,8 @@ using RealmsOfDust.Core.Interfaces;
 using RealmsOfDust.Core.Models;
 
 /// <summary>
-/// Coordinates the restoration of the player's ancestral realm upon defeating
-/// the usurper Radagos or completing the opening prologue.
+/// Coordinates the narrative presentation and restoration of the player's ancestral realm
+/// during the Campaign Mode prologue.
 /// </summary>
 public sealed class StoryModeReclamationCoordinator
 {
@@ -24,6 +24,37 @@ public sealed class StoryModeReclamationCoordinator
     public StoryModeReclamationCoordinator(IPlayerRealmInitializer playerInitializer)
     {
         _playerInitializer = playerInitializer;
+    }
+
+    /// <summary>
+    /// Displays the opening narrative modal explaining the Great Plague and Radagos' usurpation.
+    /// </summary>
+    /// <param name="capitalName">The name of the ancestral capital.</param>
+    /// <param name="strongholdName">The name of the ancestral fortress.</param>
+    public static void ShowPrologueIntroInquiry(string capitalName, string strongholdName)
+    {
+        TextObject title = new TextObject("{=rod_prologue_title}The Great Contagion & The Usurper");
+        TextObject desc = new TextObject(
+            "{=rod_prologue_desc}In the year 1084, the catastrophic Great Plague broke across Calradia, " +
+            "devastating armies, collapsing trade, and shattering the old empires into fifty sovereign micro-realms.\r\n\r\n" +
+            "While your noble house was stricken by the sickness, the mercenary captain Radagos betrayed your bloodline. " +
+            "He slaughtered your weakened garrison and seized your ancestral seat of {CAPITAL} and the fortress of {STRONGHOLD}!\r\n\r\n" +
+            "Having fled into the wilderness with your elder brother, you must gather loyal survivors, track down the traitorous usurper, " +
+            "and reclaim your rightful crown.")
+            .SetTextVariable("CAPITAL", capitalName)
+            .SetTextVariable("STRONGHOLD", strongholdName);
+
+        TextObject affirmText = new TextObject("{=rod_prologue_btn}We Shall Reclaim Our Crown");
+
+        InformationManager.ShowInquiry(new InquiryData(
+            title.ToString(),
+            desc.ToString(),
+            isAffirmativeOptionShown: true,
+            isNegativeOptionShown: false,
+            affirmText.ToString(),
+            string.Empty,
+            null,
+            null));
     }
 
     /// <summary>
@@ -58,7 +89,8 @@ public sealed class StoryModeReclamationCoordinator
         TextObject desc = new TextObject(
             "{=rod_inquiry_desc}With the usurper Radagos defeated, your ancestral realm of {CAPITAL} " +
             "and the fortress of {STRONGHOLD} are restored to your bloodline! " +
-            "The loyal banners of your house fly proudly once more.\r\n\r\n" +
+            "The survivors of the Great Plague rally to your banners once more, and the gates are opened " +
+            "to welcome their rightful sovereign.\r\n\r\n" +
             "Long live the Sovereign!")
             .SetTextVariable("CAPITAL", capitalName)
             .SetTextVariable("STRONGHOLD", strongholdName);

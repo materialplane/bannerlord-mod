@@ -87,7 +87,7 @@ public sealed class CampaignInitCoordinator
 
         if (isCampaignMode && reservedDomain?.Capital != null)
         {
-            string narrativeMsg = $"[Realms of Dust] The usurper Radagos has seized your ancestral seat of " +
+            string narrativeMsg = $"[Realms of Dust] The Great Plague has shattered Calradia. The usurper Radagos has seized your ancestral seat of " +
                                   $"{reservedDomain.Capital.Name}! Defeat him in the wilderness to reclaim your throne.";
             InformationManager.DisplayMessage(new InformationMessage(narrativeMsg, Colors.Yellow));
         }

@@ -1,10 +1,8 @@
 namespace RealmsOfDust.Engine;
 
 using System;
-using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.CampaignSystem.Settlements;
 using RealmsOfDust.Core.Interfaces;
 using RealmsOfDust.Core.Models;
 using RealmsOfDust.Domain.Military;
@@ -44,6 +42,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(this, OnQuestCompleted);
 
         StoryModeReclamationCoordinator.TrySubscribeStoryModeTutorialEnded(this, OnStoryModeTutorialEnded);
+        StealthTutorialSuppressor.Initialize();
     }
 
     /// <inheritdoc />
@@ -70,6 +69,13 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         {
             _reservedCapitalId = _reservedPlayerDomain?.Capital?.StringId ?? string.Empty;
             _reservedStrongholdId = _reservedPlayerDomain?.Stronghold?.StringId ?? string.Empty;
+
+            if (_reservedPlayerDomain?.Capital != null)
+            {
+                StoryModeReclamationCoordinator.ShowPrologueIntroInquiry(
+                    _reservedPlayerDomain.Capital.Name.ToString(),
+                    _reservedPlayerDomain.Stronghold?.Name?.ToString() ?? "Stronghold");
+            }
         }
         else
         {
@@ -99,51 +105,12 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
             return;
         }
 
-        RealmDomain? domain = ResolveReservedPlayerDomain();
-        if (domain != null)
-        {
-            _isPlayerRealmReclaimed = true;
-            _reclamationCoordinator.ExecuteReclamation(domain);
-        }
-    }
-
-    private RealmDomain? ResolveReservedPlayerDomain()
-    {
+        _reservedPlayerDomain ??= ReservedDomainResolver.Resolve(_reservedCapitalId, _reservedStrongholdId);
         if (_reservedPlayerDomain != null)
         {
-            return _reservedPlayerDomain;
+            _isPlayerRealmReclaimed = true;
+            _reclamationCoordinator.ExecuteReclamation(_reservedPlayerDomain);
         }
-
-        if (string.IsNullOrEmpty(_reservedCapitalId) || string.IsNullOrEmpty(_reservedStrongholdId))
-        {
-            return null;
-        }
-
-        Settlement? capital = Settlement.Find(_reservedCapitalId);
-        Settlement? stronghold = Settlement.Find(_reservedStrongholdId);
-        if (capital == null || stronghold == null)
-        {
-            return null;
-        }
-
-        List<Settlement> villages = new List<Settlement>();
-        if (capital.BoundVillages != null)
-        {
-            foreach (var v in capital.BoundVillages)
-            {
-                if (v.Settlement != null) villages.Add(v.Settlement);
-            }
-        }
-        if (stronghold.BoundVillages != null)
-        {
-            foreach (var v in stronghold.BoundVillages)
-            {
-                if (v.Settlement != null) villages.Add(v.Settlement);
-            }
-        }
-
-        _reservedPlayerDomain = new RealmDomain(capital, stronghold, villages);
-        return _reservedPlayerDomain;
     }
 
     private void OnMobilePartyCreated(MobileParty party)
