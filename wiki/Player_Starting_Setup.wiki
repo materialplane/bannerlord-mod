@@ -1,0 +1,29 @@
+'''Player Starting Setup''' details the kingdom initialization, domain allocation, and starting assets awarded to the player in ''Realms of Dust''.
+
+== Game Modes: Sandbox vs. Campaign ==
+''Realms of Dust'' supports two distinct playthrough styles:
+
+=== Sandbox Mode (Instant Sovereign Start) ===
+* The player is crowned monarch on '''Day 1''' immediately following character creation.
+* The player spawns directly outside the gates of their randomly assigned cultural capital.
+* Ideal for players who want to jump straight into kingdom management, diplomacy, and grand strategy.
+
+=== Campaign Mode (The Ancestral Reclamation) ===
+* Adapts the TaleWorlds StoryMode prologue into a narrative questline: ''The Usurper of the Dust''.
+* The bandit chieftain '''Radagos''' has usurped your family holdings during the plague.
+* You begin in the wilderness as a refugee captain alongside your brother.
+* Defeating Radagos in the hideout duel (or selecting "Skip Tutorial") triggers the [[Ancestral Reclamation]], restoring your capital, castle, and full royal sovereign status.
+
+== Sovereign Elevation & Royal Assets ==
+Regardless of the chosen mode, once crowned, the player enjoys complete sovereign parity with all 52 AI rulers across Calradia:
+
+* '''Kingdom Status:''' The player's clan becomes an independent, recognized kingdom named after their capital (e.g., ''Realm of Zeonica'') bearing their chosen banner heraldry.
+* '''Clan Tier:''' Elevated to '''Tier 2''', providing immediate baseline party capacity (approx. 30–40 troops) and authority to direct policies.
+* '''Starting Influence:''' Exactly '''50 Influence''' to enact initial kingdom policies.
+* '''Initial Treasury:''' '''2,500 Denars''' in starting funds to finance early troop wages, trade goods, and recruitment costs without runaway inflation.
+
+== Geographic Domain Allocation ==
+The player's starting domain is chosen dynamically based on culture:
+* Selecting a culture (e.g., Vlandia, Battania, Empire, Sturgia, Aserai, Khuzait) pairs the player with a randomized capital matching that culture.
+* The player receives that Capital, its nearest contiguous Stronghold (Castle), and 4 bound agricultural villages (2 tied to the town, 2 tied to the castle).
+* Leftover castles on the map operate as neutral [[Frontier Strongholds]], available for early expansion.

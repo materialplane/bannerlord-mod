@@ -1,0 +1,13 @@
+== World Setup ==
+* [[Starting Domains]]: Structure of each realm's 1 Capital, 1 Castle, and bound village allocation.
+* [[Factions & Realms]]: Roster of all 53 independent realms across Calradia and their starting territorial seats.
+* [[Frontier Strongholds]]: The 14 unaligned, neutral castles available for conquest across Calradia.
+
+== Troop & Military Overhaul ==
+* [[Starting Forces]]: Day 1 field party numbers and escort strength for the player and AI lords.
+* [[Settlement Garrisons]]: Baseline garrison headcounts and defensive watch compositions for Towns and Castles.
+
+== Game Modes & Campaign Systems ==
+* [[Player Starting Setup]]: Sovereign realm creation, clan tier, starting denars, and Sandbox vs Campaign mode differences.
+* [[Ancestral Reclamation]]: The Campaign (StoryMode) prologue — avenging your house, defeating the usurper Radagos, and reclaiming your throne.
+* [[Campaign Dynamics]]: Early-game pacing, AI recruitment behavior, economic stability, and war progression.

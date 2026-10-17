@@ -1,0 +1,57 @@
+'''Ancestral Reclamation''' (also known as ''The Usurper of the Dust'') is the custom narrative campaign prologue designed specifically for ''Realms of Dust'' in Mount & Blade II: Bannerlord's '''Campaign (StoryMode)''' mode.
+
+== Lore & Background ==
+During the ravages of the Great Plague and the subsequent collapse of the imperial order, anarchy swept across Calradia. While noble clans retreated to their regional seats, opportunists and ruthless brigands exploited the chaos.
+
+The outlaw warlord '''Radagos''' attacked your house's seat, slaughtering your retainers, scattering your family, and taking possession of your ancestral capital and fortress. You and your elder brother escaped into the wilderness with nothing but the clothes on your back and lone horses, vowing to hunt down the usurper and restore your bloodline to its rightful throne.
+
+== Campaign Mode vs. Sandbox Mode ==
+''Realms of Dust'' supports both native game modes with distinct starting experiences:
+
+{| class="wikitable"
+! Feature !! Sandbox Mode !! Campaign (StoryMode) Mode
+|-
+| '''Starting Narrative''' || Sovereign ruler from Day 1 || Refugee captain seeking vengeance against Radagos
+|-
+| '''Day 1 Realm Status''' || Instant elevation outside capital || Reserved domain held in abeyance during prologue
+|-
+| '''52 AI Realms''' || Elevated on Day 1 with mutual peace || Elevated on Day 1 with mutual peace
+|-
+| '''Opening Objective''' || Immediate continental expansion || Defeat Radagos or conclude the prologue
+|-
+| '''Coronation Event''' || Day 1 automatic initialization || Triggered upon completing the Hideout or skipping tutorial
+|}
+
+== The Reclamation Sequence ==
+When playing in Campaign Mode, the player progresses through the prologue or elects to skip it:
+
+=== 1. The Opening Prologue ===
+* The player spawns in the wilderness with their elder brother outside the Training Field.
+* The 52 AI sovereign realms elevate, balance garrisons, and sign continental peace across Calradia.
+* The player's assigned domain (1 Capital, 1 Castle, 4 bound villages) is reserved and protected.
+* An introductory message alerts the player:
+: ''"[Realms of Dust] The usurper Radagos has seized your ancestral seat of [Capital]! Defeat him in the wilderness to reclaim your throne."''
+
+=== 2. Defeating the Usurper ===
+* The player gathers initial volunteers from local villages, acquires supplies, and tracks Radagos' raiders.
+* In the climactic hideout confrontation, the player and their brother storm the encampment and face Radagos in single combat.
+* Upon striking down Radagos, the bandit's grip over your lands is broken.
+
+=== 3. Skipping the Tutorial ===
+* Players who prefer to bypass the combat tutorial can speak with their elder brother at the Training Field and select '''"Skip Tutorial"'''.
+* The mod immediately detects the prologue conclusion and fires the exact same Ancestral Reclamation sequence without delay.
+
+== Restoration Rewards ==
+The moment Radagos is defeated or the tutorial is concluded, the **Ancestral Reclamation** triggers automatically:
+
+* '''Royal Elevation:''' The player's clan is elevated to an independent sovereign kingdom bearing their custom banner heraldry and colors.
+* '''Restoration of Holdings:''' Full ownership of the ancestral Capital, Stronghold, and all 4 bound villages is immediately transferred to the player.
+* '''Royal Treasury Grant:''' The player receives '''2,500 Denars''' from the reclaimed royal vault to fund early administrative and military expansion.
+* '''Clan Elevation:''' Clan Tier is set to '''Tier 2''' with '''50 Influence''', granting immediate kingdom management authority and enhanced party capacity.
+* '''Capital Gate Teleportation:''' The player's party and world-map camera are instantly positioned outside the front gates of their liberated capital city.
+* '''Celebration Inquiry:''' An immersive modal dialog (*"Ancestral Realm Reclaimed"*) is displayed, commemorating the return of the rightful sovereign.
+
+== Post-Prologue Integration ==
+Following the reclamation, all vanilla StoryMode systems transition smoothly:
+* Subsequent story quests (e.g., investigating the Dragon Banner) remain accessible by consulting the 52 sovereign monarchs across the continent.
+* Clan-rebuilding milestones complete naturally as the player recruits soldiers from their newly restored villages and expands their warband.
