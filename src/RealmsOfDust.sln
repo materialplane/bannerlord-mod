@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmsOfDust.Core", "RealmsOfDust.Core\RealmsOfDust.Core.csproj", "{1EBAD3C4-CA8F-4453-A551-CD99294ED6BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmsOfDust.Domain", "RealmsOfDust.Domain\RealmsOfDust.Domain.csproj", "{933711C9-35EF-4694-B65A-62143AD0B9C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmsOfDust.Engine", "RealmsOfDust.Engine\RealmsOfDust.Engine.csproj", "{405015A9-35B4-41FC-BF18-F0195EEE7255}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmsOfDust.Main", "RealmsOfDust.Main\RealmsOfDust.Main.csproj", "{AB4C7A1E-25DA-478F-B3F4-54901606BCD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EBAD3C4-CA8F-4453-A551-CD99294ED6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EBAD3C4-CA8F-4453-A551-CD99294ED6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EBAD3C4-CA8F-4453-A551-CD99294ED6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EBAD3C4-CA8F-4453-A551-CD99294ED6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{933711C9-35EF-4694-B65A-62143AD0B9C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{933711C9-35EF-4694-B65A-62143AD0B9C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{933711C9-35EF-4694-B65A-62143AD0B9C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{933711C9-35EF-4694-B65A-62143AD0B9C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{405015A9-35B4-41FC-BF18-F0195EEE7255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405015A9-35B4-41FC-BF18-F0195EEE7255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405015A9-35B4-41FC-BF18-F0195EEE7255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405015A9-35B4-41FC-BF18-F0195EEE7255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB4C7A1E-25DA-478F-B3F4-54901606BCD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB4C7A1E-25DA-478F-B3F4-54901606BCD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB4C7A1E-25DA-478F-B3F4-54901606BCD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB4C7A1E-25DA-478F-B3F4-54901606BCD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

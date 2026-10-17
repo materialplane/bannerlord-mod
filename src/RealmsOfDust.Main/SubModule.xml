@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Module>
+  <Name value="Realms of Dust" />
+  <Id value="RealmsOfDust" />
+  <Version value="v1.0.0" />
+  <SingleplayerModule value="true" />
+  <MultiplayerModule value="false" />
+  <DependedModules>
+    <DependedModule Id="Native" DependentVersion="v1.4.8" Optional="false" />
+    <DependedModule Id="SandBoxCore" DependentVersion="v1.4.8" Optional="false" />
+    <DependedModule Id="Sandbox" DependentVersion="v1.4.8" Optional="false" />
+    <DependedModule Id="StoryMode" DependentVersion="v1.4.8" Optional="true" />
+  </DependedModules>
+  <SubModules>
+    <SubModule>
+      <Name value="RealmsOfDust" />
+      <DLLName value="RealmsOfDust.dll" />
+      <SubModuleClassType value="RealmsOfDust.Main.RealmsOfDustSubModule" />
+      <Assemblies>
+        <Assembly value="RealmsOfDust.Core.dll" />
+        <Assembly value="RealmsOfDust.Domain.dll" />
+        <Assembly value="RealmsOfDust.Engine.dll" />
+      </Assemblies>
+      <Tags>
+        <Tag key="DedicatedServerType" value="none" />
+        <Tag key="IsDevelopment" value="false" />
+      </Tags>
+    </SubModule>
+  </SubModules>
+</Module>
