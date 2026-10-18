@@ -2,7 +2,9 @@ namespace RealmsOfDust.Engine;
 
 using System;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.Core;
 using RealmsOfDust.Core.Interfaces;
 using RealmsOfDust.Core.Models;
 using RealmsOfDust.Domain.Factions;
@@ -66,6 +68,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
 
         _coordinator.ExecuteFullInitialization(out _reservedPlayerDomain);
         _isInitialized = true;
+        _isPlayerRealmReclaimed = false;
 
         if (_reservedPlayerDomain?.Capital != null)
         {
@@ -74,23 +77,11 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         }
 
         bool isCampaign = Campaign.Current?.GameMode == CampaignGameMode.Campaign;
-        if (isCampaign)
+        if (isCampaign && !TutorialStatusChecker.IsTutorialSkippedOrCompleted() && _reservedPlayerDomain?.Capital != null)
         {
-            _isPlayerRealmReclaimed = false;
-            if (TutorialStatusChecker.IsTutorialSkippedOrCompleted())
-            {
-                TriggerReclamation(TutorialStatusChecker.IsTutorialSkipped());
-            }
-            else if (_reservedPlayerDomain?.Capital != null)
-            {
-                StoryModeReclamationCoordinator.ShowPrologueIntroInquiry(
-                    _reservedPlayerDomain.Capital.Name.ToString(),
-                    _reservedPlayerDomain.Stronghold?.Name?.ToString() ?? "Stronghold");
-            }
-        }
-        else
-        {
-            _isPlayerRealmReclaimed = true;
+            StoryModeReclamationCoordinator.ShowPrologueIntroInquiry(
+                _reservedPlayerDomain.Capital.Name.ToString(),
+                _reservedPlayerDomain.Stronghold?.Name?.ToString() ?? "Stronghold");
         }
     }
 
@@ -129,10 +120,20 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
             return;
         }
 
+        if (Game.Current?.GameStateManager?.ActiveState is not MapState) return;
+
         _reservedPlayerDomain ??= ReservedDomainResolver.Resolve(_reservedCapitalId, _reservedStrongholdId);
-        if (_reservedPlayerDomain != null)
+        if (_reservedPlayerDomain == null) return;
+
+        _isPlayerRealmReclaimed = true;
+        try
         {
-            _isPlayerRealmReclaimed = true;
+            var bannerState = Game.Current.GameStateManager.CreateState<BannerEditorState>(
+                new Action(() => _reclamationCoordinator.ExecuteReclamation(_reservedPlayerDomain, isSkipped)));
+            Game.Current.GameStateManager.PushState(bannerState);
+        }
+        catch
+        {
             _reclamationCoordinator.ExecuteReclamation(_reservedPlayerDomain, isSkipped);
         }
     }

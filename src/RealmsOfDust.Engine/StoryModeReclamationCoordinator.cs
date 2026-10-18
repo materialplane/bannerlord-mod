@@ -2,6 +2,7 @@ namespace RealmsOfDust.Engine;
 
 using System;
 using System.Reflection;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -10,7 +11,7 @@ using RealmsOfDust.Core.Models;
 
 /// <summary>
 /// Coordinates the narrative presentation and restoration of the player's ancestral realm
-/// during the Campaign Mode prologue.
+/// during Campaign and Sandbox game starts.
 /// </summary>
 public sealed class StoryModeReclamationCoordinator
 {
@@ -47,7 +48,7 @@ public sealed class StoryModeReclamationCoordinator
     }
 
     /// <summary>
-    /// Executes the full ancestral realm reclamation sequence.
+    /// Executes the sovereign realm elevation and restoration sequence.
     /// </summary>
     /// <param name="domain">The reserved player domain.</param>
     /// <param name="isSkipped">True if the tutorial was resolved off-screen; otherwise, false.</param>
@@ -63,6 +64,14 @@ public sealed class StoryModeReclamationCoordinator
         string capitalName = domain.Capital.Name?.ToString() ?? "Ancestral Seat";
         string strongholdName = domain.Stronghold?.Name?.ToString() ?? "Stronghold";
 
+        if (Campaign.Current?.GameMode != CampaignGameMode.Campaign)
+        {
+            string log = $"[Realms of Dust] Sovereign realm established at {capitalName}! Your crown and ancestral holdings are secured.";
+            InformationManager.DisplayMessage(new InformationMessage(log, Colors.Yellow));
+            ShowSandboxReclamationInquiry(capitalName, strongholdName);
+            return;
+        }
+
         if (isSkipped)
         {
             string log = $"[Realms of Dust] Having routed Radagos during your flight, you arrive at {capitalName} to claim your sovereign throne!";
@@ -75,6 +84,19 @@ public sealed class StoryModeReclamationCoordinator
             InformationManager.DisplayMessage(new InformationMessage(log, Colors.Yellow));
             ShowReclamationInquiry(capitalName, strongholdName);
         }
+    }
+
+    private static void ShowSandboxReclamationInquiry(string capitalName, string strongholdName)
+    {
+        TextObject title = new TextObject("{=rod_sandbox_title}Sovereign Realm Established");
+        TextObject desc = new TextObject(
+            "{=rod_sandbox_desc}Your royal banners are unfurled over {CAPITAL}! The fortress of {STRONGHOLD} " +
+            "and all bound villages swear allegiance to your sovereign crown.\r\n\r\n" +
+            "Long live the Sovereign!")
+            .SetTextVariable("CAPITAL", capitalName)
+            .SetTextVariable("STRONGHOLD", strongholdName);
+
+        ShowModalInquiry(title, desc, "{=rod_inquiry_btn}Claim the Throne");
     }
 
     private static void ShowSkipReclamationInquiry(string capitalName, string strongholdName)

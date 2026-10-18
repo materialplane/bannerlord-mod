@@ -35,8 +35,7 @@ public sealed class CampaignInitCoordinator
 
     /// <summary>
     /// Executes the initialization pipeline.
-    /// In Sandbox mode, immediately elevates the player to monarch.
-    /// In Campaign mode, elevates the 52 AI realms and returns the reserved player domain for deferred reclamation.
+    /// Elevates the 52 AI realms and reserves the player domain for banner design and elevation on MapState.
     /// </summary>
     /// <param name="reservedPlayerDomain">Outputs the reserved player domain.</param>
     /// <returns>The computed MapAllocationResult.</returns>
@@ -47,14 +46,9 @@ public sealed class CampaignInitCoordinator
         // 1. Phase 03: Proximity Allocation & Bound Village Rebinding
         MapAllocationResult allocation = _allocationService.AllocateMap();
 
-        // 2. Phase 05: Player Domain Selection
+        // 2. Phase 05: Player Domain Selection (elevation deferred until banner selection)
         reservedPlayerDomain = _playerInitializer.SelectPlayerDomain(allocation.Domains);
         bool isCampaignStoryMode = Campaign.Current?.GameMode == CampaignGameMode.Campaign;
-
-        if (!isCampaignStoryMode)
-        {
-            _playerInitializer.InitializePlayerRealm(reservedPlayerDomain);
-        }
 
         // 3. Phase 04: Elevation of Noble Clans to Kingdoms & Mutual Day 1 Peace
         _elevationService.ElevateRealms(allocation.Domains, reservedPlayerDomain);
@@ -93,8 +87,8 @@ public sealed class CampaignInitCoordinator
             }
             else
             {
-                string narrativeMsg = $"[Realms of Dust] Sovereign realm established at {reservedDomain.Capital.Name}! " +
-                                      $"Your crown and ancestral holdings are secured.";
+                string narrativeMsg = $"[Realms of Dust] Sovereign realm reserved at {reservedDomain.Capital.Name}! " +
+                                      $"Design your royal banner upon map arrival to claim your throne.";
                 InformationManager.DisplayMessage(new InformationMessage(narrativeMsg, Colors.Yellow));
             }
         }
