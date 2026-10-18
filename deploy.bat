@@ -13,5 +13,8 @@ copy /Y "%SRC_BIN%\SubModule.xml" "%TARGET_DIR%\SubModule.xml" > nul
 copy /Y "%SRC_BIN%\RealmsOfDust*.dll" "%BIN_DIR%\" > nul
 copy /Y "%SRC_BIN%\RealmsOfDust*.pdb" "%BIN_DIR%\" > nul
 
+echo [Realms of Dust] Deploying plague text and localization data...
+xcopy /E /I /Y "src\RealmsOfDust.Main\ModuleData" "%TARGET_DIR%\ModuleData" > nul
+
 echo [Realms of Dust] Successfully deployed to Modules\RealmsOfDust
 endlocal

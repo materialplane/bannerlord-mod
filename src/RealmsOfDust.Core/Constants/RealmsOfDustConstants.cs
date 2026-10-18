@@ -44,4 +44,28 @@ public static class RealmsOfDustConstants
     // --- Post-Plague Depleted Manpower & Tax Recovery ---
     public const int SeasonLengthDays = 21;
     public const int EarlyMaxVolunteerIndex = 2; // Only first 2 slots available early
+
+    // --- Universal Post-Plague Mobile Army & Prisoner Caps ---
+    public const int PostPlaguePartyCapSeason0 = 25;
+    public const int PostPlaguePartyCapSeason1 = 35;
+    public const int PostPlaguePartyCapSeason2 = 50;
+    public const int PostPlaguePartyCapSeason3 = 70;
+
+    public const int PostPlaguePrisonerCapSeason0 = 10;
+    public const int PostPlaguePrisonerCapSeason1 = 15;
+    public const int PostPlaguePrisonerCapSeason2 = 25;
+    public const int PostPlaguePrisonerCapSeason3 = 40;
+
+    // Backwards-compatible aliases
+    public const int MinorClanPartyCapSeason0 = PostPlaguePartyCapSeason0;
+    public const int MinorClanPartyCapSeason1 = PostPlaguePartyCapSeason1;
+    public const int MinorClanPartyCapSeason2 = PostPlaguePartyCapSeason2;
+    public const int MinorClanPartyCapSeason3 = PostPlaguePartyCapSeason3;
+
+    public const int MinorClanPrisonerCapSeason0 = PostPlaguePrisonerCapSeason0;
+    public const int MinorClanPrisonerCapSeason1 = PostPlaguePrisonerCapSeason1;
+    public const int MinorClanPrisonerCapSeason2 = PostPlaguePrisonerCapSeason2;
+    public const int MinorClanPrisonerCapSeason3 = PostPlaguePrisonerCapSeason3;
 }
+
+

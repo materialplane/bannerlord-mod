@@ -1,0 +1,45 @@
+'''Atmosphere & Loading Screens''' details the audiovisual and text overhaul in ''Realms of Dust'', designed to immerse the player into a grounded, plague-stricken medieval world.
+
+== The 12 Plague-Era Loading Screens ==
+Vanilla Bannerlord loading screens depict grand imperial stone architecture, tournament arenas, and pristine royal courts. In ''Realms of Dust'', all native loading visuals are replaced by a custom 12-scene suite of rugged open-air environments.
+
+=== Art Design Mandates ===
+* '''Zero Structures:''' Strict prohibition of keeps, castles, city gates, stone arches, taverns, bridges, or arena walls. Every scene is set in rugged wild frontiers (mountain passes, sand dunes, frozen ridges, marshes, and misty pine valleys).
+* '''No Crusader / Templar Clichés:''' No Christian crosses, red-cross surcoats, or Templar heraldry. Emblems feature secular heraldic beasts (black lions, wolves, boars, griffins, dragons, sea-serpents) on weathered banners.
+* '''Zero Masks / Bare Human Faces:''' Strict prohibition of face masks, cloth mouth-wraps, hanging neck masks, linen veils, or beak masks. All warriors, commanders, and survivors display completely bare, weathered human faces showing grim grit, fatigue, and determination.
+* '''The Plague Aesthetic:''' The reality of the Great Plague is established through environmental storytelling: smoking sulfur braziers, roadside funeral pyres, stone burial cairns, dead traveler bundles, quarantine roadblocks, and barren landscapes.
+
+=== Clean Artwork Presentation ===
+To preserve visual immersion and showcase the full detail of the custom artwork, the loading screens display completely unobstructed. In-game lore and title text containers are suppressed, presenting a clean, cinematic loading transition.
+
+=== Startup Desktop Splash Screen ===
+When launching Bannerlord from the launcher or desktop, the engine displays a startup splash window while initializing DirectX and system memory. In ''Realms of Dust'', the vanilla imperial splash (`splash.bmp`) is replaced by '''Loading Screen 08 (Battle in the Smoldering Basin)'''. The original vanilla file is preserved in `Modules/Native/splash.bmp.vanilla_backup`.
+
+== Campaign Intro Video Bypass ==
+In vanilla Bannerlord, starting a new campaign loads and plays a 90-second historical cinematic (`campaign_intro.ivf` / `campaign_intro.ogg`) recounting Calradian imperial lore that contradicts the Great Plague setting.
+
+In ''Realms of Dust'', this opening cutscene is completely suppressed:
+* '''Direct Character Creation Entry:''' `IntroVideoBypassService` intercepts the push of `VideoPlaybackState` via `IGameStateManagerListener`.
+* '''Zero Disk / Audio Overhead:''' Media paths are wiped before streaming begins, preventing video decoding and audio playback from loading into memory.
+* '''Immediate Transition:''' The state manager cleanly routes the new game startup directly into Character Creation without any delay or user input needed.
+
+== In-Game Ambient Text Overhauls ==
+To reinforce the post-plague reality during everyday campaign gameplay, critical text chokepoints throughout Calradia have been rewritten:
+
+=== 1. Low-Prosperity Settlements ===
+* '''Towns:''' Descriptions describe streets choked with quarantine braziers, sulfur smoke burning to purify the air, and mass burial trenches outside the curtain walls.
+* '''Villages:''' Descriptions note smoldering sulfur pyres along the perimeter, weed-choked abandoned plots, and surviving farmers armed with scythes guarding seed grain.
+
+=== 2. Ambient Dialogue & Commoner Greetings ===
+* '''Peasants & Artisans:''' Villagers mourn family members taken by the fever, curse the collapse of imperial law, and warn of starving vagrants.
+* '''Traders & Caravaneers:''' Merchants describe boiling drinking water at every stop and burning incense to ward off the pestilence on the road.
+
+=== 3. Bandit & Looter Encounter Dialogue ===
+* Outlaw pre-battle dialogues across Forest Bandits, Mountain Bandits, Sea Raiders, Steppe Bandits, and Desert Bandits have been overhauled.
+* Outlaws no longer present themselves as cartoon villains; they are starving refugees and desperate deserters who will kill for clean bread and silver because surrender means starvation.
+
+== Technical Architecture ==
+* '''Loading Window Management:''' Managed by `RealmsOfDustLoadingWindowManager`, which inherits TaleWorlds' `GlobalLayer` and implements `ILoadingWindowManager`.
+* '''Campaign Intro Bypass:''' Managed by `IntroVideoBypassService`, which implements `IGameStateManagerListener` to intercept and complete `VideoPlaybackState` on campaign startup.
+* '''Dynamic Asset Loading:''' `CustomLoadingScreenProvider` dynamically detects and streams high-definition textures directly into Gauntlet UI without requiring engine-level `.tpac` package recompilation.
+* '''XML Localization:''' Native string ID overrides reside in `RealmsOfDust/ModuleData/Languages/` and `RealmsOfDust/ModuleData/module_strings.xml`.

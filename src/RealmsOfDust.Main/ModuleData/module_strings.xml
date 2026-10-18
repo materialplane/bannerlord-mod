@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<strings>
+  <string id="str_robbery_threat.1" text="{=!}Today is not your lucky day, traveler. Hand over your silver and provisions. The plague took our livelihoods and we have no pity left to give.[if:convo_mocking_revenge]" />
+  <string id="str_robbery_threat.2" text="{=!}Aye, what have we here? An unwashed wanderer carrying fat saddlebags! There is a heavy toll to pass through these plague lands, paid in coin or in blood.[if:convo_bared_teeth]" />
+  <string id="str_robbery_threat.3" text="{=!}Halt right there. Our village starved when the fever hit, and no high lord sent grain. Now we take what we need to survive. Drop your coin.[if:convo_mocking_revenge]" />
+  <string id="str_robbery_threat.4" text="{=!}Stand and deliver! The old laws died with the empire. Give us your silver and bread or feed the crows![if:convo_angry]" />
+  <string id="str_robbery_threat.5" text="{=!}Drop your weapons and baggage! We are desperate survivors, not beggars, and we will gut you where you stand.[if:convo_aggressive]" />
+  <string id="str_robbery_threat.6" text="{=!}You! Turn out your pouches and saddlebags. Any clean bread or silver you carry belongs to us now.[if:convo_bared_teeth]" />
+  <string id="str_robbery_threat.forest_bandits_1" text="{=!}Welcome to our woods, traveler. The pestilence chased us from the towns, and these tracks belong to us now. Pay our passage toll or bleed.[rf:convo_mocking_revenge]" />
+  <string id="str_robbery_threat.forest_bandits_2" text="{=!}Another plump refugee stumbling into our domain. Hand over your denars before our archers take your life.[rf:convo_mocking_revenge]" />
+  <string id="str_robbery_threat.sea_raiders_1" text="{=!}We sailed across the water only to find your cities smoldering and sick. We will take your steel and provisions back to our ships![rf:convo_mocking_revenge]" />
+  <string id="str_robbery_threat.desert_bandits_1" text="{=!}Halt, northerner! You bring pestilence and fever to our sands. Leave your silver and your horses, or your bones will bleach beneath the sun." />
+  <string id="str_robbery_threat.desert_bandits_2" text="{=!}A dry wind blows through the dunes, traveler. Hand over your clean water and gold, and we will spare your throat.[rf:convo_mocking_revenge]" />
+  <string id="str_robbery_threat.steppe_bandits_1" text="{=!}Halt your mount! Whole clans perished in the Great Sickness; the steppe belongs only to those who take it. Hand over your saddlebags!" />
+</strings>

@@ -1,0 +1,124 @@
+= Art Style =
+
+The visual identity of the game is rooted in a '''Dark Feudal Gothic aesthetic''' set in the historical milieu of approximately 1200 AD. The world is depicted through uncompromising realism, physical weight, weathered textures, and dramatic chiaroscuro lighting. High-contrast illumination—warm bullion gold glints and cold steel rim lights against deep obsidian grounds—brings the tactile reality of high medieval warfare, craftsmanship, and feudal hierarchy to life.
+
+== Core Aesthetic Pillars ==
+
+=== 1. Grounded Historical Authenticity (1200 AD) ===
+The visual world reflects the tangible reality of the High Medieval era.
+* '''Armor & Garments:''' Formations and warriors are clad in period-accurate protective layers: quilted linen gambesons and aketons, interlocking riveted chainmail hauberks, mail coifs, conical nasal helms, and flat-topped great helms with cross-cut breath slits.
+* '''Weaponry:''' Arms exhibit historical proportions, authentic balance, reach, and hand-forged finishes. Crossbows feature thick ash wood stocks and forged steel prods; swords are broad, double-edged arming blades with cruciform crossguards and disc pommels; polearms feature stout ash shafts and functional iron billhooks, spears, and halberd heads.
+* '''Material Weight:''' Equipment carries genuine physical mass and strain. Heavy mail hauberks drag on the shoulders; heater shields brace against incoming force; blades strike with authentic momentum and recoil.
+
+=== 2. Dark Obsidian Ground & Shadow Depth ===
+Visuals are anchored on deep, dark textured grounds—cold slate, hammered iron plate, midnight maille weaves, and deep atmospheric shadow. Deep low-key backgrounds maximize the visual clarity and gleam of burnished steel edges, brass rivets, and heraldic charges, ensuring immediate visual contrast.
+
+=== 3. Chiaroscuro Rim Lighting & Warm Bullion Glints ===
+Lighting serves as a storytelling device to heighten tension and evoke feudal prestige.
+* '''Directional Contrast:''' Scenes feature deep shadows contrasted with directional light sources—the warm amber glow of pitch torches, forge braziers, and tallow candles, paired with cold steel rim highlights that outline weapon contours and armor silhouettes.
+* '''Chivalric Highlights:''' Polished weapon edges and bronze fittings catch warm bullion highlights, creating sharp tactile depth against dark, weathered iron bodies.
+* '''Environmental Haze:''' Atmospheres carry airborne particulate matter: rising ground mist over morning moorlands, woodsmoke drifting from hearth fires, churned dust from cavalry charges, and rain slicking dark stone battlements.
+
+=== 4. Texture, Wear & Battle Damage ===
+Equipment displays the honest wear of combat, campaign travel, and manual forge craft.
+* '''Metal & Iron:''' Armor plates and weapon flats show subtle hammer textures, light protective oil sheen, localized patina, and combat parry notches.
+* '''Textiles & Leather:''' Fabrics showcase coarse hand-woven linen weaves, weathered surcoats, and oil-treated leather straps secured with hammered bronze and iron buckles.
+* '''Battlefield Accumulation:''' Combatants accumulate mud splatters across their greaves, dried blood crusted into shield timbers, and sawdust and sweat clinging to their brows.
+
+=== 5. 1:1 Framed Iconographic Readability ===
+Every weapon, piece of armor, character portrait, and heraldic crest maintains razor-sharp silhouette readability:
+* Items are framed centrally within square 1:1 viewports over subtle dark radial vignettes.
+* Weapons and gear present clear geometric profiles that read instantly at small inventory tile scales (64x64, 110x110) as well as full-screen inspection sheets.
+
+== Color Palette & Tonal Harmony ==
+
+The visual design utilizes a disciplined dark metallic palette accented by warm bullion gold, weathered bronze, and rich heraldic markers:
+
+{| class="wikitable"
+! Color Class !! Swatch / Tone !! Application in Art & Environment
+|-
+| '''Dark Obsidian Steel''' || #0d0c10 to #17161c || Primary ground plane, shadowed plate armor, midnight UI chassis, deep vignettes.
+|-
+| '''Burnished Tool Iron''' || #2a2832 to #3c3427 || Hammered weapon iron, chassis borders, chainmail links, anvil slag.
+|-
+| '''Aged Bullion Gold''' || #cb9f5d to #e5be64 || Chivalric highlights, gilded sword pommels, active UI borders, torchlight rims.
+|-
+| '''Tarnished Bronze''' || #785c2c to #8e6c38 || Scabbard fittings, belt buckles, shield rivets, secondary frames.
+|-
+| '''Dried Oxblood Crimson''' || #541919 to #7a2222 || Dried bloodstains on shield timbers, heraldic surcoats, combat danger indicators.
+|-
+| '''Forest Bog & Deep Moss''' || #2d3624 to #4f6e3c || Weathered linen surcoats, mossy palisade timbers, vitality status bars.
+|-
+| '''Cold Slate & Overcast Sky''' || #2f3640 to #4b5869 || Northern steel blade reflections, wet cobblestones, overcast horizon mist.
+|}
+
+== Environments & Architecture ==
+
+* '''Gladiatorial Arenas:''' Circular earthen rings carved from ancient limestone, stained with dark patches of dried blood and scattered sand, surrounded by heavy oak palisades, rusted iron portcullises, and splintered spectator benches.
+* '''Battlefields:''' Churned, muddy plains crisscrossed by wooden stakes, rain-filled wheel ruts, mist-shrouded hills, and dense autumn forests.
+* '''Villages & Hamlets:''' Low-roofed timber and daub cottages, sod roofs dripping with rainwater, muddy tracks rutted by ox carts, and smoking peat fires.
+* '''Capitals & Castles:''' Imposing, rough-hewn stone battlements, narrow arrow slits, smoke-blackened tavern walls lit by tallow candles, crowded market stalls covered in coarse canvas tarps, and heavy portcullises slick with rain.
+
+== User Interface & Frame Styling ==
+
+The visual style extends seamlessly into the client interface:
+* Heavy obsidian iron frames with beveled edges and aged bullion gold corner filigree.
+* Deep charcoal slate backing containers with subtle radial shadow vignettes.
+* Sharp, high-legibility serif typography reminiscent of early medieval inscriptions.
+* High-contrast combat meters utilizing emerald moss (vitality), cold steel blue (shield integrity), and grim crimson (critical injury).
+
+== Base Art Style Mandate for Image Generation ==
+
+All image assets generated for the game must adhere to a strict, foundational aesthetic. Regardless of what is being generated, the prompt must always incorporate these core pillars:
+* '''Dark feudal gothic concept art'''
+* '''Authentic 1200 AD high medieval realism'''
+* '''Burnished carbon steel, dark weathered iron'''
+* '''Warm aged bullion gold and amber rim lighting'''
+* '''Dramatic chiaroscuro with deep atmospheric shadows'''
+* '''Museum catalog artifact quality, matte oil painting texture, razor-sharp edge definition'''
+* ''(When background transparency is required):'' '''Isolated on a pure, flat, shadowless #FF00FF magenta background'''
+* ''(For environments and world map biomes):'' '''100% dry, terrestrial land ecologies (strictly zero rivers, lakes, streams, or waterways in image prompts)'''
+* ''(For characters and warriors):'' '''Completely bare, unmasked faces only (strictly zero face masks, mouth coverings, linen veils, hanging neck masks, or beak masks)'''
+
+== Faction Visual Signatures & Cultural Phenotypes ==
+
+To maintain authentic and consistent cultural representation across all AI image generation prompts, each sovereign faction adheres to specific phenotypic features, historical garments, and military equipment:
+
+=== 1. Kingdom of Ethoria (Valenmarch) — Chivalric Feudal Knights ===
+* '''Phenotype & Appearance:''' Northwestern European feudal lineage; weathered fair-to-ruddy complexions, angular jawlines, cropped or shoulder-length brown/blonde hair, trimmed beards or clean-shaven sergeants.
+* '''Traditional Attire:''' Linen tunics, wool chausses, sleeveless armorial linen surcoats with emblazoned heraldic charges (lions, crosses).
+* '''Armor & Helmets:''' Interlocking riveted iron maille hauberks with mail coifs, conical nasal helms, flat-topped great helms with cruciform breath slits.
+* '''Weapons & Props:''' Straight cruciform arming swords with disc pommels, heavy ash couched lances, crowbill war hammers, flanged maces, heavy wooden heater and kite shields.
+* '''Setting & Materials:''' Rough-hewn limestone keeps, heavy carved oak furniture, destrier warhorses, iron candelabras, aged bullion gold and oxblood accents.
+
+=== 2. Sultanate of Ahsara (Bahr al-Ramal) — Disciplined Mamluks & Desert Riders ===
+* '''Phenotype & Appearance:''' Middle Eastern / Levantine and North African lineage; olive-to-deep bronze sun-weathered complexions, dark almond-shaped eyes with sharp focused gazes, neatly groomed dark beards and mustaches.
+* '''Traditional Attire:''' Flowing cotton headcloths, layered linen and silk caftans belted with embroidered sashes.
+* '''Armor & Helmets:''' Steel-and-maille coats (''jawshan''), pointed conical steel helmets wrapped in cloth turbans with brass spikes, mail aventails covering the neck and jaw.
+* '''Weapons & Props:''' Curved pattern-welded damascus ''shamshirs'', crescent-bladed ''tabar'' axes, fluted melon-head ''gorz'' maces, composite recurve bows with embossed leather quivers, brass-embossed circular bucklers.
+* '''Setting & Materials:''' Sandstone fortresses, horseshoe arches, geometric mosaic tiles, brass lanterns, desert dunes, saffron gold and lapis lazuli accents.
+
+=== 3. The Great Khaganate (Khoran Steppe) — Horse Archers & Clan Raiders ===
+* '''Phenotype & Appearance:''' Central Asian / Mongolian nomadic lineage; sun-bronzed weathered skin, prominent high cheekbones, dark almond-shaped eyes with epicanthic folds, coarse black hair.
+* '''Traditional Attire:''' Shaved crown with long braided side-locks behind the ears (''Mongol queue''), thin drooping mustaches; wrap-around ''deel'' robes fastened at the right shoulder with wide brass-plated leather sashes, conical fur-trimmed ''malgai'' felt hats with earflaps, thick-soled ''gutal'' riding boots with upturned toes.
+* '''Armor & Helmets:''' Hardened iron and rawhide lamellar cuirasses worn over quilted deels, horsehair plumes on conical steel helmets with neck flaps.
+* '''Weapons & Props:''' Horn-and-sinew composite reflex bows, polished horn thumb rings (''Mongolian thumb draw''), leather ''gorytos'' (bowcase and quiver combo), curved nomad sabres, bone-handled daggers, stocky shaggy steppe ponies.
+* '''Setting & Materials:''' Windswept arid scrubland, felt yurt pavilions (gers), horsehair tug war standards, smoking dried-dung campfires, ochre earth and turquoise bead accents.
+
+=== 4. Republic of Valldora (Alpine League) — Urban Guild Militia & Pikemen ===
+* '''Phenotype & Appearance:''' Alpine and Central European burgher lineage; weathered ruddy skin, stocky powerful builds, thick full beards, blunt weathered features of craftsmen and urban levies.
+* '''Traditional Attire:''' Heavy wool doublets, coarse linen shirts, sturdy leather aprons and belt pouches, guild badges pinned to wool caps.
+* '''Armor & Helmets:''' Wide-brimmed iron kettle hats, heavy padded linen gambesons/aketons, iron-plated fabric brigandines with exposed brass rivet heads, thick leather spallieres.
+* '''Weapons & Props:''' Massive 18ft ash pikes, heavy painted timber ''pavise'' shields with municipal coats-of-arms, heavy steel-prod winch crossbows with iron quarrels, ''goedendag'' club-spears, morningstars. (''Strictly zero cavalry'').
+* '''Setting & Materials:''' Half-timbered stone gatehouses, dark pine palisades, iron brazier poles, pewter flagons, granite cobblestones, forest moss green and cold slate grey accents.
+
+=== 5. Solarian Empire (Imperial Hegemony) — Cataphracts & Imperial Guard ===
+* '''Phenotype & Appearance:''' Greco-Roman / Mediterranean Byzantine lineage; olive-to-fair complexions, aquiline noses, dark wavy hair, trimmed pointed beards or regal mustaches.
+* '''Traditional Attire:''' Richly dyed wool and silk tunics with embroidered geometric borders (''clavi''), tall leather boots, heavy wool cloaks fastened with round bronze fibulae.
+* '''Armor & Helmets:''' Steel and horn ''klivanion'' lamellar breastplates, leather ''pteruges'' shoulder and waist strips, ''spangenhelm'' segmented helmets with cheekguards and maille aventails.
+* '''Weapons & Props:''' Straight double-edged ''spathion'' broadswords, curved ''paramerion'' sabres, large oval ''scuta'' shields with painted imperial monograms, heavy ''menavlion'' ash anti-cavalry spears.
+* '''Setting & Materials:''' Monumental ashlar masonry, Romanesque stone vaults, bronze incense braziers, imperial Tyrian purple silk, burnished bronze, gold leaf trim.
+
+== Production Guidelines ==
+* [[Design Philosophy|Design Philosophy]]
+* [[Image Generation Templates|Image Generation Templates]]

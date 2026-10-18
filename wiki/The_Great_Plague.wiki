@@ -1,0 +1,35 @@
+'''The Great Plague''' (also known as ''The Great Contagion'' or ''The Scourge of 1084'') is the foundational historical catastrophe of ''Realms of Dust''. It explains the total collapse of Calradia's monolithic empires, the fragmentation of the continent into 53 balanced micro-realms, and the desperate, survival-focused gameplay conditions.
+
+== The Contagion of 1084 ==
+In the spring of 1084, a virulent black coughing fever swept through the trade arteries of Calradia. Originating from distant eastern merchant routes, it tore through the dense imperial capitals of Danustica, Zeonica, and Amitatys before spreading unchecked across mountain passes and sea corridors.
+
+Within three seasons, the pestilence had wiped out between one-half and two-thirds of Calradia's population:
+* '''Imperial Collapse:''' The central authority of the Calradic Senate, western barons, and southern autocrats dissolved overnight as emperors, magistrates, and generals perished in their halls.
+* '''Army Disintegration:''' Imperial legions and royal hosts were destroyed not by blade or arrow, but by pestilence in overcrowded march-camps.
+* '''Agrarian Abandonment:''' With reapers and ploughmen dead in the fields, crops rotted where they stood, ushering in widespread famine across all six culture zones.
+
+== The Shattering into 53 Micro-Realms ==
+In the panic that followed, surviving noble families, captains, and regional warlords abandoned imperial allegiances. Every remaining ruler fortified their local capital and strongest stronghold, severing all outside ties to protect their surviving bloodlines:
+
+* '''Equal Territorial Footing:''' Fifty-three surviving noble houses each seized control of exactly one major market town (Capital) and one military bastion (Castle), bound to four food-producing villages.
+* '''Quarantine Borders:''' Travel between realms was banned under penalty of death. Border tracks were barricaded with felled timbers, and quarantine pyres were ignited along every major highway.
+* '''Frontier Castles:''' Fourteen distant frontier fortifications were evacuated or slaughtered entirely, leaving them neutral strongholds claimed by no lord.
+
+== Lasting Scars on Calradia ==
+The world of ''Realms of Dust'' is an early-recovery post-plague frontier:
+
+=== 1. Depleted Manpower & Economy ===
+* Towns and villages start with depleted volunteer rosters; military recruit pools recover slowly as populations rebuild.
+* Settlement prosperity and tax yields start at reduced baselines, reflecting unworked outer fields and broken supply lines.
+
+=== 2. Desperate Survivors & Outlaw Outbreaks ===
+* The countryside is flooded with outlaws—not career criminals, but starving, displaced peasants and deserters who lost their homes and families to the sickness.
+* Robbery encounters and bandit taunts reflect this grim reality: bandits fight fiercely because surrender means returning to starvation.
+
+=== 3. Clean Water & Grain as Currency ===
+* Wars are no longer waged for dynastic vanity or ancient imperial claims, but for uncontaminated water springs, seed grain, and fertile uninfected pastures.
+
+== Related Pages ==
+* [[Ancestral Reclamation]]: The Campaign mode story of reclaiming your family's seat from the usurper Radagos.
+* [[Atmosphere & Loading Screens]]: Visual and dialogue overhauls grounding the world in the plague setting.
+* [[Starting Domains]]: Allocation and balance of Calradia's 53 micro-realms.

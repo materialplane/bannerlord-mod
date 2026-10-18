@@ -1,0 +1,120 @@
+= Image Generation Templates =
+
+This page serves as the master repository for all AI image generation prompts and parameters used across the game to ensure artistic consistency. 
+
+All templates on this page are tuned specifically for the '''Google Gemini Image Generation Model (Gemini Flash / Imagen)'''. Prompts utilize Gemini-native natural language syntax, descriptive lighting and texture direction, and explicit negative constraint phrasing rather than third-party CLI flags.
+
+== Base Mandate Reference ==
+All prompts on this page strictly implement the foundational [[Art Style#Base Art Style Mandate for Image Generation|Base Art Style Mandate]]. Refer directly to [[Art Style|Art Style]] for the canonical visual philosophy, 1200 AD material rules, lighting guidelines, and color palettes.
+
+== Cartographic Biomes (4x4 Grid Template) ==
+When applying the Base Art Style to generate world map tiles, adhere to the following structural rules to prevent Gemini from generating 3D landscapes or unwanted waterways:
+
+* '''The Golden Rule:''' AI models get easily confused by poetic lore. Keep descriptions utilitarian and physical.
+* '''Forbidden Water Words:''' Do NOT use the words "river", "lake", "stream", "creek", or "water". When generating image grids that get sliced and cropped into modular hex tiles, mentioning rivers causes the AI to draw arbitrary waterways across the image. When those tiles are sliced into hexagons and arranged across the map, the rivers will cut off at borders, terminate abruptly, or run in contradictory directions, looking completely disjointed and awkward. Biome textures must be 100% terrestrial land surfaces. Real rivers, lakes, and watercourses are rendered programmatically by the game engine as continuous vector splines and dedicated water bodies on a separate layer.
+* '''Minimalist Textures:''' Strip the biome's lore down to a purely physical, 3-to-6 word visual string (e.g., "sparse yellow grass, dry soil", "dense dark pine canopy, needle floor", "muddy marsh reeds, peat bogs").
+
+
+=== Biome Texture Reference Table ===
+{| class="wikitable"
+! Biome Type !! Minimalist Texture String !! Target Visual Output
+|-
+| '''Temperate Plains''' || <code>sparse yellow grass, dry soil</code> || Patchy sun-baked prairie with dry earth and muted weeds.
+|-
+| '''Northern Pine Forest''' || <code>dense dark pine canopy, needle floor</code> || Overlapping dark spruce tops with shadowy forest floor.
+|-
+| '''Marshlands / Bog''' || <code>muddy marsh reeds, peat bogs</code> || Dark organic sludge with clusters of wild wetland sedge.
+|-
+| '''High Steppe''' || <code>windswept barren scrubland, cracked clay</code> || Arid, rocky expanses with stunted wind-carved shrubs.
+|-
+| '''Desert Dunes''' || <code>rippled brown sand dunes, parched earth</code> || Desaturated, wind-rippled desert waste under harsh glare.
+|-
+| '''Highlands / Moor''' || <code>jagged shale stones, gray lichen moor</code> || Rough outcroppings of dark rock covered in cold lichen.
+|}
+
+== 1:1 Item & Equipment Master Template ==
+Used for inventory icons, equipment inspect cards, arsenal shortcuts, and loot tooltips. Items must maintain high contrast against dark backgrounds and read instantly at small resolutions.
+
+=== 1:1 Item Directives ===
+* '''Centered 1:1 Square Framing:''' The subject is centered precisely in the viewport with comfortable padding around weapon tips and guard edges.
+* '''Dark Textured Ground:''' Grounded on a textured obsidian slate, cold iron plate, or midnight maille background with a subtle dark radial vignette.
+* '''Historical Materiality:''' Hand-forged carbon steel blades, honest hammer textures, light protective oil sheen, and warm bullion gold or bronze fittings.
+* '''Strictly Isolated Subject:''' No hands holding the item, no characters, no pedestals, and no extraneous decorative clutter.
+
+=== Approved 1:1 Item Template Example ===
+<pre>
+Centered 1:1 square concept art of a historical knightly arming sword, authentic 1200 AD high medieval craftsmanship, broad double-edged forged carbon steel blade with deep central fuller, straight iron cruciform crossguard, octagonal leather-wrapped grip, round forged disc pommel.
+
+Dark feudal gothic concept art, authentic 1200 AD realism, burnished steel, light protective oil sheen, warm aged gold rim lighting, dramatic chiaroscuro with deep atmospheric shadows, museum catalog artifact quality, matte oil painting texture.
+
+Subject strictly centered in frame on a dark textured obsidian slate and hammered iron background with a subtle dark vignette.
+
+Strictly avoid: characters, hands holding weapon, people, text, labels, watermark, glowing runes, magical aura, bright neon colors, glossy 3D CGI plastic render, smooth clean fantasy armor, ornamental spikes, yellow parchment paper.
+</pre>
+
+== 16:9 Widescreen Headers & Environmental Artwork ==
+Used for website headers, hero banners, client viewports, and title screens. All 16:9 images must be formatted as landscape 1920x1080 concept art.
+
+=== 16:9 Prompt Setup Blueprint (The Formula) ===
+Every 16:9 header or widescreen prompt must follow this exact 5-paragraph structure:
+
+<pre>
+[PARAGRAPH 1 - CAMERA & SUBJECT]:
+Wide-angle 4k quality 16:9 widescreen cinematic concept art of [SUBJECT/SCENE DESCRIPTION] across a [SETTING/ENVIRONMENT], inspired by historical military epic artwork.
+
+[PARAGRAPH 2 - STYLE MANDATE STRING]:
+Dark feudal gothic concept art, authentic 1200 AD high medieval realism, digital matte painting, dramatic chiaroscuro lighting, deep atmospheric shadows, rich textural oil painting finish.
+
+[PARAGRAPH 3 - SCENE DETAIL & HISTORICAL SUBJECTS]:
+In the center and midground, [DETAILED SUBJECT ACTION, PERIOD-ACCURATE WEAPONRY, ARMOR PIECES, FORMATIONS, OR ARCHITECTURE].
+
+[PARAGRAPH 4 - CHIAROSCURO LIGHTING & ATMOSPHERE]:
+Dramatic chiaroscuro lighting: [DIRECTIONAL LIGHT SOURCE], casting intense warm bullion gold and bronze rim highlights across burnished carbon steel blades and iron against deep low-key shadows. [ATMOSPHERIC DETAILS: DUST, MIST, WOODSMOKE]. Completely dry terrestrial landscape.
+
+[PARAGRAPH 5 - COMPOSITION & NEGATIVE DIRECTIVES]:
+Cinematic 16:9 panoramic composition with subtle shadowy depth in the foreground for interface clarity, brutal physical impact, and epic martial scale.
+Strictly avoid: modern machinery, electricity, text, titles, logos, user interface, glowing magical runes, magic spells, glowing auras, fantasy neon colors, exaggerated oversized anime weapons, fantasy spikes, cartoon, plastic textures, or glossy 3D CGI rendering.
+</pre>
+
+=== Production Example 1: Website Header & Army Clash (hero-feudal-army.jpg) ===
+The actual approved prompt used to generate the live website hero and combat client clash banner:
+
+<pre>
+Wide-angle 4k quality 16:9 widescreen cinematic concept art of a ferocious 1200 AD high medieval feudal army clash and frontline collision across a rugged, dusty outdoor plain, inspired by historical military epic artwork.
+
+Dark feudal gothic concept art, authentic 1200 AD high medieval realism, digital matte painting, dramatic chiaroscuro lighting, deep atmospheric shadows, rich textural oil painting finish.
+
+In the center and midground, two heavily armored armies collide with tremendous kinetic force: frontline infantry in riveted iron maille hauberks, mail coifs, and conical nasal helms lock painted teardrop kite shields in a desperate struggle, with ash-shafted spears, halberds, and broad double-edged arming swords striking against iron bosses. On the right flank, mounted feudal knights in great helms couch heavy war lances and crash into enemy infantry, warhorses kicking up violent plumes of dry dust. Crossbowmen crouch behind sturdy timber pavises reloading forged steel winches under a darkening sky, while tattered heraldic battle flags whip in the wind.
+
+Dramatic chiaroscuro lighting: harsh directional sunlight breaking through low bruised storm clouds, casting intense warm bullion gold and bronze rim highlights across burnished carbon steel blades, iron helmet visors, and maille links against deep low-key shadows. Trampled dry earth, dust clouds rolling across the battlefield, and distant campfire smoke drifting along the horizon.
+
+Cinematic 16:9 panoramic composition with subtle shadowy depth in the left foreground for interface clarity, brutal physical impact, and epic martial scale. Completely dry terrestrial landscape.
+
+Strictly avoid: modern machinery, electricity, text, titles, logos, user interface, glowing magical runes, magic spells, glowing auras, fantasy neon colors, exaggerated oversized anime weapons, fantasy spikes, cartoon, plastic textures, or glossy 3D CGI rendering.
+</pre>
+
+=== Production Example 2: Empty Environment Canvas (UI Backdrop) ===
+The actual approved prompt used to generate clean environmental vistas with negative space for menu and UI overlays:
+
+<pre>
+Wide-angle 4k quality 16:9 widescreen landscape environmental concept art of an expansive, rugged 1200 AD medieval wilderness and mountainous frontier vista at twilight.
+
+Dark feudal gothic concept art, authentic 1200 AD high medieval architecture and terrain, cold chiaroscuro lighting, dark storm clouds breaking with low golden sunset rays, rising woodsmoke and evening ground mist, rain-slicked dark stones.
+
+Sweeping view from an elevated rocky bluff across windswept rolling hills, dark pine ridges, and distant jagged crags, dramatic sunset light breaking through bruised storm clouds, cold evening ground mist settling into the lowlands.
+
+The scene must be a completely empty natural environment with open negative space across the center and foreground for game menu interface elements. Completely dry terrestrial landscape.
+
+Strictly avoid any people, characters, soldiers, crowd, corpses, monsters, animals, text, titles, logos, game user interface, buttons, vibrant neon colors, glowing magic, or glossy 3D CGI rendering.
+</pre>
+
+== Master Negative Directives for Gemini ==
+When interacting with the Gemini image model, include this foundational negative constraint block. Note that characters, soldiers, and lords are central to ''Realms of Dust'' and should only be excluded when generating specifically designated empty UI backdrops. All human subjects must display completely bare, unmasked faces.
+
+<pre>
+Strictly avoid: looking at camera, looking at viewer, breaking the fourth wall, portrait pose, direct eye contact, posing, staring at lens, smiling, masks, face masks, cloth face coverings, neck masks, hanging masks, bandanas, linen veils, surgical masks, mouth coverings, plague doctor masks, beak masks, face wraps, modern elements, futuristic items, modern machinery, electricity, sci-fi, glowing neon colors, magical aura, magic spells, glowing runes, floating crystals, high fantasy armor, oversized anime weapons, fantasy spikes, cartoon, 3D CGI gloss, plastic textures, oversaturated vibrant colors, smooth clean skin, pristine armor, yellow sheepskin parchment paper, blurry details, frames, borders, text, titles, logos, user interface, watermarks, signatures.
+</pre>
+
+== Related Documentation ==
+* [[Art Style|Art Style]]
+* [[Design Philosophy|Design Philosophy]]

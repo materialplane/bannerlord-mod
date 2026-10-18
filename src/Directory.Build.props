@@ -6,5 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <BannerlordPath Condition="'$(BannerlordPath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordPath>
     <BannerlordBin>$(BannerlordPath)\bin\Win64_Shipping_Client</BannerlordBin>
+    <BannerlordNativeBin>$(BannerlordPath)\Modules\Native\bin\Win64_Shipping_Client</BannerlordNativeBin>
   </PropertyGroup>
 </Project>

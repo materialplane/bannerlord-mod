@@ -1,3 +1,7 @@
+== The Setting & Lore ==
+* [[The Great Plague]]: The historical catastrophe of 1084 that broke Calradia's empires into 53 sovereign micro-realms.
+* [[Atmosphere & Loading Screens]]: The 12 custom plague-era loading screens, scene lore blurbs, and in-game text overhauls.
+
 == World Setup ==
 * [[Starting Domains]]: Structure of each realm's 1 Capital, 1 Castle, and bound village allocation.
 * [[Factions & Realms]]: Roster of all 53 independent realms across Calradia and their starting territorial seats.

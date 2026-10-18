@@ -5,6 +5,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using RealmsOfDust.Core.Interfaces;
 using RealmsOfDust.Core.Models;
+using RealmsOfDust.Domain.Factions;
 using RealmsOfDust.Domain.Military;
 using RealmsOfDust.Domain.Player;
 
@@ -17,6 +18,8 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
     private readonly CampaignInitCoordinator _coordinator;
     private readonly IBanditScalingService _banditScalingService;
     private readonly StoryModeReclamationCoordinator _reclamationCoordinator;
+    private readonly MinorClanEnforcementService _minorClanEnforcementService;
+    private readonly RealmHeraldryService _realmHeraldryService;
     private bool _isInitialized;
     private bool _isPlayerRealmReclaimed;
     private string _reservedCapitalId = string.Empty;
@@ -31,15 +34,19 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         _coordinator = new CampaignInitCoordinator();
         _banditScalingService = new BanditScalingService();
         _reclamationCoordinator = new StoryModeReclamationCoordinator(new PlayerRealmInitializer());
+        _minorClanEnforcementService = new MinorClanEnforcementService();
+        _realmHeraldryService = new RealmHeraldryService();
     }
 
     /// <inheritdoc />
     public override void RegisterEvents()
     {
         CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(this, OnCharacterCreationIsOver);
+        CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
         CampaignEvents.MobilePartyCreated.AddNonSerializedListener(this, OnMobilePartyCreated);
         CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(this, OnDailyTickParty);
         CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(this, OnQuestCompleted);
+        CampaignEvents.OnQuestStartedEvent.AddNonSerializedListener(this, OnQuestStarted);
 
         StoryModeReclamationCoordinator.TrySubscribeStoryModeTutorialEnded(this, OnStoryModeTutorialEnded);
         StealthTutorialSuppressor.Initialize();
@@ -83,6 +90,11 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         }
     }
 
+    private void OnGameLoaded(CampaignGameStarter starter)
+    {
+        _realmHeraldryService.FixupExistingFadedBanners();
+    }
+
     private void OnQuestCompleted(QuestBase quest, QuestBase.QuestCompleteDetails detail)
     {
         if (quest != null &&
@@ -93,8 +105,14 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         }
     }
 
+    private void OnQuestStarted(QuestBase quest)
+    {
+        StealthTutorialSuppressor.TrySuppressQuest(quest);
+    }
+
     private void OnStoryModeTutorialEnded()
     {
+        StealthTutorialSuppressor.ScourActiveStealthQuests();
         TriggerReclamation();
     }
 
@@ -121,12 +139,16 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
             return;
         }
 
-        if (party.IsLordParty &&
-            party.ActualClan != Clan.PlayerClan &&
-            party.ActualClan?.IsBanditFaction == false &&
-            _banditScalingService.IsGracePeriodActive)
+        if (party.IsLordParty)
         {
-            _coordinator.ResetSingleLordParty(party);
+            _minorClanEnforcementService.EnforceDailyLordPartyLimits(party);
+
+            if (party.ActualClan != Clan.PlayerClan &&
+                party.ActualClan?.IsBanditFaction == false &&
+                _banditScalingService.IsGracePeriodActive)
+            {
+                _coordinator.ResetSingleLordParty(party);
+            }
         }
     }
 
@@ -135,6 +157,12 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         if (party.IsBandit)
         {
             _banditScalingService.ScaleBanditParty(party);
+            return;
+        }
+
+        if (party.IsLordParty)
+        {
+            _minorClanEnforcementService.EnforceDailyLordPartyLimits(party);
         }
     }
 }

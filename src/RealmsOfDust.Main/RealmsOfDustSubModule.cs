@@ -17,6 +17,21 @@ public sealed class RealmsOfDustSubModule : MBSubModuleBase
     protected override void OnSubModuleLoad()
     {
         base.OnSubModuleLoad();
+        try
+        {
+            IntroVideoBypassService.Instance.EnsureRegistered();
+        }
+        catch (System.Exception ex)
+        {
+            TaleWorlds.Library.Debug.Print($"[RealmsOfDust] SubModule load notice: {ex.Message}");
+        }
+    }
+
+    /// <inheritdoc />
+    protected override void OnApplicationTick(float dt)
+    {
+        base.OnApplicationTick(dt);
+        IntroVideoBypassService.Instance.Tick();
     }
 
     /// <inheritdoc />
@@ -32,6 +47,7 @@ public sealed class RealmsOfDustSubModule : MBSubModuleBase
                 campaignGameStarter.AddModel(new PostPlagueSettlementTaxModel());
                 campaignGameStarter.AddModel(new PostPlagueVolunteerModel());
                 campaignGameStarter.AddModel(new PostPlagueClanFinanceModel());
+                campaignGameStarter.AddModel(new PostPlaguePartySizeLimitModel());
             }
         }
         catch (System.Exception ex)

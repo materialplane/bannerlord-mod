@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="English" />
+  </tags>
+  <strings>
+    <!-- Low Prosperity Settlement Descriptions -->
+    <string id="Bg83jhCR" text="The town bears the grim scars of the Great Plague. Streets are choked with quarantine braziers, citizens wear linen mouth-wraps, and mass graves lie just beyond the walls." />
+    <string id="OiCCv0EL" text="The village struggles in the wake of the pestilence. Smoldering sulfur fires line the perimeter, overgrown weeds choke unworked plots, and surviving kin guard their meager grain stores with scythes." />
+
+    <!-- Ambient Dialogue & Commoner Greetings -->
+    <string id="EiiHoraV" text="Dark days... The pestilence took half our kindred, and now ruthless warlords fight over whatever scrap of land is left." />
+    <string id="Emw9ut4A" text="The contagion carried off the best smiths and reapers. The few who survived demand royal silver or took to the hills as bandits.[rf:confused_annoyed]" />
+    <string id="vo8fmqwC" text="Wary travels, friend. We burn incense and boil our water at every stop—half the caravans on these roads are carrying the sickness or stripped by plague bandits." />
+    <string id="64p9ULVu" text="Starving outlaws and plague vagrants lurk beyond the boundary cairns. What good are our taxes if the lord leaves us to fend off desperate survivors alone?" />
+    <string id="NPhnQgQS" text="Plague scavengers and desperate deserters prowl the roads outside our gates. The realm fractured, and no captain has come to clear them." />
+    <string id="P7aRBg2h" text="Thank the heavens for {NOTABLE.LINK}. When the fever took our neighbors, {?NOTABLE.GENDER}she{?}he{\?} distributed clean flour and guarded the quarantine line." />
+    <string id="LM1yg5tI" text="They say {NOTABLE.LINK} quarantined three workers from the {.%}{SHOP_TYPE}{.%} the moment they started coughing. Cruel perhaps, but nobody in that quarter has caught the fever yet." />
+    <string id="hxPlbuMf" text="These are dark times. The plague broke all laws—don't worry overmuch about the fate of outlaws." />
+
+    <!-- Bandit & Outlaw Encounters -->
+    <string id="ji2eenPE" text="All right - we give up! Sickness starved our kin and drove us to the road, but we cannot fight soldiers. Show what mercy you can..." />
+    <string id="n99VA8KP" text="You'll never take us alive! Better a clean blade than dying of the black fever in some lord's dungeon![if:convo_angry][ib:aggressive]" />
+    <string id="LDhU5urT" text="So that's how it is, is it? We survived the pestilence; we won't die on our knees! I'll make you bleed before I fall![if:convo_angry][ib:aggressive]" />
+    <string id="6Wc1XErN" text="Hold there... You're traveling through our quarantine ground. You don't pass without leaving a toll." />
+    <string id="TXzZwb7n" text="Back off! Dozens of our kin are hidden just beyond that ridge, and every one of us has buried a family and has nothing left to lose." />
+    <string id="lZj61xTm" text="You don't know who you're dealing with. The woods are full of desperate men who fled the sickness. Step closer and you'll find arrows in your throat." />
+  </strings>
+</base>

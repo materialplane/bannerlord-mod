@@ -103,7 +103,8 @@ public sealed class FactionElevationService : IFactionElevationService
         TextObject informalName = new(domain.Capital.Name.ToString());
         TextObject textDesc = new(string.Empty);
 
-        var (primaryColor, secondaryColor) = ResolveColors(clan);
+        RealmHeraldryService heraldryService = new();
+        var (primaryColor, secondaryColor) = heraldryService.ResolveHeraldry(clan, domain.Capital);
 
         kingdom.InitializeKingdom(
             name,
@@ -117,52 +118,11 @@ public sealed class FactionElevationService : IFactionElevationService
             textDesc,
             textDesc);
 
-        clan.Color = primaryColor;
-        clan.Color2 = secondaryColor;
+        heraldryService.ApplyHeraldry(kingdom, clan, domain.Capital);
 
         return kingdom;
     }
 
-    private const uint InvalidColor = 0xDEADBEEF;
-
-    private static (uint primary, uint secondary) ResolveColors(Clan clan)
-    {
-        uint primary = 0;
-        uint secondary = 0;
-
-        // 1. Prefer original kingdom heraldic colors if available
-        if (clan.Kingdom != null && clan.Kingdom.Color != 0 && clan.Kingdom.Color != InvalidColor)
-        {
-            primary = clan.Kingdom.Color;
-            secondary = clan.Kingdom.Color2;
-        }
-
-        // 2. Fall back to native culture colors (guaranteed valid in TaleWorlds)
-        if ((primary == 0 || primary == InvalidColor) && clan.Culture != null)
-        {
-            primary = clan.Culture.Color;
-            secondary = clan.Culture.Color2;
-        }
-
-        // 3. Fall back to clan's existing colors if valid
-        if ((primary == 0 || primary == InvalidColor) && clan.Color != 0 && clan.Color != InvalidColor)
-        {
-            primary = clan.Color;
-            secondary = clan.Color2;
-        }
-
-        // 4. Hard fallback to vibrant imperial crimson and gold
-        if (primary == 0 || primary == InvalidColor)
-        {
-            primary = 0xFF9E2B25;
-            secondary = 0xFFE3A834;
-        }
-
-        if ((primary & 0xFF000000) == 0) primary |= 0xFF000000;
-        if ((secondary & 0xFF000000) == 0) secondary |= 0xFF000000;
-
-        return (primary, secondary);
-    }
 
     private static void TransferDomainOwnership(Clan clan, RealmDomain domain)
     {

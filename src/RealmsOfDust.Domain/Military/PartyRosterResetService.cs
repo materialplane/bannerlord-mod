@@ -77,6 +77,13 @@ public class PartyRosterResetService
             ResetPartyRoster(primaryParty, leader?.CharacterObject);
         }
 
+        // Minor clans own no fiefs; disband secondary warbands so they start with 1 party
+        if (clan.IsMinorFaction)
+        {
+            DisbandMinorClanSecondaryParties(clan, primaryParty);
+            return;
+        }
+
         // Station secondary adult members in the capital if available
         Settlement? capital = clan.HomeSettlement;
         if (capital == null)
@@ -97,6 +104,23 @@ public class PartyRosterResetService
                 TeleportHeroAction.ApplyImmediateTeleportToSettlement(hero, capital);
             }
 
+            if (separateParty != null && separateParty != primaryParty)
+            {
+                DestroyPartyAction.Apply(null, separateParty);
+            }
+        }
+    }
+
+    private void DisbandMinorClanSecondaryParties(Clan clan, MobileParty? primaryParty)
+    {
+        foreach (Hero hero in clan.Heroes)
+        {
+            if (hero == clan.Leader || !hero.IsAlive || hero.IsChild)
+            {
+                continue;
+            }
+
+            MobileParty? separateParty = hero.PartyBelongedTo;
             if (separateParty != null && separateParty != primaryParty)
             {
                 DestroyPartyAction.Apply(null, separateParty);
@@ -130,9 +154,9 @@ public class PartyRosterResetService
             memberRoster.AddToCounts(leaderCharacter, 1, false, 0, 0, true, -1);
         }
 
-        // 4. Seed exactly 8 culture-specific basic recruits
+        // 4. Seed exactly 8 clan or culture-specific basic recruits
         CultureObject? culture = party.ActualClan?.Culture ?? leaderCharacter?.Culture;
-        CharacterObject? basicTroop = culture?.BasicTroop;
+        CharacterObject? basicTroop = party.ActualClan?.BasicTroop ?? culture?.BasicTroop;
 
         if (basicTroop != null)
         {

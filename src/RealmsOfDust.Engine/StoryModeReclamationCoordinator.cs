@@ -36,7 +36,7 @@ public sealed class StoryModeReclamationCoordinator
         TextObject title = new TextObject("{=rod_prologue_title}The Great Contagion & The Usurper");
         TextObject desc = new TextObject(
             "{=rod_prologue_desc}In the year 1084, the catastrophic Great Plague broke across Calradia, " +
-            "devastating armies, collapsing trade, and shattering the old empires into fifty sovereign micro-realms.\r\n\r\n" +
+            "devastating armies, collapsing trade, and fracturing the land into warring realms.\r\n\r\n" +
             "While your noble house was stricken by the sickness, the mercenary captain Radagos betrayed your bloodline. " +
             "He slaughtered your weakened garrison and seized your ancestral seat of {CAPITAL} and the fortress of {STRONGHOLD}!\r\n\r\n" +
             "Having fled into the wilderness with your elder brother, you must gather loyal survivors, track down the traitorous usurper, " +
@@ -44,7 +44,7 @@ public sealed class StoryModeReclamationCoordinator
             .SetTextVariable("CAPITAL", capitalName)
             .SetTextVariable("STRONGHOLD", strongholdName);
 
-        TextObject affirmText = new TextObject("{=rod_prologue_btn}We Shall Reclaim Our Crown");
+        TextObject affirmText = new TextObject("{=rod_prologue_btn}Continue");
 
         InformationManager.ShowInquiry(new InquiryData(
             title.ToString(),
