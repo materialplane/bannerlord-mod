@@ -72,6 +72,11 @@ public class BanditHordeMergeService
 
                 if (partyA.Position.DistanceSquared(partyB.Position) <= RealmsOfDustConstants.BanditMergeProximitySquared)
                 {
+                    if (TaleWorlds.Core.MBRandom.RandomFloat > RealmsOfDustConstants.BanditMergeChancePerHour)
+                    {
+                        continue;
+                    }
+
                     bool merged = TryMergeParties(partyA, partyB, hordeCap, mergedAway);
                     if (merged && mergedAway.Contains(partyA))
                     {

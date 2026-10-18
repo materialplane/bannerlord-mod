@@ -73,6 +73,9 @@ public static class RealmsOfDustConstants
     public const int BanditHordeCapSeason2 = 65; // Winter (Days 43-63)
     public const int BanditHordeCapSeason3 = 75; // Spring / Year 2+ (Days 64+)
     public const float BanditMergeProximitySquared = 16f; // Within 4.0 map distance units
+    public const float BanditMergeChancePerHour = 0.30f; // 30% chance to merge when within proximity
+    public const float BanditLooterSpawnMultiplier = 1.30f; // +30% looter population cap
+    public const int BanditHideoutRoamingCap = 4; // 4 roaming parties per hideout (up from vanilla 3)
 }
 
 
