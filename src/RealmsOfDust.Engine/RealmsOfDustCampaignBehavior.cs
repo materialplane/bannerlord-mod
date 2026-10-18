@@ -48,6 +48,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
         CampaignEvents.MobilePartyCreated.AddNonSerializedListener(this, OnMobilePartyCreated);
         CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(this, OnDailyTickParty);
+        CampaignEvents.TickEvent.AddNonSerializedListener(this, OnTick);
         CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(this, OnQuestCompleted);
         CampaignEvents.OnQuestStartedEvent.AddNonSerializedListener(this, OnQuestStarted);
 
@@ -73,27 +74,12 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
 
         _coordinator.ExecuteFullInitialization(out _reservedPlayerDomain);
         _isInitialized = true;
+        _isPlayerRealmReclaimed = true;
 
-        bool isCampaign = Campaign.Current?.GameMode == CampaignGameMode.Campaign;
-        if (isCampaign)
+        if (_reservedPlayerDomain?.Capital != null)
         {
-            _reservedCapitalId = _reservedPlayerDomain?.Capital?.StringId ?? string.Empty;
-            _reservedStrongholdId = _reservedPlayerDomain?.Stronghold?.StringId ?? string.Empty;
-
-            if (TutorialStatusChecker.IsTutorialSkippedOrCompleted())
-            {
-                TriggerReclamation();
-            }
-            else if (_reservedPlayerDomain?.Capital != null)
-            {
-                StoryModeReclamationCoordinator.ShowPrologueIntroInquiry(
-                    _reservedPlayerDomain.Capital.Name.ToString(),
-                    _reservedPlayerDomain.Stronghold?.Name?.ToString() ?? "Stronghold");
-            }
-        }
-        else
-        {
-            _isPlayerRealmReclaimed = true;
+            _reservedCapitalId = _reservedPlayerDomain.Capital.StringId;
+            _reservedStrongholdId = _reservedPlayerDomain.Stronghold?.StringId ?? string.Empty;
         }
     }
 
@@ -101,6 +87,14 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
     {
         _realmHeraldryService.FixupExistingFadedBanners();
         CheckPendingReclamation();
+    }
+
+    private void OnTick(float dt)
+    {
+        if (Clan.PlayerClan != null && Clan.PlayerClan.Kingdom == null)
+        {
+            CheckPendingReclamation();
+        }
     }
 
     private void OnQuestCompleted(QuestBase quest, QuestBase.QuestCompleteDetails detail)
@@ -126,8 +120,9 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
 
     private void TriggerReclamation()
     {
-        if (_isPlayerRealmReclaimed)
+        if (Clan.PlayerClan?.Kingdom != null)
         {
+            _isPlayerRealmReclaimed = true;
             return;
         }
 
@@ -182,7 +177,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
 
     private void CheckPendingReclamation()
     {
-        if (!_isPlayerRealmReclaimed && TutorialStatusChecker.IsTutorialSkippedOrCompleted())
+        if (Clan.PlayerClan != null && Clan.PlayerClan.Kingdom == null)
         {
             TriggerReclamation();
         }

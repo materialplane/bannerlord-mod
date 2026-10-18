@@ -17,13 +17,19 @@ public static class ReservedDomainResolver
     /// <returns>The reconstructed RealmDomain, or null if settlements are not found.</returns>
     public static RealmDomain? Resolve(string capitalId, string strongholdId)
     {
-        if (string.IsNullOrEmpty(capitalId) || string.IsNullOrEmpty(strongholdId))
+        Settlement? capital = !string.IsNullOrEmpty(capitalId) ? Settlement.Find(capitalId) : null;
+        Settlement? stronghold = !string.IsNullOrEmpty(strongholdId) ? Settlement.Find(strongholdId) : null;
+
+        if (capital == null)
         {
-            return null;
+            capital = Settlement.All.Find(s => s.IsTown && (s.OwnerClan == null || s.OwnerClan == TaleWorlds.CampaignSystem.Clan.PlayerClan || s.OwnerClan.Leader == null));
         }
 
-        Settlement? capital = Settlement.Find(capitalId);
-        Settlement? stronghold = Settlement.Find(strongholdId);
+        if (stronghold == null && capital != null)
+        {
+            stronghold = Settlement.All.Find(s => s.IsCastle && (s.OwnerClan == null || s.OwnerClan == TaleWorlds.CampaignSystem.Clan.PlayerClan || s.OwnerClan.Leader == null));
+        }
+
         if (capital == null || stronghold == null)
         {
             return null;
