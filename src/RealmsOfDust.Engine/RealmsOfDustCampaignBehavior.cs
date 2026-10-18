@@ -80,7 +80,11 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
             _reservedCapitalId = _reservedPlayerDomain?.Capital?.StringId ?? string.Empty;
             _reservedStrongholdId = _reservedPlayerDomain?.Stronghold?.StringId ?? string.Empty;
 
-            if (_reservedPlayerDomain?.Capital != null)
+            if (TutorialStatusChecker.IsTutorialSkippedOrCompleted())
+            {
+                TriggerReclamation();
+            }
+            else if (_reservedPlayerDomain?.Capital != null)
             {
                 StoryModeReclamationCoordinator.ShowPrologueIntroInquiry(
                     _reservedPlayerDomain.Capital.Name.ToString(),
@@ -96,6 +100,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
     private void OnGameLoaded(CampaignGameStarter starter)
     {
         _realmHeraldryService.FixupExistingFadedBanners();
+        CheckPendingReclamation();
     }
 
     private void OnQuestCompleted(QuestBase quest, QuestBase.QuestCompleteDetails detail)
@@ -172,5 +177,14 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
     private void OnHourlyTick()
     {
         _banditHordeMergeService.ProcessBanditMergers();
+        CheckPendingReclamation();
+    }
+
+    private void CheckPendingReclamation()
+    {
+        if (!_isPlayerRealmReclaimed && TutorialStatusChecker.IsTutorialSkippedOrCompleted())
+        {
+            TriggerReclamation();
+        }
     }
 }
