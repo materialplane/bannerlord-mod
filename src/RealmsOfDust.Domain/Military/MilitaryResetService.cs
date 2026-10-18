@@ -12,6 +12,7 @@ public class MilitaryResetService : IMilitaryResetService
     private readonly PartyRosterResetService _partyResetService;
     private readonly GarrisonSeedingService _garrisonService;
     private readonly SettlementCivicInitializer _civicInitializer;
+    private readonly IHideoutActivationService _hideoutActivationService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MilitaryResetService"/> class.
@@ -21,12 +22,14 @@ public class MilitaryResetService : IMilitaryResetService
         _partyResetService = new PartyRosterResetService();
         _garrisonService = new GarrisonSeedingService();
         _civicInitializer = new SettlementCivicInitializer();
+        _hideoutActivationService = new HideoutActivationService();
     }
 
     /// <inheritdoc />
     public void ResetFieldParties()
     {
         _partyResetService.ResetAllFieldParties();
+        _hideoutActivationService.ActivateAllHideouts();
     }
 
     /// <inheritdoc />
