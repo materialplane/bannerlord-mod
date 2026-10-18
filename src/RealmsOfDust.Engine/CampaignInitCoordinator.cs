@@ -47,9 +47,14 @@ public sealed class CampaignInitCoordinator
         // 1. Phase 03: Proximity Allocation & Bound Village Rebinding
         MapAllocationResult allocation = _allocationService.AllocateMap();
 
-        // 2. Phase 05: Player Domain Selection & Immediate Day 1 Elevation
+        // 2. Phase 05: Player Domain Selection
         reservedPlayerDomain = _playerInitializer.SelectPlayerDomain(allocation.Domains);
-        _playerInitializer.InitializePlayerRealm(reservedPlayerDomain);
+        bool isCampaignStoryMode = Campaign.Current?.GameMode == CampaignGameMode.Campaign;
+
+        if (!isCampaignStoryMode)
+        {
+            _playerInitializer.InitializePlayerRealm(reservedPlayerDomain);
+        }
 
         // 3. Phase 04: Elevation of Noble Clans to Kingdoms & Mutual Day 1 Peace
         _elevationService.ElevateRealms(allocation.Domains, reservedPlayerDomain);
@@ -61,7 +66,7 @@ public sealed class CampaignInitCoordinator
         _militaryResetService.InitializeCivicBaselines();
 
         stopwatch.Stop();
-        LogInitializationSuccess(allocation, stopwatch.ElapsedMilliseconds, reservedPlayerDomain);
+        LogInitializationSuccess(allocation, stopwatch.ElapsedMilliseconds, isCampaignStoryMode, reservedPlayerDomain);
 
         return allocation;
     }
@@ -69,6 +74,7 @@ public sealed class CampaignInitCoordinator
     private void LogInitializationSuccess(
         MapAllocationResult allocation,
         long elapsedMs,
+        bool isCampaignMode,
         RealmDomain reservedDomain)
     {
         string message = $"[Realms of Dust] Continental partition complete in {elapsedMs}ms: " +
@@ -79,9 +85,18 @@ public sealed class CampaignInitCoordinator
 
         if (reservedDomain?.Capital != null)
         {
-            string narrativeMsg = $"[Realms of Dust] Sovereign realm established at {reservedDomain.Capital.Name}! " +
-                                  $"Your crown and ancestral holdings are secured.";
-            InformationManager.DisplayMessage(new InformationMessage(narrativeMsg, Colors.Yellow));
+            if (isCampaignMode)
+            {
+                string narrativeMsg = $"[Realms of Dust] The Great Plague has shattered Calradia. The usurper Radagos has seized your ancestral seat of " +
+                                      $"{reservedDomain.Capital.Name}! Defeat him in the wilderness to reclaim your throne.";
+                InformationManager.DisplayMessage(new InformationMessage(narrativeMsg, Colors.Yellow));
+            }
+            else
+            {
+                string narrativeMsg = $"[Realms of Dust] Sovereign realm established at {reservedDomain.Capital.Name}! " +
+                                      $"Your crown and ancestral holdings are secured.";
+                InformationManager.DisplayMessage(new InformationMessage(narrativeMsg, Colors.Yellow));
+            }
         }
     }
 

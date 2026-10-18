@@ -2,7 +2,6 @@ namespace RealmsOfDust.Engine;
 
 using System;
 using System.Reflection;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -44,43 +43,53 @@ public sealed class StoryModeReclamationCoordinator
             .SetTextVariable("CAPITAL", capitalName)
             .SetTextVariable("STRONGHOLD", strongholdName);
 
-        TextObject affirmText = new TextObject("{=rod_prologue_btn}Continue");
-
-        InformationManager.ShowInquiry(new InquiryData(
-            title.ToString(),
-            desc.ToString(),
-            isAffirmativeOptionShown: true,
-            isNegativeOptionShown: false,
-            affirmText.ToString(),
-            string.Empty,
-            null,
-            null));
+        ShowModalInquiry(title, desc, "{=rod_prologue_btn}Continue");
     }
 
     /// <summary>
     /// Executes the full ancestral realm reclamation sequence.
     /// </summary>
     /// <param name="domain">The reserved player domain.</param>
-    public void ExecuteReclamation(RealmDomain domain)
+    /// <param name="isSkipped">True if the tutorial was resolved off-screen; otherwise, false.</param>
+    public void ExecuteReclamation(RealmDomain domain, bool isSkipped = false)
     {
-        if (domain == null || domain.Capital == null)
+        if (domain?.Capital == null)
         {
             return;
         }
 
-        // 1. Elevate player to monarch and restore ancestral holdings
         _playerInitializer.InitializePlayerRealm(domain);
 
-        // 2. Display celebratory announcement message
         string capitalName = domain.Capital.Name?.ToString() ?? "Ancestral Seat";
         string strongholdName = domain.Stronghold?.Name?.ToString() ?? "Stronghold";
 
-        string logMessage = $"[Realms of Dust] The usurper Radagos is broken! " +
-                           $"The ancestral realm of {capitalName} is restored to your bloodline!";
-        InformationManager.DisplayMessage(new InformationMessage(logMessage, Colors.Yellow));
+        if (isSkipped)
+        {
+            string log = $"[Realms of Dust] Having routed Radagos during your flight, you arrive at {capitalName} to claim your sovereign throne!";
+            InformationManager.DisplayMessage(new InformationMessage(log, Colors.Yellow));
+            ShowSkipReclamationInquiry(capitalName, strongholdName);
+        }
+        else
+        {
+            string log = $"[Realms of Dust] The usurper Radagos is broken! The ancestral realm of {capitalName} is restored to your bloodline!";
+            InformationManager.DisplayMessage(new InformationMessage(log, Colors.Yellow));
+            ShowReclamationInquiry(capitalName, strongholdName);
+        }
+    }
 
-        // 3. Show immersive modal celebration inquiry
-        ShowReclamationInquiry(capitalName, strongholdName);
+    private static void ShowSkipReclamationInquiry(string capitalName, string strongholdName)
+    {
+        TextObject title = new TextObject("{=rod_skip_title}The Usurper Broken");
+        TextObject desc = new TextObject(
+            "{=rod_skip_desc}Having routed the traitor Radagos during your flight and recovered your family's ancient bronze chest " +
+            "from the medicine man, you rally your loyal survivors and march to your ancestral seat.\r\n\r\n" +
+            "The gates of {CAPITAL} swing open to welcome their rightful sovereign! The fortress of {STRONGHOLD} " +
+            "and all bound villages reaffirm their fealty to your bloodline.\r\n\r\n" +
+            "Long live the Sovereign!")
+            .SetTextVariable("CAPITAL", capitalName)
+            .SetTextVariable("STRONGHOLD", strongholdName);
+
+        ShowModalInquiry(title, desc, "{=rod_inquiry_btn}Claim the Throne");
     }
 
     private static void ShowReclamationInquiry(string capitalName, string strongholdName)
@@ -95,8 +104,12 @@ public sealed class StoryModeReclamationCoordinator
             .SetTextVariable("CAPITAL", capitalName)
             .SetTextVariable("STRONGHOLD", strongholdName);
 
-        TextObject affirmText = new TextObject("{=rod_inquiry_btn}Claim the Throne");
+        ShowModalInquiry(title, desc, "{=rod_inquiry_btn}Claim the Throne");
+    }
 
+    private static void ShowModalInquiry(TextObject title, TextObject desc, string affirmKey)
+    {
+        TextObject affirmText = new TextObject(affirmKey);
         InformationManager.ShowInquiry(new InquiryData(
             title.ToString(),
             desc.ToString(),
@@ -117,7 +130,7 @@ public sealed class StoryModeReclamationCoordinator
     {
         try
         {
-            Type? storyEventsType = Type.GetType("StoryMode.StoryModeEvents, StoryMode");
+            Type? storyEventsType = TutorialStatusChecker.FindStoryModeType("StoryMode.StoryModeEvents");
             if (storyEventsType == null)
             {
                 return;

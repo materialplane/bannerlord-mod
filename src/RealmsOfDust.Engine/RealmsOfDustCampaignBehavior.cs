@@ -27,9 +27,6 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
     private string _reservedStrongholdId = string.Empty;
     private RealmDomain? _reservedPlayerDomain;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RealmsOfDustCampaignBehavior"/> class.
-    /// </summary>
     public RealmsOfDustCampaignBehavior()
     {
         _coordinator = new CampaignInitCoordinator();
@@ -40,7 +37,6 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         _realmHeraldryService = new RealmHeraldryService();
     }
 
-    /// <inheritdoc />
     public override void RegisterEvents()
     {
         CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(this, OnCharacterCreationIsOver);
@@ -56,7 +52,6 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         StealthTutorialSuppressor.Initialize();
     }
 
-    /// <inheritdoc />
     public override void SyncData(IDataStore dataStore)
     {
         dataStore.SyncData("_rod_isInitialized", ref _isInitialized);
@@ -67,19 +62,35 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
 
     private void OnCharacterCreationIsOver()
     {
-        if (_isInitialized)
-        {
-            return;
-        }
+        if (_isInitialized) return;
 
         _coordinator.ExecuteFullInitialization(out _reservedPlayerDomain);
         _isInitialized = true;
-        _isPlayerRealmReclaimed = true;
 
         if (_reservedPlayerDomain?.Capital != null)
         {
             _reservedCapitalId = _reservedPlayerDomain.Capital.StringId;
             _reservedStrongholdId = _reservedPlayerDomain.Stronghold?.StringId ?? string.Empty;
+        }
+
+        bool isCampaign = Campaign.Current?.GameMode == CampaignGameMode.Campaign;
+        if (isCampaign)
+        {
+            _isPlayerRealmReclaimed = false;
+            if (TutorialStatusChecker.IsTutorialSkippedOrCompleted())
+            {
+                TriggerReclamation(TutorialStatusChecker.IsTutorialSkipped());
+            }
+            else if (_reservedPlayerDomain?.Capital != null)
+            {
+                StoryModeReclamationCoordinator.ShowPrologueIntroInquiry(
+                    _reservedPlayerDomain.Capital.Name.ToString(),
+                    _reservedPlayerDomain.Stronghold?.Name?.ToString() ?? "Stronghold");
+            }
+        }
+        else
+        {
+            _isPlayerRealmReclaimed = true;
         }
     }
 
@@ -91,34 +102,26 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
 
     private void OnTick(float dt)
     {
-        if (Clan.PlayerClan != null && Clan.PlayerClan.Kingdom == null)
-        {
-            CheckPendingReclamation();
-        }
+        if (!_isPlayerRealmReclaimed) CheckPendingReclamation();
     }
 
     private void OnQuestCompleted(QuestBase quest, QuestBase.QuestCompleteDetails detail)
     {
-        if (quest != null &&
-            quest.StringId == "find_hideout_tutorial_quest" &&
-            detail == QuestBase.QuestCompleteDetails.Success)
+        if (quest?.StringId == "find_hideout_tutorial_quest" && detail == QuestBase.QuestCompleteDetails.Success)
         {
-            TriggerReclamation();
+            TriggerReclamation(isSkipped: false);
         }
     }
 
-    private void OnQuestStarted(QuestBase quest)
-    {
-        StealthTutorialSuppressor.TrySuppressQuest(quest);
-    }
+    private void OnQuestStarted(QuestBase quest) => StealthTutorialSuppressor.TrySuppressQuest(quest);
 
     private void OnStoryModeTutorialEnded()
     {
         StealthTutorialSuppressor.ScourActiveStealthQuests();
-        TriggerReclamation();
+        TriggerReclamation(TutorialStatusChecker.IsTutorialSkipped());
     }
 
-    private void TriggerReclamation()
+    private void TriggerReclamation(bool isSkipped = false)
     {
         if (Clan.PlayerClan?.Kingdom != null)
         {
@@ -130,7 +133,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         if (_reservedPlayerDomain != null)
         {
             _isPlayerRealmReclaimed = true;
-            _reclamationCoordinator.ExecuteReclamation(_reservedPlayerDomain);
+            _reclamationCoordinator.ExecuteReclamation(_reservedPlayerDomain, isSkipped);
         }
     }
 
@@ -145,7 +148,6 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         if (party.IsLordParty)
         {
             _minorClanEnforcementService.EnforceDailyLordPartyLimits(party);
-
             if (party.ActualClan != Clan.PlayerClan &&
                 party.ActualClan?.IsBanditFaction == false &&
                 _banditScalingService.IsGracePeriodActive)
@@ -160,10 +162,8 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         if (party.IsBandit)
         {
             _banditScalingService.ScaleBanditParty(party);
-            return;
         }
-
-        if (party.IsLordParty)
+        else if (party.IsLordParty)
         {
             _minorClanEnforcementService.EnforceDailyLordPartyLimits(party);
         }
@@ -177,9 +177,9 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
 
     private void CheckPendingReclamation()
     {
-        if (Clan.PlayerClan != null && Clan.PlayerClan.Kingdom == null)
+        if (!_isPlayerRealmReclaimed && TutorialStatusChecker.IsTutorialSkippedOrCompleted())
         {
-            TriggerReclamation();
+            TriggerReclamation(TutorialStatusChecker.IsTutorialSkipped());
         }
     }
 }
