@@ -67,11 +67,13 @@ public class BanditScalingService : IBanditScalingService, IBanditGraceService
         }
 
         BanditScaleRange range = GetCurrentTargetRange();
+        int seasonIndex = CampaignSeasonHelper.GetElapsedSeasonIndex();
+        int hordeCap = BanditHordeMergeService.GetHordeCapForSeason(seasonIndex);
         int currentCount = memberRoster.TotalManCount;
 
-        if (currentCount > range.MaxCount)
+        if (currentCount > hordeCap)
         {
-            int excess = currentCount - range.MaxCount;
+            int excess = currentCount - hordeCap;
             memberRoster.RemoveNumberOfNonHeroTroopsRandomly(excess);
         }
         else if (currentCount < range.MinCount)

@@ -17,6 +17,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
 {
     private readonly CampaignInitCoordinator _coordinator;
     private readonly IBanditScalingService _banditScalingService;
+    private readonly BanditHordeMergeService _banditHordeMergeService;
     private readonly StoryModeReclamationCoordinator _reclamationCoordinator;
     private readonly MinorClanEnforcementService _minorClanEnforcementService;
     private readonly RealmHeraldryService _realmHeraldryService;
@@ -33,6 +34,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
     {
         _coordinator = new CampaignInitCoordinator();
         _banditScalingService = new BanditScalingService();
+        _banditHordeMergeService = new BanditHordeMergeService();
         _reclamationCoordinator = new StoryModeReclamationCoordinator(new PlayerRealmInitializer());
         _minorClanEnforcementService = new MinorClanEnforcementService();
         _realmHeraldryService = new RealmHeraldryService();
@@ -43,6 +45,7 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
     {
         CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(this, OnCharacterCreationIsOver);
         CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
+        CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
         CampaignEvents.MobilePartyCreated.AddNonSerializedListener(this, OnMobilePartyCreated);
         CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(this, OnDailyTickParty);
         CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(this, OnQuestCompleted);
@@ -164,5 +167,10 @@ public sealed class RealmsOfDustCampaignBehavior : CampaignBehaviorBase
         {
             _minorClanEnforcementService.EnforceDailyLordPartyLimits(party);
         }
+    }
+
+    private void OnHourlyTick()
+    {
+        _banditHordeMergeService.ProcessBanditMergers();
     }
 }

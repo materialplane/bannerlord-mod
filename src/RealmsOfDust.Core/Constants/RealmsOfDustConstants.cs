@@ -66,6 +66,13 @@ public static class RealmsOfDustConstants
     public const int MinorClanPrisonerCapSeason1 = PostPlaguePrisonerCapSeason1;
     public const int MinorClanPrisonerCapSeason2 = PostPlaguePrisonerCapSeason2;
     public const int MinorClanPrisonerCapSeason3 = PostPlaguePrisonerCapSeason3;
+
+    // --- Bandit Horde Merging (Brigand Coalitions) ---
+    public const int BanditHordeCapSeason0 = 25; // Summer (Days 1-21)
+    public const int BanditHordeCapSeason1 = 55; // Autumn (Days 22-42)
+    public const int BanditHordeCapSeason2 = 65; // Winter (Days 43-63)
+    public const int BanditHordeCapSeason3 = 75; // Spring / Year 2+ (Days 64+)
+    public const float BanditMergeProximitySquared = 16f; // Within 4.0 map distance units
 }
 
 
