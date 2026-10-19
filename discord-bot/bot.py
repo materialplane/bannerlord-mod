@@ -68,16 +68,18 @@ STRUCTURE = [
 WELCOME_EMBED = {
     "title": "⚔️ Welcome to Realms of Dust ⚔️",
     "description": (
-        "**Realms of Dust** fractures Calradia into 52 balanced micro-realms on Day 1.\n"
-        "Every ruler—including you—starts with **1 Town, 1 Castle, equal bound villages, and 0 troops**.\n\n"
+        "The Great Empires have fallen.\n\n"
+        "Calradia lies fractured into rival domains, each fighting for survival in the aftermath of total collapse. "
+        "Every warlord—including you—starts from ground zero with an ancestral seat, bare walls, and a lone sword.\n\n"
+        "Rebuild your realm, conquer the fractured lands, and forge a new empire from the dust.\n\n"
         "### 📜 Rules of Engagement\n"
         "1. **Respect Your Fellow Warlords:** Maintain civil discourse in all channels.\n"
         "2. **Channel Discipline:** Keep bug reports in `#bug-reports` and balance discussion in `#feedback-and-ideas`.\n"
-        "3. **No Spoilers / Cheats:** Keep discussion fair and authentic to the grind.\n\n"
+        "3. **Authentic Conquest:** Keep discussion fair and authentic to the grind.\n\n"
         "### 🗺️ Useful Resources\n"
-        "• Check <#announcements> for release links.\n"
+        "• Check <#announcements> for release updates.\n"
         "• Check <#patch-notes> for current build details.\n"
-        "• Join discussion in <#general-chat>!"
+        "• Join the council in <#general-chat>!"
     )
 }
 
