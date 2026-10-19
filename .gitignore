@@ -5,3 +5,7 @@ obj/
 .vs/
 mediawiki/
 scratch/
+.env
+.env.*
+discord-bot/.env
+
