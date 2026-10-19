@@ -1,0 +1,41 @@
+The Year of Falling Dust
+=========================
+
+It began not with a war, but with a breath. The Great Plague tore through Calradia from coast to steppe, cutting down kings in their high keeps and soldiers in their camps alike. Within months, the great empires—the Empire, Vlandia, the Aserai—simply ceased to function. The supply lines broke. The garrisons rotted away.
+
+When the sickness finally subsided, Calradia was no longer an empire. It was dust.
+
+
+Ground Zero
+===========
+
+I built Realms of Dust because I was tired of starting every Bannerlord campaign in the shadow of massive, entrenched snowballing factions while the player runs around chasing looters as a nobody.
+
+In this overhaul, the continent is completely shattered. The old kingdoms are gone. The surviving noble houses have retreated into their ancestral seats, each holding onto a single fortified town, a defensive castle, and the small surrounding villages they can still protect.
+
+No lord begins with an army. There are no 100-man standing doomstacks roaming the roads on Day 1. Every king, clan leader, and warlord—including you—starts as a lone captain on horseback who has to scrape together recruits, rebuild trade lines, and secure food before their neighbors do.
+
+
+The World You Face
+==================
+
+* The Manpower Crisis: After the plague, armies do not appear out of thin air. In the first year, warbands are tightly constrained across the seasons (Summer through Winter), growing gradually as Calradia's population recovers.
+
+* Desperate Roads: Bandit camps and rogue warbands do not wait around. With no royal armies patrolling the highways, brigand coalitions form and contest the wilderness.
+
+* A Level Playing Field: No faction starts with an unfair territorial advantage. What happens next on this map is entirely unscripted—who rises, who starves, and who conquers is determined in real-time.
+
+
+Upcoming Features (In Active Development)
+=========================================
+
+* Realm Guards & Territorial Patrols: Fully integrated settlement defense system. Towns and Castles automatically deploy dedicated patrol parties that scale with the seasons to hunt bandit hordes and safeguard bound peasant villages and trade routes from enemy raiders.
+
+* Micro-Realm Border Diplomacy: Custom diplomatic guardrails built specifically for 20+ micro-kingdoms. Wars are constrained by direct border proximity (no random cross-continent wars), enforced mandatory truce cooldowns (non-aggression peace pacts), and a dynamic war exhaustion engine.
+
+--------------------------------------------------
+
+I am developing this mod solo and actively tuning balance, economics, and progression based on real playtests.
+
+Join the Realms of Dust Discord:
+https://discord.gg/77Wsp98j

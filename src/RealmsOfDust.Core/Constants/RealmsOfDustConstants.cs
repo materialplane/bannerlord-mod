@@ -76,6 +76,21 @@ public static class RealmsOfDustConstants
     public const float BanditMergeChancePerHour = 0.30f; // 30% chance to merge when within proximity
     public const float BanditLooterSpawnMultiplier = 1.30f; // +30% looter population cap
     public const int BanditHideoutRoamingCap = 4; // 4 roaming parties per hideout (up from vanilla 3)
+
+    // --- Player Starting Retinue (Anti-Ambush & Difficulty Scaling) ---
+    // Realistic (Hardest / Bannerlord Difficulty): 8x T1, 2x T2
+    public const int RetinueHardT1Count = 8;
+    public const int RetinueHardT2Count = 2;
+
+    // Easy (Medium / Warrior Difficulty): 6x T1, 3x T2, 1x T3
+    public const int RetinueMediumT1Count = 6;
+    public const int RetinueMediumT2Count = 3;
+    public const int RetinueMediumT3Count = 1;
+
+    // VeryEasy (Easiest / Freebooter Difficulty): 4x T1, 4x T2, 4x T3
+    public const int RetinueEasyT1Count = 4;
+    public const int RetinueEasyT2Count = 4;
+    public const int RetinueEasyT3Count = 4;
 }
 
 
