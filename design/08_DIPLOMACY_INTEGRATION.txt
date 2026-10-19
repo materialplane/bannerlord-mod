@@ -1,0 +1,157 @@
+================================================================================
+REALMS OF DUST: DIPLOMACY INTEGRATION SPECIFICATION
+Eliminating Third-Party Diplomacy Dependencies in Fractured Calradia
+================================================================================
+
+1. OBJECTIVE & PHILOSOPHY
+--------------------------------------------------------------------------------
+In standard Bannerlord, players rely heavily on external "Diplomacy" mods to fix
+erratic AI wars, instant re-declarations, and absent peace logic. In Realms of
+Dust, where Calradia is fractured into 20+ equal micro-realms, vanilla diplomacy
+fails even harder. 
+
+Our goal is to build the high-value diplomatic rules directly into Realms of Dust
+using pure C# domain services (under 200 lines per file, zero custom Gauntlet UI
+bloat), rendering external diplomacy mods completely unnecessary.
+
+--------------------------------------------------------------------------------
+2. TARGET FEATURES TO ABSORB
+--------------------------------------------------------------------------------
+
+A. BORDER CONTIGUITY / GEOGRAPHICAL CONTACT WAR DECLARATION
+   - Problem: Vanilla AI micro-kingdoms declare war across the continent (e.g., 
+     an Aserai micro-realm declaring war on a Sturgian micro-realm with 15 kingdoms
+     in between).
+   - Solution: AI factions can ONLY declare war if they share direct physical 
+     borders (settlement proximity under a tunable distance threshold, e.g., 
+     60 map units).
+   - Value: Creates localized border skirmishes, frontlines, and regional wars
+     instead of global incoherent chaos.
+
+B. MANDATORY TRUCE COOLDOWNS (NON-AGGRESSION PERIODS)
+   - Problem: Vanilla AI frequently declares war 1 or 2 days after paying tribute
+     for peace.
+   - Solution: Hard diplomatic cooldown (tunable, default: 21 in-game days) 
+     following any peace agreement where neither party can declare war on each 
+     other without an extreme influence/honor penalty or hard block.
+   - Value: Gives players and AI realms time to rebuild garrisons, recruit, and 
+     manage economic recovery after a war.
+
+C. WAR EXHAUSTION & ATTRITION SYSTEM
+   - Problem: Wars drag on perpetually until one side is completely annexed.
+   - Solution: Track a normalized War Exhaustion score (0 to 100%) calculated from:
+     * Casualties suffered in battles.
+     * Settlements and bound villages raided or captured.
+     * Clan leaders captured/held in dungeons.
+     * Duration of the war.
+   - When Exhaustion hits 100%, the faction demands/accepts white peace or tribute 
+     scaled to relative performance.
+
+D. MESSENGER DISPATCH SYSTEM (LIGHTWEIGHT DIALOGUE ACCESS)
+   - Problem: Players must hunt across the continent for weeks just to talk to a 
+     king or lord to propose marriage, peace, or trade.
+   - Solution: A simple domain service allowing the player to send an emissary 
+     from their settlement to any known lord. After an arrival delay (e.g., 1-2 days), 
+     a dialogue encounter screen opens directly.
+   - Value: Solves 80% of why players install Diplomacy mods without needing 
+     complex custom UI windows.
+
+E. EXPANSIONISM & COALITION BALANCING (ANTI-SNOWBALL)
+   - Problem: If one micro-realm captures 3-4 towns early, they snowball the map.
+   - Solution: Each conquered settlement adds an "Expansion Aggression" penalty. 
+     Neighboring micro-realms form temporary defensive pacts against runaway 
+     conquerors, maintaining continent-wide equilibrium.
+
+F. DIFFICULTY-SCALED STARTING RETINUE (VETERAN RETINUE QUALITY SCALING)
+   - Problem: Basic Tier 1 levies have virtually zero armor and terrible combat 
+     stats; on Bannerlord difficulty, 10 raw recruits get slaughtered by 11 looters 
+     hurling rocks.
+   - Solution: Keep a lean, tight party footprint (10-12 troops) across difficulties, 
+     but scale the QUALITY / TIER of the retinue based on game difficulty:
+     * Freebooter (Easy): 12 troops with seasoned veteran backbone:
+       - 4x Tier 1 Levies / Recruits
+       - 4x Tier 2 Footmen / Skirmishers
+       - 4x Tier 3 Veteran Infantry / Archers (armored frontline protection)
+     * Warrior (Medium): 10 troops with light veteran support:
+       - 6x Tier 1 Levies / Recruits
+       - 3x Tier 2 Footmen
+       - 1x Tier 3 Veteran
+     * Bannerlord (Hardest): 10 troops raw levy survival:
+       - 8x Tier 1 Levies / Recruits
+       - 2x Tier 2 Basic Footmen
+   - Value: Ensures a player who starts on easier/medium modes has competent 
+     bodyguards capable of surviving early skirmishes and protecting the lord.
+
+G. BANDIT HORDE MOBILITY & PACK MOUNT PROVISIONING
+   - Problem: Large merged bandit hordes (30-60 troops) crawl at 2.5-3.0 speed 
+     due to pure infantry weight and looted cargo, making them look sluggish and 
+     harmless to caravans.
+   - Solution: 
+     * Provision merged hordes with a small ration of cheap sumpter/pack horses 
+       proportional to their merged size (e.g., 1 pack horse per 4-5 bandits).
+     * Establish a reasonable minimum speed floor (3.7 - 4.0) so hordes move 
+       deliberately without outrunning light scouts.
+
+H. SETTLEMENT REALM GUARDS & PATROL PARTIES (ABSORBING "BETTER PATROLS")
+   - Problem: Pre-activated hideouts, 55+ merged hordes, and enemy raiding lords 
+     massacre bound villages and trade routes without local territorial defense.
+   - Solution (Realms of Dust Native Architecture):
+     1. Castle Guard House Parity: Unlock the Guard House settlement project for 
+        both Towns AND Castles (ensuring each realm's stronghold protects its villages).
+     2. Horde-Synchronized Scaling: Patrol party size scales with seasonal horde caps:
+        * Guard House L1: ~50% seasonal cap (15-25 troops).
+        * Guard House L2: ~75% seasonal cap (30-40 troops).
+        * Guard House L3: Matches or exceeds seasonal cap (50-60 troops).
+     3. Armored Quality Composition: Seed patrols with Tier 3-5 shielded cultural 
+        soldiers capable of cutting through hordes of unarmored looters in battle.
+     4. Rapid Muster & Smart Territorial Defense:
+        * 24-hour respawn window following a wipe.
+        * Intercepts enemy raiding lords, reinforces battles near settlement gates, 
+          and captures shattered enemy parties to throw in dungeons.
+   - Value: Eliminates dependency on external patrol mods while perfectly balancing 
+     against our aggressive bandit horde ecosystem.
+
+--------------------------------------------------------------------------------
+3. MASTER FEATURE ROADMAP & TO-DO CHECKLIST
+--------------------------------------------------------------------------------
+[IN PROGRESS] Phase 1: Difficulty-Scaled Player Starting Retinue (Anti-Ambush Buffer)
+[ ] Phase 2: Bandit Horde Mobility & Mount Balance (Prevent Snail Crawl)
+[ ] Phase 3: Settlement Realm Guards & Local Patrols (Anti-Raid Protection)
+[ ] Phase 4: Border Contiguity War Target Filter (Localized Frontlines)
+[ ] Phase 5: Mandatory Truce Cooldowns (Non-Aggression Post-Peace)
+[ ] Phase 6: War Exhaustion & Casualties-Driven Peace Engine
+[ ] Phase 7: Fast Emissary / Messenger Dialogue Service
+[ ] Phase 8: Anti-Snowball Coalition / Defensive Pacts
+
+--------------------------------------------------------------------------------
+4. ARCHITECTURAL & COMPONENT BREAKDOWN (REALMS OF DUST MANDATES)
+--------------------------------------------------------------------------------
+All components adhere to the <200 LOC per file limit and native save persistence:
+
+1. RealmsOfDust.Core:
+   - IDiplomacyService.cs: Interface for war declarations, truces, and exhaustion.
+   - DiplomacyConfig.cs: Tunable constants (TruceDays, ExhaustionWeights, Distance).
+   - Models/WarRecord.cs: Relational tracking of casualties, raids, and dates.
+
+2. RealmsOfDust.Domain:
+   - StartingRetinueService.cs: Difficulty-aware culture recruit seeder.
+   - WarExhaustionService.cs: Daily calculation of war fatigue.
+   - BorderProximityWarFilter.cs: Distance checks validating eligible war targets.
+   - TruceCooldownService.cs: Enforcing peace treaty durations.
+   - AntiSnowballCoalitionService.cs: Dynamic neighbor threat calculations.
+
+3. RealmsOfDust.Engine:
+   - RealmsOfDustDiplomacyBehavior.cs: Subscribes to OnWarDeclared, OnPeaceDeclared,
+     OnSettlementOwnerChanged, and DailyTick.
+   - SaveableTypeDefiner: Registers diplomatic models for native save compatibility.
+
+--------------------------------------------------------------------------------
+5. COMPETITIVE ADVANTAGE
+--------------------------------------------------------------------------------
+By bundling these rules:
+1. Players get a stable, uncrashable diplomatic and survival layer optimized 
+   specifically for 20+ micro-kingdom balance.
+2. Zero compatibility bugs with third-party diplomacy UI updates.
+3. Completely seamless "one-click install" experience on Steam Workshop.
+================================================================================
+

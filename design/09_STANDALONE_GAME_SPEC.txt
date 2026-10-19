@@ -1,0 +1,90 @@
+================================================================================
+STANDALONE GAME SPECIFICATION: REALMS OF DUST (TACTICAL TURN-BASED RPG)
+Universe Overview, Core Mechanics, and Architecture Bible
+================================================================================
+
+1. EXECUTIVE SUMMARY & FRANCHISE CONTEXT
+--------------------------------------------------------------------------------
+"Realms of Dust" is an independent, turn-based tactical mercenary RPG set in 
+the same gritty, low-fantasy universe as the Mount & Blade II: Bannerlord 
+overhaul mod of the same name.
+
+While the Bannerlord mod serves as the high-level "Macro" conquest funnel (20+ 
+micro-realms waging continent-scale war), the Standalone Game is the intimate 
+"Micro" perspective: following a small 4-character mercenary company taking contracts, 
+surviving dangerous roads, managing rations, and fighting in deep tactical WeGo 
+squad battles.
+
+--------------------------------------------------------------------------------
+2. SHARED DNA & ASSET ECOSYSTEM (MOD VS. STANDALONE PARITY)
+--------------------------------------------------------------------------------
+The standalone game directly mirrors the core itemization, culture, and faction 
+balance of the universe:
+- 6 Cultural Factions: Exact lore, cultural identity, and aesthetic archetypes 
+  (desert nomads, highlanders, imperial legions, etc.) with custom tailored names.
+- Equipment & Item Catalog: 1:1 mirroring of weapons, armor classes, mounts, 
+  and trade goods (grain, iron, flax, salt, pack sumpters).
+- Unit Archetypes as Discrete Enemies: Rather than upgrading dynamic player troop 
+  trees, the game uses the faction troop trees as discrete, fixed enemy profiles 
+  (e.g., Tier 1 Levy, Tier 3 Armored Footman, Tier 5 Cataphract/Knight) that do 
+  not dynamically transform mid-campaign.
+
+--------------------------------------------------------------------------------
+3. OVERWORLD TRAVEL & ENCOUNTER SYSTEM
+--------------------------------------------------------------------------------
+- 2D Top-Down World Map: Clean, flat, top-down perspective without the overhead 
+  or camera clutter of 3D terrain.
+- Dynamic Threat Level Meter: As the party travels across regional wilderness 
+  and roads, a Threat Meter accumulates based on territory danger.
+- Skill-Based Evasion / Slip-Away: When an encounter rolls (bandits, deserters, 
+  patrols), the player is not forced to fight blindly. High party scouting/evasion 
+  skills allow slipping away into the terrain, mirroring Bannerlord's campaign 
+  party speed escape mechanic.
+
+--------------------------------------------------------------------------------
+4. SQUAD COMBAT SYSTEM: 4-LANE WEGO (SIMULTANEOUS RESOLUTION)
+--------------------------------------------------------------------------------
+Unlike standard JRPG "You Go, I Go" turns or Bannerlord's hands-off "Send Troops", 
+combat is an active, turn-based tactical 4-lane skirmish with WeGo execution:
+
+A. 4-Lane Battle Grid (Front & Back Ranks):
+   - 4 discrete combat lanes for both friendly squad (max 4 characters) and enemies.
+   - Frontline: Direct melee engagement (can only strike the lane directly opposite).
+   - Backline: Ranged and support units.
+
+B. Ranged Geometry & Line-of-Sight:
+   - Crossbows: High armor penetration, can shoot straight or across 1 adjacent lane.
+   - Bows: Arcing trajectory, can shoot across up to 2 lanes for flexible artillery.
+
+C. Flanking Risk & Line Collapse Dynamics:
+   - Flank Penalty: Focusing multiple frontliners into a single enemy lane leaves 
+     uncovered lanes open to severe flanking penalties from unblocked enemies.
+   - Line Collapse: Wiping out an entire front line forces backline archers and 
+     support units to move into melee range in the front line.
+
+D. WeGo Resolution (Simultaneous Turns):
+   - Both player and enemy queue actions simultaneously and secretly.
+   - Actions resolve together based on initiative, creating psychological reads 
+     (e.g., predicting an enemy shield block vs. incoming thrust).
+
+--------------------------------------------------------------------------------
+5. INTERACTIVE 1V1 DUELS & JOUSTING
+--------------------------------------------------------------------------------
+Breaks up tactical squad battles with intense, reflex-driven real-time mini-games:
+- Static Visual Slicing: Uses static character/horse art with dynamic horizontal 
+  and vertical slivers/slits cut out (simulating restricted helmet visor slits 
+  and lance alignment rails).
+- Precision Timing & Reflex Meters: Real-time mouse click timing controls 
+  strike accuracy, shield parries, and lance unhorsing.
+- Contexts: Used for formal tournament jousts, trials by combat, and noble 1v1 
+  duels.
+
+--------------------------------------------------------------------------------
+6. STRATEGIC PURPOSE & SOLO DEV PRIORITIZATION
+--------------------------------------------------------------------------------
+- The Bannerlord mod is an audience acquisition and community funnel.
+- The Standalone Game is the commercial indie title.
+- Bannerlord mod updates must remain lightweight and disciplined (<200 LOC per file) 
+  so the developer can protect core creative focus for the standalone game's 
+  turn-based engine, lane combat algorithms, and companion progression.
+================================================================================

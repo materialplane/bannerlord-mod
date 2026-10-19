@@ -1,76 +1,85 @@
-# AGENTS.md — Realms of Dust (Bannerlord Overhaul)
+# AGENTS.md — Realms of Dust (Bannerlord Overhaul & IP Hub)
 
-## 1. Project Overview & Vision
+## 0. Crash Course for AI Agents (Read This First)
+
+Welcome to the **Realms of Dust** ecosystem. The developer is managing two distinct but connected projects under this IP:
+1. **The Commercial Standalone Game (The Primary Asset):** A tactical, 2D top-down, turn-based 4-lane WeGo mercenary RPG (inspired by classic mercenary grit, 4-man squad management, threat meters, and visor duel mini-games).
+   * **Full Design Bible:** Read `design/09_STANDALONE_GAME_SPEC.txt` immediately to understand this game.
+2. **The Bannerlord Overhaul Mod (The Community & Conquest Funnel):** An overhaul mod on Steam Workshop (ID: `3822706398`) for *Mount & Blade II: Bannerlord* (v1.2.x+ / .NET 6).
+   * **Its Purpose:** Fixes the unyielding 6-faction blob by fracturing Calradia into 20+ equal micro-realms (1 Town, 1 Castle, equal villages, 0 starting troops).
+   * **Active To-Do & Roadmap:** Read `design/08_DIPLOMACY_INTEGRATION.txt` for the current feature pipeline.
+   * **Version & Patch Notes:** Read `CHANGELOG.md` and check `src/Directory.Build.props`.
+
+### Release & Testing Protocol
+* **Quick-Test Features (e.g. Starting Retinues):** Verified directly by the dev in minutes and shipped to Steam.
+* **Long-Play Systems (e.g. Diplomacy, Truces, Patrols):** Must NOT be pushed untested to Steam. They are released as pre-release ZIP builds to the Discord community (`discord-bot/`) for multi-week testing.
+* **Steam Workshop Status:** Never touch or push files via SteamCMD while an item is in Steam's moderation queue.
+
+---
+
+## 1. Project Overview & Core Mod Vision
 
 **Mod Name:** Realms of Dust  
 **Target Platform:** *Mount & Blade II: Bannerlord* (v1.2.x+ / .NET 6)  
-**Parent Franchise / Universe:** *Realms of Dust*  
+**Parent Franchise / Universe:** *Realms of Dust* (See `design/09_STANDALONE_GAME_SPEC.txt`)  
 
-### Core Gameplay Concept
-*Realms of Dust* transforms the continent of Calradia from massive historical empires into a fractured, cutthroat continent of balanced micro-realms. Every single realm—including the player's custom realm—starts on identical footing:
-
-1. **Equal Starting Domain:**
-   * **1 Capital (Town):** Major economic center, marketplace, and civic seat.
-   * **1 Stronghold (Castle):** Fortified military garrison and defensive bastion.
-   * **Equal Bound Villages:** Equal village allocation tied to food, recruit, and resource production.
-2. **Zero Starting Troops (Ground Zero):**
-   * All party rosters, garrisons, and initial militias start completely wiped (0 troops).
-   * Lords and the player start as lone captains on horseback who must recruit, train, and supply their armies from scratch.
-3. **The Conquest Objective:**
-   * Build up warbands, secure trade and production lines, forge or break alliances, and wage total war until one realm unifies the map.
+### Core Gameplay Rules:
+1. **Equal Starting Domain:** 1 Town (Capital), 1 Castle (Stronghold), equal bound villages.
+2. **Ground Zero Reset:** 0 starting troops for all lords and settlements on Day 1.
+3. **Bandit Ecology:** Day 1 pre-activated hideouts, roaming hordes with merge logic and seasonal caps.
 
 ---
 
 ## 2. Professional AAA Engineering Mandates
 
-To ensure long-term stability, maintainability, and clean expansion, all AI agents, engineers, and contributors must strictly adhere to the following architectural rules:
+All code must strictly adhere to these architectural rules:
 
 ### A. The 200-Line Code File Mandate
-* **Strict Size Limit:** No single source code file (`.cs`) should exceed **200 lines of code**.
-* **Single Responsibility Principle (SRP):** Each class must do exactly one thing. If a file begins to grow beyond 150 lines, proactively refactor and extract helper services, models, validators, or handlers into dedicated files.
-* **No "God Classes":** Never bundle initialization logic, UI handling, game algorithms, and state persistence into a single class. Split them into specialized domain components.
+* **Strict Size Limit:** No single source code file (`.cs`) may exceed **200 lines of code**.
+* **Single Responsibility Principle (SRP):** Split files proactively before hitting 150 lines. No "God Classes."
 
-### B. Relational & Data-Driven Architecture
-* **Structured, Normalized Data:** Avoid fragile, unindexed flat-file blobs (e.g., loose, ad-hoc JSON or untyped text files). 
-* **Bannerlord Native Persistence:** State persistence must leverage TaleWorlds' native relational save system (`CampaignBehaviorBase.SyncData`, `SaveableTypeDefiner`, and `[SaveableField]`) so that all entity relationships (Settlements, Clans, Kingdoms, Parties) maintain referential integrity across save and load cycles.
-* **External Storage (if applicable):** If auxiliary data or external telemetry is required, use structured, relational databases (e.g., SQLite or MariaDB) with formal schemas, foreign keys, and indexed queries.
+### B. Relational & Native Persistence
+* Never use loose untyped flat files for campaign state.
+* Use TaleWorlds' native relational save system (`CampaignBehaviorBase.SyncData`, `SaveableTypeDefiner`, `[SaveableField]`).
 
-### C. Clean Architecture & Separation of Concerns
-Code must be organized into distinct functional layers:
-1. **Core / Domain:** Pure data models, enums, value objects, and domain interfaces.
-2. **Services / Business Logic:** Allocation algorithms, troop reset services, economy seeding, diplomatic handlers.
-3. **Behaviors (`CampaignBehaviorBase`):** Event listeners that subscribe to TaleWorlds campaign lifecycle hooks (e.g., `OnNewGameCreated`, `OnSettlementOwnerChanged`) and delegate immediately to domain services.
-4. **Patches (Harmony):** Surgical, minimal hooks used strictly when TaleWorlds provides no public API or event. Harmony patches must never contain business logic; they must call clean service methods.
+### C. Clean Architecture
+1. **RealmsOfDust.Core:** Pure models, interfaces, constants, configs.
+2. **RealmsOfDust.Domain:** Allocation algorithms, reset services, military logic.
+3. **RealmsOfDust.Engine:** Campaign behaviors, TaleWorlds event hooks.
+4. **RealmsOfDust.Main:** SubModule.xml, entry point, dependency wiring.
 
-### D. Code Quality, Defensive Programming & Null Safety
-* **Defensive Null Checking:** Bannerlord's campaign state is dynamic; parties and heroes can be eliminated or invalidated at any tick. Always validate references (`hero?.Clan`, `settlement?.Town?.GarrisonParty`) defensively.
-* **Clear Naming Conventions:** Use explicit, descriptive PascalCase for classes, interfaces (`ISettlementAllocator`), and methods. Avoid cryptic abbreviations.
-* **No Magic Strings or Numbers:** All tunable constants (starting denars, grace period days, prosperity baselines) must reside in dedicated configuration models or constants classes.
-* **Documentation & Comment Preservation:** Every public class and interface must include concise XML summary comments documenting its purpose.
+### D. Defensive Coding & Quality
+* Always null-check dynamic campaign entities (`hero?.Clan`, `settlement?.Town`).
+* No magic strings or numbers; all tuning values reside in `RealmsOfDustConstants` or config models.
+* XML summary documentation on all public classes and interfaces.
 
 ---
 
-## 3. Standard Directory Layout
+## 3. Standard Directory Layout & Key File Map
 
 ```
 bannerlord-mod/
-├── AGENTS.md                  # This architectural mandate
-├── README.md                  # Project overview and build instructions
-├── docs/                      # Game design and player-facing specs
-├── mediawiki/                 # Local documentation wiki (bannerlord-mod.localhost)
-└── src/
-    ├── RealmsOfDust.Core/     # Pure models, interfaces, constants
-    ├── RealmsOfDust.Domain/   # Allocation algorithms, reset services, logic
-    ├── RealmsOfDust.Engine/   # Campaign behaviors, TaleWorlds hooks
-    └── RealmsOfDust.Main/     # SubModule.xml, entry point, dependency wiring
+├── AGENTS.md                  # This master crash course & engineering mandate
+├── CHANGELOG.md               # Semantic version history and public patch notes
+├── README.md                  # Project overview
+├── design/
+│   ├── 08_DIPLOMACY_INTEGRATION.txt # Active Feature Roadmap & To-Do Checklist
+│   └── 09_STANDALONE_GAME_SPEC.txt  # Standalone RPG Bible (Combat, World, Vision)
+├── discord-bot/               # Community bot & beta testing infrastructure
+├── src/
+│   ├── Directory.Build.props  # Centralized build configuration & Version tag
+│   ├── RealmsOfDust.Core/     # Pure models, interfaces, constants
+│   ├── RealmsOfDust.Domain/   # Allocation algorithms, reset services, logic
+│   ├── RealmsOfDust.Engine/   # Campaign behaviors, TaleWorlds hooks
+│   └── RealmsOfDust.Main/     # SubModule.xml, entry point, dependency wiring
+└── steamcmd/                  # Workshop publishing scripts (upload.bat, item.vdf)
 ```
 
 ---
 
 ## 4. Workflow Rules for Autonomous Agents
 
-1. **Plan First:** Align on the player-facing rule and math before writing code.
-2. **Review File Limits:** Before creating or modifying a file, check line counts. Split files proactively.
-3. **Verify Builds Cleanly:** Never leave broken references, unresolved namespaces, or unhandled exceptions.
-4. **Preserve Integrity:** Keep all existing documentation and user preferences intact across iterations.
-5. **Chat Conciseness Mandate:** The chat interface is strictly for very short summaries. Never output unsolicited walls of text or long design explanations. In-depth information belongs on the local wiki (`bannerlord-mod.localhost`); provide expanded details in chat only if explicitly requested by the user.
+1. **Orientation First:** Check `CHANGELOG.md` and `design/08_DIPLOMACY_INTEGRATION.txt` before touching any code.
+2. **Review File Limits:** Never allow any `.cs` file to exceed 200 lines. Proactively refactor and split.
+3. **Verify Builds Cleanly:** Run `dotnet build` from `src/` to confirm zero errors or broken references.
+4. **Chat Conciseness Mandate:** The chat interface is strictly for short, direct summaries. Never output unsolicited walls of text. Detailed design documentation belongs in `design/`.
