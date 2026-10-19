@@ -78,9 +78,9 @@ public static class RealmsOfDustConstants
     public const int BanditHideoutRoamingCap = 4; // 4 roaming parties per hideout (up from vanilla 3)
 
     // --- Player Starting Retinue (Anti-Ambush & Difficulty Scaling) ---
-    // Realistic (Hardest / Bannerlord Difficulty): 8x T1, 2x T2
-    public const int RetinueHardT1Count = 8;
-    public const int RetinueHardT2Count = 2;
+    // Realistic (Hardest / Bannerlord Difficulty): 10x T2 (Shielded infantry line)
+    public const int RetinueHardT1Count = 0;
+    public const int RetinueHardT2Count = 10;
 
     // Easy (Medium / Warrior Difficulty): 6x T1, 3x T2, 1x T3
     public const int RetinueMediumT1Count = 6;

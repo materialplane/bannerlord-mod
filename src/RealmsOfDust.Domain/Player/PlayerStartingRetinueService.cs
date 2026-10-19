@@ -87,14 +87,20 @@ public static class PlayerStartingRetinueService
             return null;
         }
 
+        CharacterObject? fallback = null;
         foreach (CharacterObject target in baseTroop.UpgradeTargets)
         {
             if (target != null && target.Tier == desiredTier)
             {
-                return target;
+                // Prioritize infantry with shields over skirmishers/archers for the frontline
+                if (target.IsInfantry)
+                {
+                    return target;
+                }
+                fallback ??= target;
             }
         }
 
-        return baseTroop.UpgradeTargets[0];
+        return fallback ?? baseTroop.UpgradeTargets[0];
     }
 }
