@@ -68,7 +68,7 @@ public static class RealmsOfDustConstants
     public const int MinorClanPrisonerCapSeason3 = PostPlaguePrisonerCapSeason3;
 
     // --- Bandit Horde Merging (Brigand Coalitions) ---
-    public const int BanditHordeCapSeason0 = 20; // Summer (Days 1-21) - Player cap: 25
+    public const int BanditHordeCapSeason0 = 15; // Summer (Days 1-21) - Controlled early start (Player cap: 25)
     public const int BanditHordeCapSeason1 = 30; // Autumn (Days 22-42) - Player cap: 35
     public const int BanditHordeCapSeason2 = 45; // Winter (Days 43-63) - Player cap: 50
     public const int BanditHordeCapSeason3 = 60; // Spring / Year 2+ (Days 64+) - Player cap: 70
