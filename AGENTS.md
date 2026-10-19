@@ -84,4 +84,6 @@ bannerlord-mod/
 3. **Verify Builds Cleanly:** Run `dotnet build` from `src/` to confirm zero errors or broken references.
 4. **Git Commit & Release Guard (MANDATORY):** Direct `git push` or arbitrary manual commits are strictly forbidden. The ONLY permitted way to commit and push releases is by executing `ship.bat <VERSION> "<MESSAGE>"`. The script enforces version number bumps across `Directory.Build.props` and `SubModule.xml`, runs clean builds, deploys, and pushes automatically.
 5. **Chat Conciseness Mandate:** The chat interface is strictly for short, direct summaries. Never output unsolicited walls of text. Detailed design documentation belongs in `design/`.
+6. **Human Gamer Tone (CRITICAL):** When writing dev logs, Discord messages, or player-facing notes, NEVER use overly formal or robotic AI buzzwords (e.g. "retinue", "ecosystem", "mitigate", "paradigm", "testbed"). Write casually like an indie gamer dev sharing thoughts with friends (e.g. "starter troops", "getting wrecked by throwing axes", "nerfed early bandit stacks").
+
 
