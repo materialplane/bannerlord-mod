@@ -82,4 +82,6 @@ bannerlord-mod/
 1. **Orientation First:** Check `CHANGELOG.md` and `design/08_DIPLOMACY_INTEGRATION.txt` before touching any code.
 2. **Review File Limits:** Never allow any `.cs` file to exceed 200 lines. Proactively refactor and split.
 3. **Verify Builds Cleanly:** Run `dotnet build` from `src/` to confirm zero errors or broken references.
-4. **Chat Conciseness Mandate:** The chat interface is strictly for short, direct summaries. Never output unsolicited walls of text. Detailed design documentation belongs in `design/`.
+4. **Git Commit & Release Guard (MANDATORY):** Direct `git push` or arbitrary manual commits are strictly forbidden. The ONLY permitted way to commit and push releases is by executing `ship.bat <VERSION> "<MESSAGE>"`. The script enforces version number bumps across `Directory.Build.props` and `SubModule.xml`, runs clean builds, deploys, and pushes automatically.
+5. **Chat Conciseness Mandate:** The chat interface is strictly for short, direct summaries. Never output unsolicited walls of text. Detailed design documentation belongs in `design/`.
+

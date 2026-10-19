@@ -24,9 +24,21 @@ This project follows [Semantic Versioning](https://semver.org/) (`vMAJOR.MINOR.P
 
 ---
 
+## [v1.1.0] — 2026-10-19
+
+### Gameplay & Balance Updates
+* **Difficulty-Scaled Starting Retinue (Anti-Ambush):**
+  * Solved Day-1 spawn ambushes by granting the player an immediate cultural escort retinue.
+  * **Realistic (Hardest / Bannerlord):** 10x Tier-2 Shielded Infantry (holds tight shield wall against pebble volleys).
+  * **Easy (Medium / Warrior):** 6x Tier-1, 3x Tier-2, 1x Tier-3.
+  * **Very Easy (Easiest / Freebooter):** 4x Tier-1, 4x Tier-2, 4x Tier-3.
+* **Early Horde Balancing:**
+  * Capped Season 0 (Summer / Days 1–21) merged bandit hordes to a maximum of 15 troops to ensure fair early-game scaling.
+
+---
+
 ## [Unreleased] — In Development
 
-### Planned for v1.1.0
-* **Difficulty-Scaled Starting Retinue:** Seed player party on Day 1 with cultural levies and veterans (Tier 1–3) to prevent instant looter ambushes upon spawning.
+### Planned for v1.2.0
 * **Bandit Horde Mobility:** Inject pack/sumpter mounts into merged hordes to prevent heavy loot over-encumbrance and sluggish campaign map crawling.
 * **Settlement Realm Guards (Patrols):** Enable Guard House projects for Castles and synchronize patrol sizes with seasonal horde caps.
