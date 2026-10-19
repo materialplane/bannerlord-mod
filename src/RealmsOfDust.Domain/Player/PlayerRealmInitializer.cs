@@ -66,7 +66,9 @@ public sealed class PlayerRealmInitializer : IPlayerRealmInitializer
         PlayerPartyPositioner.PositionAtCapital(playerDomain.Capital);
 
         // 6. Seed Player's Difficulty-Scaled Starting Retinue (Anti-Ambush Buffer)
-        PlayerStartingRetinueService.SeedPlayerRetinue(TaleWorlds.CampaignSystem.Party.MobileParty.MainParty);
+        PlayerStartingRetinueService.SeedPlayerRetinue(
+            TaleWorlds.CampaignSystem.Party.MobileParty.MainParty,
+            playerDomain.Capital.Culture);
     }
 
     private static Kingdom CreatePlayerKingdom(Clan playerClan, RealmDomain domain)

@@ -17,7 +17,8 @@ public static class PlayerStartingRetinueService
     /// Seeds the player's mobile party with basic levies and veteran anchors based on difficulty.
     /// </summary>
     /// <param name="playerParty">The player's mobile party.</param>
-    public static void SeedPlayerRetinue(MobileParty? playerParty)
+    /// <param name="fallbackCulture">Optional culture from the assigned starting domain.</param>
+    public static void SeedPlayerRetinue(MobileParty? playerParty, CultureObject? fallbackCulture = null)
     {
         if (playerParty?.MemberRoster == null)
         {
@@ -25,8 +26,11 @@ public static class PlayerStartingRetinueService
         }
 
         TroopRoster roster = playerParty.MemberRoster;
-        CultureObject? culture = playerParty.ActualClan?.Culture ?? Hero.MainHero?.Culture;
-        CharacterObject? basicTroop = playerParty.ActualClan?.BasicTroop ?? culture?.BasicTroop;
+        CultureObject? culture = CharacterObject.PlayerCharacter?.Culture 
+            ?? Clan.PlayerClan?.Culture 
+            ?? playerParty.ActualClan?.Culture
+            ?? fallbackCulture;
+        CharacterObject? basicTroop = culture?.BasicTroop ?? Clan.PlayerClan?.BasicTroop;
 
         if (basicTroop == null)
         {
