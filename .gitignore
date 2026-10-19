@@ -8,4 +8,7 @@ scratch/
 .env
 .env.*
 discord-bot/.env
-
+__pycache__/
+*.pyc
+steamcmd/
+upload-to-steam.bat

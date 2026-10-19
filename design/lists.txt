@@ -1,0 +1,12 @@
+  • Diplomacy & War Exhaustion:
+      • Vanilla Bannerlord diplomacy is famously hollow (random wars, endless tributes).
+      • Integrating a clean, native war exhaustion system, truce cooldowns, and non-aggression pacts fits Realms of Dust perfectly because fractured micro-realms need
+      meaningful diplomacy to survive.
+  • Better Auto-Loot / Post-Battle Management:
+      • Automatically upgrade companions or sort equipment without clicking 50 buttons after every skirmish.
+  • Realistic Weather / Environmental Combat Modifiers:
+      • Rain slows movement, snow increases food consumption, fog lowers missile accuracy. (Pure code, 0 external texture assets required).
+  • Governors & Fief Automation:
+      • Basic town management tools so players don't have to babysit basic construction queues when managing multiple micro-holds.
+  • Tournament Overhauls / Prize Scaling:
+      • Making arena fights award meaningful early-game denars and custom weapons suitable for our post-plague economy.

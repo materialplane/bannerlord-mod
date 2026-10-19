@@ -1,0 +1,38 @@
+================================================================================
+REALMS OF DUST: OPTIMAL COMMANDER START CHECKLIST
+(Maximum Leadership, Steward & Riding in 30 Seconds)
+================================================================================
+
+1. CULTURE SELECTION:
+   -> Pick "Vlandia" (Best: +20% troop battle XP) OR "Empire" (Cheaper garrisons)
+
+2. PARENTS:
+   -> Click: "A baron's retainers" (Empire: "Landless landlords / Urban merchants")
+      [Gives: Riding + Polearm / Social]
+
+3. EARLY CHILDHOOD:
+   -> Click: "Your leadership skills"
+      [Gives: Leadership + Tactics]
+
+4. ADOLESCENCE:
+   -> Click: "Helped in the market / your way with people"
+      [Gives: Charm + Steward]
+
+5. YOUTH:
+   -> Click: "Trained with the cavalry"
+      [Gives: Riding + Polearm / Horse mobility]
+
+6. YOUNG ADULTHOOD:
+   -> Click: "Treated the guests well / Managed a household"
+      [Gives: Steward + Leadership]
+
+7. STORY BACKGROUND (CAMPAIGN ONLY):
+   -> Click: "Rode off with the scouts" OR "Subdued a raider"
+      [Gives: Riding or Vigor combat anchor]
+
+================================================================================
+RESULT:
+- High Party Size from Day 1 (Steward)
+- Fast Map Speed & High Mount Handling (Riding)
+- High Morale & Low Vassal Influence Costs (Leadership)
+================================================================================
