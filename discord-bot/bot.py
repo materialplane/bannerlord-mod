@@ -170,11 +170,33 @@ async def execute_server_setup(guild, report_progress_func):
                 welcome_channel = channel
 
     if welcome_channel:
+        ann_ch = discord.utils.get(guild.text_channels, name="announcements")
+        patch_ch = discord.utils.get(guild.text_channels, name="patch-notes")
+        gen_ch = discord.utils.get(guild.text_channels, name="general-chat")
+        feed_ch = discord.utils.get(guild.text_channels, name="feedback-and-ideas")
+        bug_ch = discord.utils.get(guild.text_channels, name="bug-reports")
+
+        desc = (
+            "The Great Empires have fallen.\n\n"
+            "Calradia lies fractured into rival domains, each fighting for survival in the aftermath of total collapse. "
+            "Every warlord—including you—starts from ground zero with an ancestral seat, bare walls, and a lone sword.\n\n"
+            "Rebuild your realm, conquer the fractured lands, and forge a new empire from the dust.\n\n"
+            "### 📜 Rules of Engagement\n"
+            "1. **Respect Your Fellow Warlords:** Maintain civil discourse across all channels.\n"
+            f"2. **Channel Discipline:** Keep bug reports in {bug_ch.mention if bug_ch else '#bug-reports'} "
+            f"and balance discussion in {feed_ch.mention if feed_ch else '#feedback-and-ideas'}.\n"
+            "3. **Authentic Conquest:** Keep discussion fair and authentic to the grind.\n\n"
+            "### 🗺️ Useful Resources\n"
+            f"• Check {ann_ch.mention if ann_ch else '#announcements'} for release updates.\n"
+            f"• Check {patch_ch.mention if patch_ch else '#patch-notes'} for current build details.\n"
+            f"• Join the council in {gen_ch.mention if gen_ch else '#general-chat'}!"
+        )
+
         history = [m async for m in welcome_channel.history(limit=5)]
         if not history:
             embed = discord.Embed(
                 title=WELCOME_EMBED["title"],
-                description=WELCOME_EMBED["description"],
+                description=desc,
                 color=discord.Color.gold()
             )
             embed.set_footer(text="Realms of Dust • Calradia Shattered")
