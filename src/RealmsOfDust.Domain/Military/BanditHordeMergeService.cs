@@ -15,16 +15,17 @@ using RealmsOfDust.Core.Constants;
 public class BanditHordeMergeService
 {
     /// <summary>
-    /// Gets the maximum allowed troop count for merged bandit hordes based on season.
+    /// Gets the maximum allowed troop count for merged bandit hordes based on season and phase.
+    /// By the second half of every season, merged hordes exceed the player's party cap by +5.
     /// </summary>
-    public static int GetHordeCapForSeason(int seasonIndex)
+    public static int GetHordeCapForSeason(int seasonIndex, bool isLateSeason = false)
     {
         return seasonIndex switch
         {
-            0 => RealmsOfDustConstants.BanditHordeCapSeason0, // Summer: 25
-            1 => RealmsOfDustConstants.BanditHordeCapSeason1, // Autumn: 55
-            2 => RealmsOfDustConstants.BanditHordeCapSeason2, // Winter: 65
-            _ => RealmsOfDustConstants.BanditHordeCapSeason3, // Spring / Year 2+: 75
+            0 => isLateSeason ? RealmsOfDustConstants.BanditHordeCapSeason0Late : RealmsOfDustConstants.BanditHordeCapSeason0Early,
+            1 => isLateSeason ? RealmsOfDustConstants.BanditHordeCapSeason1Late : RealmsOfDustConstants.BanditHordeCapSeason1Early,
+            2 => isLateSeason ? RealmsOfDustConstants.BanditHordeCapSeason2Late : RealmsOfDustConstants.BanditHordeCapSeason2Early,
+            _ => isLateSeason ? RealmsOfDustConstants.BanditHordeCapSeason3Late : RealmsOfDustConstants.BanditHordeCapSeason3Early
         };
     }
 
@@ -40,7 +41,8 @@ public class BanditHordeMergeService
         }
 
         int seasonIndex = CampaignSeasonHelper.GetElapsedSeasonIndex();
-        int hordeCap = GetHordeCapForSeason(seasonIndex);
+        bool isLateSeason = CampaignSeasonHelper.IsSecondHalfOfSeason();
+        int hordeCap = GetHordeCapForSeason(seasonIndex, isLateSeason);
 
         var eligible = new List<MobileParty>(banditParties.Count);
         for (int i = 0; i < banditParties.Count; i++)

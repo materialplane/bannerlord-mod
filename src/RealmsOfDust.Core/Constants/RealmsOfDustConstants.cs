@@ -67,11 +67,29 @@ public static class RealmsOfDustConstants
     public const int MinorClanPrisonerCapSeason2 = PostPlaguePrisonerCapSeason2;
     public const int MinorClanPrisonerCapSeason3 = PostPlaguePrisonerCapSeason3;
 
-    // --- Bandit Horde Merging (Brigand Coalitions) ---
-    public const int BanditHordeCapSeason0 = 15; // Summer (Days 1-21) - Controlled early start (Player cap: 25)
-    public const int BanditHordeCapSeason1 = 30; // Autumn (Days 22-42) - Player cap: 35
-    public const int BanditHordeCapSeason2 = 45; // Winter (Days 43-63) - Player cap: 50
-    public const int BanditHordeCapSeason3 = 60; // Spring / Year 2+ (Days 64+) - Player cap: 70
+    // --- Bandit Horde Merging (Brigand Coalitions - 2-Phase Seasons) ---
+    // Season 0: Summer (Player Cap: 25)
+    public const int BanditHordeCapSeason0Early = 15; // Days 1-10: Controlled early start
+    public const int BanditHordeCapSeason0Late = 30;  // Days 11-21: Exceeds player cap by +5
+
+    // Season 1: Autumn (Player Cap: 35)
+    public const int BanditHordeCapSeason1Early = 30; // Days 22-31
+    public const int BanditHordeCapSeason1Late = 40;  // Days 32-42: Exceeds player cap by +5
+
+    // Season 2: Winter (Player Cap: 50)
+    public const int BanditHordeCapSeason2Early = 45; // Days 43-52
+    public const int BanditHordeCapSeason2Late = 55;  // Days 53-63: Exceeds player cap by +5
+
+    // Season 3: Spring / Year 2+ (Player Cap: 70)
+    public const int BanditHordeCapSeason3Early = 65; // Days 64-73
+    public const int BanditHordeCapSeason3Late = 75;  // Days 74+: Exceeds player cap by +5
+
+    // Legacy backwards-compatible constants
+    public const int BanditHordeCapSeason0 = BanditHordeCapSeason0Early;
+    public const int BanditHordeCapSeason1 = BanditHordeCapSeason1Early;
+    public const int BanditHordeCapSeason2 = BanditHordeCapSeason2Early;
+    public const int BanditHordeCapSeason3 = BanditHordeCapSeason3Early;
+
     public const float BanditMergeProximitySquared = 16f; // Within 4.0 map distance units
     public const float BanditMergeChancePerHour = 0.30f; // 30% chance to merge when within proximity
     public const float BanditLooterSpawnMultiplier = 1.30f; // +30% looter population cap

@@ -45,4 +45,25 @@ public static class CampaignSeasonHelper
             return 0;
         }
     }
+
+    /// <summary>
+    /// Checks if the current campaign date is in the second half of a 21-day season (Day 11 to 21).
+    /// </summary>
+    public static bool IsSecondHalfOfSeason()
+    {
+        if (Campaign.Current == null)
+        {
+            return false;
+        }
+
+        try
+        {
+            // Bannerlord seasons are 21 days (GetDayOfSeason is 0 to 20)
+            return CampaignTime.Now.GetDayOfSeason >= 10;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
