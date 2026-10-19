@@ -68,10 +68,10 @@ public static class RealmsOfDustConstants
     public const int MinorClanPrisonerCapSeason3 = PostPlaguePrisonerCapSeason3;
 
     // --- Bandit Horde Merging (Brigand Coalitions) ---
-    public const int BanditHordeCapSeason0 = 25; // Summer (Days 1-21)
-    public const int BanditHordeCapSeason1 = 55; // Autumn (Days 22-42)
-    public const int BanditHordeCapSeason2 = 65; // Winter (Days 43-63)
-    public const int BanditHordeCapSeason3 = 75; // Spring / Year 2+ (Days 64+)
+    public const int BanditHordeCapSeason0 = 20; // Summer (Days 1-21) - Player cap: 25
+    public const int BanditHordeCapSeason1 = 30; // Autumn (Days 22-42) - Player cap: 35
+    public const int BanditHordeCapSeason2 = 45; // Winter (Days 43-63) - Player cap: 50
+    public const int BanditHordeCapSeason3 = 60; // Spring / Year 2+ (Days 64+) - Player cap: 70
     public const float BanditMergeProximitySquared = 16f; // Within 4.0 map distance units
     public const float BanditMergeChancePerHour = 0.30f; // 30% chance to merge when within proximity
     public const float BanditLooterSpawnMultiplier = 1.30f; // +30% looter population cap
