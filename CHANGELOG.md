@@ -37,8 +37,32 @@ This project follows [Semantic Versioning](https://semver.org/) (`vMAJOR.MINOR.P
 
 ---
 
+## [v1.2.0] — 2026-10-19
+
+### Gameplay & Balance Updates
+* **2-Phase Seasonal Bandit Horde Merging:**
+  * Summer (Days 1–10: Cap 15, Days 11–21: Cap 30).
+  * Autumn (Days 22–31: Cap 30, Days 32–42: Cap 40).
+  * Winter (Days 43–52: Cap 45, Days 53–63: Cap 55).
+  * Spring / Year 2+ (Days 64–73: Cap 65, Days 74+: Cap 75).
+  * Second-half pressure ensures roaming brigand stacks maintain tactical challenge ahead of the player cap.
+
+---
+
+## [v1.3.0] — 2026-10-19
+
+### Gameplay & Balance Updates
+* **Difficulty-Aware Personal Skill Party Size Unlocks:**
+  * **Realistic (Hardest / Bannerlord):** Party size is strictly clamped to 25 during Season 0 (Summer). Personal bonuses from Steward skill and combat/leadership perks unlock starting in Season 1 (Autumn 35-man bump), stacking directly on top of the seasonal baseline.
+  * **Easy / Very Easy (Warrior / Freebooter):** Personal Steward and perk bonuses are unlocked from Day 1, allowing early army expansion beyond the baseline 25.
+* **Year 1 Sovereign Bonus Suppression:**
+  * The +20 King/Sovereign faction leader bonus is suppressed during Year 1 (Days 1–84) for all realms to reflect post-plague crown rebuilding.
+  * Sovereign kingdom bonuses fully unlock in Year 2+ (Days 85+).
+
+---
+
 ## [Unreleased] — In Development
 
-### Planned for v1.2.0
+### Planned for v1.4.0
 * **Bandit Horde Mobility:** Inject pack/sumpter mounts into merged hordes to prevent heavy loot over-encumbrance and sluggish campaign map crawling.
 * **Settlement Realm Guards (Patrols):** Enable Guard House projects for Castles and synchronize patrol sizes with seasonal horde caps.

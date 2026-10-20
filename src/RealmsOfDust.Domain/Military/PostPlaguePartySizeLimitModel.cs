@@ -10,27 +10,44 @@ using RealmsOfDust.Core.Constants;
 /// <summary>
 /// Enforces universal post-plague recovery caps on all mobile field armies and prisoner sizes.
 /// In Year 1, lord warbands scale progressively across the 4 seasons (25 -> 35 -> 50 -> 70),
-/// guaranteeing that no faction or king can snowball into massive 90+ doomstacks early.
+/// suppressing the +20 sovereign kingdom bonus until Year 2.
+/// Player personal skill and perk bonuses unlock based on difficulty and season progression.
 /// </summary>
 public class PostPlaguePartySizeLimitModel : DefaultPartySizeLimitModel
 {
     private static readonly TextObject PostPlagueArmyText = new TextObject("{=rod_post_plague_army}Post-Plague Manpower Cap");
     private static readonly TextObject PostPlaguePrisonerText = new TextObject("{=rod_post_plague_prisoner}Post-Plague Prisoner Cap");
+    private static readonly TextObject PostPlagueRulerDepletionText = new TextObject("{=rod_post_plague_ruler}Post-Plague Sovereign Reconstruction");
 
     /// <inheritdoc />
     public override ExplainedNumber GetPartyMemberSizeLimit(PartyBase party, bool includeDescriptions = false)
     {
         ExplainedNumber result = base.GetPartyMemberSizeLimit(party, includeDescriptions);
 
-        if (party?.MobileParty != null && party.MobileParty.IsLordParty)
+        if (party?.MobileParty == null || !party.MobileParty.IsLordParty)
         {
-            int seasonIndex = CampaignSeasonHelper.GetElapsedSeasonIndex();
-            int maxCap = GetPostPlaguePartySizeCap(seasonIndex);
+            return result;
+        }
 
-            if (maxCap > 0 && result.ResultNumber > maxCap)
-            {
-                result.LimitMax(maxCap, includeDescriptions ? PostPlagueArmyText : null);
-            }
+        int seasonIndex = CampaignSeasonHelper.GetElapsedSeasonIndex();
+
+        // Suppress the +20 Sovereign Kingdom Leader bonus during Year 1 (Days 1-84)
+        if (seasonIndex < 4 && IsKingdomLeader(party.MobileParty))
+        {
+            result.Add(-20f, includeDescriptions ? PostPlagueRulerDepletionText : null);
+        }
+
+        int baseCap = GetPostPlaguePartySizeCap(seasonIndex);
+        if (baseCap <= 0)
+        {
+            return result; // Year 2+: Uncapped vanilla limit
+        }
+
+        int effectiveCap = CalculateEffectivePartyLimit(party.MobileParty, baseCap, seasonIndex);
+
+        if (result.ResultNumber > effectiveCap)
+        {
+            result.LimitMax(effectiveCap, includeDescriptions ? PostPlagueArmyText : null);
         }
 
         return result;
@@ -104,4 +121,32 @@ public class PostPlaguePartySizeLimitModel : DefaultPartySizeLimitModel
     /// Backwards-compatible alias for minor clan queries.
     /// </summary>
     public static int GetMinorFactionPrisonerCap(int seasonIndex) => GetPostPlaguePrisonerCap(seasonIndex);
+
+    private static bool IsKingdomLeader(MobileParty party)
+    {
+        return party.LeaderHero != null
+            && party.MapFaction is Kingdom kingdom
+            && kingdom.Leader == party.LeaderHero;
+    }
+
+    private static int CalculateEffectivePartyLimit(MobileParty party, int baseCap, int seasonIndex)
+    {
+        if (!party.IsMainParty)
+        {
+            return baseCap;
+        }
+
+        // On Realistic (Hardest mode), personal bonuses kick in at Season 1 (35-troop bump).
+        // On Easy / Very Easy mode, personal bonuses are active from Day 1.
+        bool isHardMode = CampaignOptions.PlayerTroopsReceivedDamage == CampaignOptions.Difficulty.Realistic;
+        bool bonusesActive = !isHardMode || seasonIndex >= 1;
+
+        if (!bonusesActive)
+        {
+            return baseCap;
+        }
+
+        int personalBonus = PlayerPartyBonusCalculator.CalculatePersonalBonus(party);
+        return baseCap + personalBonus;
+    }
 }
