@@ -2,7 +2,7 @@
 <Module>
   <Name value="Realms of Dust" />
   <Id value="RealmsOfDust" />
-  <Version value="v1.0.0" />
+  <Version value="v1.3.0" />
   <ModuleCategory value="Singleplayer" />
   <ModuleType value="Community" />
   <SingleplayerModule value="true" />
