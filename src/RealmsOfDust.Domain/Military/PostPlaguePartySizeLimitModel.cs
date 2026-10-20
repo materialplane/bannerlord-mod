@@ -29,25 +29,32 @@ public class PostPlaguePartySizeLimitModel : DefaultPartySizeLimitModel
             return result;
         }
 
-        int seasonIndex = CampaignSeasonHelper.GetElapsedSeasonIndex();
-
-        // Suppress the +20 Sovereign Kingdom Leader bonus during Year 1 (Days 1-84)
-        if (seasonIndex < 4 && IsKingdomLeader(party.MobileParty))
+        try
         {
-            result.Add(-20f, includeDescriptions ? PostPlagueRulerDepletionText : null);
+            int seasonIndex = CampaignSeasonHelper.GetElapsedSeasonIndex();
+
+            // Suppress the +20 Sovereign Kingdom Leader bonus during Year 1 (Days 1-84)
+            if (seasonIndex < 4 && IsKingdomLeader(party.MobileParty))
+            {
+                result.Add(-20f, includeDescriptions ? PostPlagueRulerDepletionText : null);
+            }
+
+            int baseCap = GetPostPlaguePartySizeCap(seasonIndex);
+            if (baseCap <= 0)
+            {
+                return result; // Year 2+: Uncapped vanilla limit
+            }
+
+            int effectiveCap = PostPlagueBonusCalculator.CalculateEffectivePartyLimit(party.MobileParty, baseCap, seasonIndex);
+
+            if (result.ResultNumber > effectiveCap)
+            {
+                result.LimitMax(effectiveCap, includeDescriptions ? PostPlagueArmyText : null);
+            }
         }
-
-        int baseCap = GetPostPlaguePartySizeCap(seasonIndex);
-        if (baseCap <= 0)
+        catch
         {
-            return result; // Year 2+: Uncapped vanilla limit
-        }
-
-        int effectiveCap = CalculateEffectivePartyLimit(party.MobileParty, baseCap, seasonIndex);
-
-        if (result.ResultNumber > effectiveCap)
-        {
-            result.LimitMax(effectiveCap, includeDescriptions ? PostPlagueArmyText : null);
+            // Defensive guard: prevent calculation exceptions during save game deserialization
         }
 
         return result;
@@ -60,12 +67,19 @@ public class PostPlaguePartySizeLimitModel : DefaultPartySizeLimitModel
 
         if (party?.MobileParty != null && party.MobileParty.IsLordParty)
         {
-            int seasonIndex = CampaignSeasonHelper.GetElapsedSeasonIndex();
-            int maxPrisonerCap = GetPostPlaguePrisonerCap(seasonIndex);
-
-            if (maxPrisonerCap > 0 && result.ResultNumber > maxPrisonerCap)
+            try
             {
-                result.LimitMax(maxPrisonerCap, includeDescriptions ? PostPlaguePrisonerText : null);
+                int seasonIndex = CampaignSeasonHelper.GetElapsedSeasonIndex();
+                int maxPrisonerCap = GetPostPlaguePrisonerCap(seasonIndex);
+
+                if (maxPrisonerCap > 0 && result.ResultNumber > maxPrisonerCap)
+                {
+                    result.LimitMax(maxPrisonerCap, includeDescriptions ? PostPlaguePrisonerText : null);
+                }
+            }
+            catch
+            {
+                // Defensive guard during save deserialization
             }
         }
 
@@ -127,26 +141,5 @@ public class PostPlaguePartySizeLimitModel : DefaultPartySizeLimitModel
         return party.LeaderHero != null
             && party.MapFaction is Kingdom kingdom
             && kingdom.Leader == party.LeaderHero;
-    }
-
-    private static int CalculateEffectivePartyLimit(MobileParty party, int baseCap, int seasonIndex)
-    {
-        if (!party.IsMainParty)
-        {
-            return baseCap;
-        }
-
-        // On Realistic (Hardest mode), personal bonuses kick in at Season 1 (35-troop bump).
-        // On Easy / Very Easy mode, personal bonuses are active from Day 1.
-        bool isHardMode = CampaignOptions.PlayerTroopsReceivedDamage == CampaignOptions.Difficulty.Realistic;
-        bool bonusesActive = !isHardMode || seasonIndex >= 1;
-
-        if (!bonusesActive)
-        {
-            return baseCap;
-        }
-
-        int personalBonus = PlayerPartyBonusCalculator.CalculatePersonalBonus(party);
-        return baseCap + personalBonus;
     }
 }
