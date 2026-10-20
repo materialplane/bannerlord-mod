@@ -1,0 +1,117 @@
+================================================================================
+                    REALMS OF DUST — AI AGENT HANDOFF DOCUMENT
+================================================================================
+Timestamp: 2026-10-20
+Current Mod Version: v1.3.1 (Commit: 2ed296f on main)
+Primary Working Directory: C:\Users\drew0\Documents\bannerlord-mod
+Target Platform: Mount & Blade II: Bannerlord (v1.2.x+ / .NET 6 / netstandard2.0)
+Steam Workshop ID: 3822706398 (In Moderation Queue — DO NOT TOUCH OR RUN STEAMCMD)
+================================================================================
+
+1. PROJECT OVERVIEW & SCOPE
+--------------------------------------------------------------------------------
+The developer is managing two interconnected projects under the "Realms of Dust" IP:
+1. The Standalone Commercial Game (Future Primary Asset):
+   - A tactical, 2D top-down, turn-based 4-lane WeGo mercenary RPG.
+   - Full specification is in `design/09_STANDALONE_GAME_SPEC.txt`.
+   - DO NOT work on or mention this unless the user specifically asks for it.
+2. The Bannerlord Overhaul Mod (Current Active Work):
+   - Fractures Calradia into 53 equal, independent micro-realms (1 Town, 1 Castle, 4 Villages).
+   - Ground Zero Reset: 0 starting troops, 20-man garrisons, pre-activated bandit hideouts.
+   - Focus is 100% on gameplay balance, stability, and player experience.
+
+--------------------------------------------------------------------------------
+2. COMPLETED IN THIS SESSION (VERSIONS v1.1.0 -> v1.3.1)
+--------------------------------------------------------------------------------
+A. v1.1.0 & v1.1.1 — Starter Troops & Early Balancing:
+   - Added `PlayerStartingRetinueService.cs`: Gives the player cultural starter troops on Day 1.
+   - Realistic (Hardest): 10x Tier-2 Shielded Infantry (holds tight shield wall against pebbles/looters).
+   - Easy/Very Easy: 6x T1, 3x T2, 1x T3 (or 4x T1, 4x T2, 4x T3).
+   - Culture resolves dynamically from player character and capital culture.
+
+B. v1.2.0 — 2-Phase Seasonal Bandit Horde Scaling:
+   - Bandit hordes merge up to dynamic caps in `BanditHordeMergeService.cs`:
+     - Summer (S0): Days 1-10 (Cap 15), Days 11-21 (Cap 30).
+     - Autumn (S1): Days 22-31 (Cap 30), Days 32-42 (Cap 40).
+     - Winter (S2): Days 43-52 (Cap 45), Days 53-63 (Cap 55).
+     - Spring (S3 / Yr 2+): Days 64-73 (Cap 65), Days 74+ (Cap 75).
+   - Second-half pressure ensures roaming bandits stay +5 above player caps.
+
+C. v1.3.0 — Difficulty-Aware Personal Party Size & Sovereign Unlocks:
+   - Realistic Mode: Hard-capped at 25 in Season 0. Personal bonuses from Steward skill (+0.25/level)
+     and combat/leadership perks (Merry Men, Horde Leader, Authority, etc.) unlock in Season 1 (Autumn 35 bump),
+     stacking directly on top of the 35 baseline.
+   - Easy Mode: Personal Steward and perk bonuses are unlocked from Day 1.
+   - Sovereign Kingdom Leader Bonus (+20): Suppressed during Year 1 (Days 1-84) for all realms to represent
+     post-plague crown rebuilding. Unlocks in Year 2+.
+   - Created `PostPlagueBonusCalculator.cs` and refactored `PostPlaguePartySizeLimitModel.cs`.
+   - Fixed save loading freeze: Wrapped all perk and campaign option lookups in defensive try/catch guards
+     so they never throw NullReferenceException during early save deserialization.
+
+D. v1.3.1 — Settlement Rebellion & Culture-Clash Fix:
+   - Issue: 4 capitals (out of 53, ~7.5%) were rebelling in Month 1 due to vanilla culture mismatch (-3 loyalty/day)
+     and low 20-man garrisons.
+   - Fix 1 (`FactionElevationService.cs`): AI clan assignment now strictly prioritizes noble clans matching
+     the capital's exact culture.
+   - Fix 2 (`PostPlagueSettlementLoyaltyModel.cs`): Added Year 1 civic loyalty model:
+     - Softens cross-culture penalty by +2.0.
+     - Adds a +1.0 civic stabilization buffer against early low-garrison security/food dips.
+     - Registered in `RealmsOfDustSubModule.cs`.
+
+E. Discord Server Streamlined (8 Channels Total):
+   - Streamlined from 13 channels down to 8 clean channels across 3 categories:
+     - 📢 WELCOME & NOTICE BOARD: #welcome-and-info, #announcements, #dev-builds
+     - 💬 THE GREAT HALL: #general-chat, #screenshots-and-media, #memes
+     - 🛠️ FORGE & FEEDBACK: #suggestions, #bugs
+   - Deleted obsolete channels (#dev-log, #patch-notes, #strategy-and-meta, #tavern-stories,
+     #mod-troubleshooting, #marshal-command, #vanguard-playtesting, and category 🔒 WAR ROOM).
+   - Preserved message history by renaming channels (#feedback-and-ideas -> #suggestions, #bug-reports -> #bugs, #realm-heraldry -> #screenshots-and-media).
+   - Updated `discord-bot/bot.py` and `post_devlog.py`. Bot daemon running in background.
+
+--------------------------------------------------------------------------------
+3. MANDATORY AAA ARCHITECTURAL RULES (CRITICAL — NEVER BREAK)
+--------------------------------------------------------------------------------
+1. THE 200-LINE CODE FILE MANDATE:
+   - No single `.cs` file may exceed 200 lines. Proactively refactor and split before 150 lines.
+   - Current files are strictly compliant:
+     * `PostPlaguePartySizeLimitModel.cs`: 145 lines
+     * `PostPlagueBonusCalculator.cs`: 92 lines
+     * `PostPlagueSettlementLoyaltyModel.cs`: 56 lines
+     * `FactionElevationService.cs`: 157 lines
+     * `RealmsOfDustSubModule.cs`: 63 lines
+
+2. GIT RELEASE GUARD:
+   - Direct manual git commits or raw `git push` for releases are FORBIDDEN.
+   - Always run: `ship.bat <VERSION> "<COMMIT_MESSAGE>"`
+   - `ship.bat` updates `Directory.Build.props`, `SubModule.xml`, compiles cleanly,
+     runs `deploy.bat` to Bannerlord Modules, commits, and pushes to GitHub.
+
+3. SAVE GAME COMPATIBILITY & MODULE MISMATCH:
+   - Bannerlord displays a "Module Mismatch" popup whenever `SubModule.xml`'s version differs
+     from the version recorded in a save file.
+   - Clicking "Yes" is intended and loads the save. Once saved again, the prompt disappears.
+
+4. HUMAN GAMER TONE:
+   - In all dev logs, Discord messages, commit notes, and chat responses, NEVER use corporate/AI
+     buzzwords ("retinue", "mitigate", "ecosystem", "paradigm", "testbed").
+   - Write casually like an indie gamer dev sharing thoughts with friends
+     (e.g. "starter troops", "getting wrecked by throwing axes", "nerfed early bandit stacks").
+
+--------------------------------------------------------------------------------
+4. BUILD TOOLCHAIN & ENVIRONMENT
+--------------------------------------------------------------------------------
+- User .NET SDK: C:\Users\drew0\.dotnet\dotnet.exe (Version 8.0.426)
+- Build Command: "C:\Users\drew0\.dotnet\dotnet.exe" build src\RealmsOfDust.sln
+- Deploy Script: `deploy.bat` (copies build output directly into Bannerlord's Modules\RealmsOfDust)
+- Bannerlord Path: C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord
+- Discord Bot Directory: `discord-bot/` (Token in `discord-bot/.env`)
+
+--------------------------------------------------------------------------------
+5. NEXT ROADMAP ITEMS (PLANNED FOR v1.4.0)
+--------------------------------------------------------------------------------
+- Bandit Horde Mobility: Inject pack/sumpter mounts into merged hordes to prevent heavy loot
+  over-encumbrance and slow campaign map crawling.
+- Settlement Realm Guards (Patrols): Enable Guard House projects for Castles and synchronize
+  patrol sizes with seasonal horde caps.
+- See `design/08_DIPLOMACY_INTEGRATION.txt` for active roadmap details.
+================================================================================
