@@ -49,6 +49,17 @@ This project follows [Semantic Versioning](https://semver.org/) (`vMAJOR.MINOR.P
 
 ---
 
+## [v1.3.1] — 2026-10-20
+
+### Gameplay & Balance Updates
+* **Culture-Strict Domain Assignment:**
+  * AI clan assignment now strictly prioritizes noble clans matching the capital's culture, preventing mismatched rulers from suffering instant -3 daily loyalty culture shock.
+* **Post-Plague Reconstruction Accord (Settlement Loyalty):**
+  * Added `PostPlagueSettlementLoyaltyModel` to buffer town loyalty during Year 1 (Days 1–84).
+  * Softens cross-culture loyalty penalty by +2.0 and provides a +1.0 civic stabilization buffer for capitals recovering from depleted garrisons and early food shortages.
+
+---
+
 ## [v1.3.0] — 2026-10-19
 
 ### Gameplay & Balance Updates

@@ -49,6 +49,7 @@ public sealed class RealmsOfDustSubModule : MBSubModuleBase
                 campaignGameStarter.AddModel(new PostPlagueClanFinanceModel());
                 campaignGameStarter.AddModel(new PostPlaguePartySizeLimitModel());
                 campaignGameStarter.AddModel(new RealmsOfDustBanditDensityModel());
+                campaignGameStarter.AddModel(new PostPlagueSettlementLoyaltyModel());
             }
         }
         catch (System.Exception ex)

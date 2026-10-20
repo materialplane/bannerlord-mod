@@ -86,7 +86,20 @@ public sealed class FactionElevationService : IFactionElevationService
             return candidate;
         }
 
-        // 2. Fall back to any unassigned, living noble clan
+        // 2. Prioritize an unassigned noble clan matching the Capital's culture to prevent culture clash
+        Clan? cultureMatch = Clan.All.FirstOrDefault(c =>
+            !c.IsMinorFaction &&
+            !c.IsEliminated &&
+            !assignedClans.Contains(c) &&
+            c != Clan.PlayerClan &&
+            c.Culture == domain.Capital.Culture);
+
+        if (cultureMatch != null)
+        {
+            return cultureMatch;
+        }
+
+        // 3. Fall back to any unassigned, living noble clan
         return Clan.All.FirstOrDefault(c =>
             !c.IsMinorFaction &&
             !c.IsEliminated &&
