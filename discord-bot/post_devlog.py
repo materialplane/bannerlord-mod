@@ -31,16 +31,16 @@ async def on_ready():
     posted = False
 
     for guild in client.guilds:
-        channel = discord.utils.get(guild.text_channels, name="dev-log")
+        channel = discord.utils.get(guild.text_channels, name="announcements")
         if channel:
             embed = discord.Embed(
-                title=f"🛠️ {TITLE}",
+                title=f"📢 {TITLE}",
                 description=MESSAGE,
-                color=discord.Color.dark_teal()
+                color=discord.Color.gold()
             )
-            embed.set_footer(text="Realms of Dust • Development Journal")
+            embed.set_footer(text="Realms of Dust • Announcements & Updates")
             await channel.send(embed=embed)
-            print(f"[Success] Posted dev-log entry to #{channel.name} in {guild.name}")
+            print(f"[Success] Posted update to #{channel.name} in {guild.name}")
             posted = True
             break
 

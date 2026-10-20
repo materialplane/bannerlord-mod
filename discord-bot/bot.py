@@ -33,34 +33,23 @@ STRUCTURE = [
         "category": "📢 WELCOME & NOTICE BOARD",
         "channels": [
             {"name": "welcome-and-info", "topic": "Overview of Realms of Dust, rules, and community links.", "read_only": True},
-            {"name": "announcements", "topic": "Official Realms of Dust announcements and major releases.", "read_only": True},
-            {"name": "dev-log", "topic": "Development updates, balance snapshots, and roadmap progress.", "read_only": True},
-            {"name": "patch-notes", "topic": "Detailed changelog and build versions.", "read_only": True},
+            {"name": "announcements", "topic": "Official Realms of Dust announcements, major releases, and patch notes.", "read_only": True},
+            {"name": "dev-builds", "topic": "Pre-release test builds, experimental patches, and ZIP updates.", "read_only": True},
         ]
     },
     {
         "category": "💬 THE GREAT HALL",
         "channels": [
             {"name": "general-chat", "topic": "Main community discussion for Mount & Blade II: Bannerlord & Realms of Dust."},
-            {"name": "strategy-and-meta", "topic": "Starting realms, economics, troop progression, and conquest tactics."},
-            {"name": "realm-heraldry", "topic": "Share your kingdom banners, custom clans, and faction screenshots."},
-            {"name": "tavern-stories", "topic": "Campaign roleplay, glorious victories, and brutal defeats."},
+            {"name": "screenshots-and-media", "topic": "Share screenshots, kingdom banners, clips, and battle media."},
+            {"name": "memes", "topic": "Mount & Blade and Realms of Dust memes and humor."},
         ]
     },
     {
         "category": "🛠️ FORGE & FEEDBACK",
         "channels": [
-            {"name": "feedback-and-ideas", "topic": "Suggestions, balance feedback, and feature requests."},
-            {"name": "bug-reports", "topic": "Report campaign bugs, crashes, and visual glitches."},
-            {"name": "mod-troubleshooting", "topic": "Installation help, load order advice, and technical support."},
-        ]
-    },
-    {
-        "category": "🔒 WAR ROOM",
-        "private": True,
-        "channels": [
-            {"name": "marshal-command", "topic": "Staff discussion and bot command center."},
-            {"name": "vanguard-playtesting", "topic": "Pre-release testing, raw development builds, and private feedback."},
+            {"name": "suggestions", "topic": "Suggestions, balance feedback, and feature requests."},
+            {"name": "bugs", "topic": "Report campaign bugs, crashes, and visual issues."},
         ]
     }
 ]
@@ -69,16 +58,16 @@ WELCOME_EMBED = {
     "title": "⚔️ Welcome to Realms of Dust ⚔️",
     "description": (
         "The Great Empires have fallen.\n\n"
-        "Calradia lies fractured into rival domains, each fighting for survival in the aftermath of total collapse. "
-        "Every warlord—including you—starts from ground zero with an ancestral seat, bare walls, and a lone sword.\n\n"
+        "Calradia lies fractured into 50+ rival micro-realms, each fighting for survival in the aftermath of total collapse. "
+        "Every warlord starts from ground zero with an ancestral seat, bare walls, and a lone sword.\n\n"
         "Rebuild your realm, conquer the fractured lands, and forge a new empire from the dust.\n\n"
         "### 📜 Rules of Engagement\n"
         "1. **Respect Your Fellow Warlords:** Maintain civil discourse in all channels.\n"
-        "2. **Channel Discipline:** Keep bug reports in `#bug-reports` and balance discussion in `#feedback-and-ideas`.\n"
+        "2. **Channel Discipline:** Report issues in `#bugs` and balance suggestions in `#suggestions`.\n"
         "3. **Authentic Conquest:** Keep discussion fair and authentic to the grind.\n\n"
-        "### 🗺️ Useful Resources\n"
-        "• Check <#announcements> for release updates.\n"
-        "• Check <#patch-notes> for current build details.\n"
+        "### 🗺️ Channels Overview\n"
+        "• Check <#announcements> for release updates and patch notes.\n"
+        "• Check <#dev-builds> for pre-release test builds and ZIP packages.\n"
         "• Join the council in <#general-chat>!"
     )
 }
@@ -171,25 +160,31 @@ async def execute_server_setup(guild, report_progress_func):
 
     if welcome_channel:
         ann_ch = discord.utils.get(guild.text_channels, name="announcements")
-        patch_ch = discord.utils.get(guild.text_channels, name="patch-notes")
+        dev_ch = discord.utils.get(guild.text_channels, name="dev-builds")
         gen_ch = discord.utils.get(guild.text_channels, name="general-chat")
-        feed_ch = discord.utils.get(guild.text_channels, name="feedback-and-ideas")
-        bug_ch = discord.utils.get(guild.text_channels, name="bug-reports")
+        media_ch = discord.utils.get(guild.text_channels, name="screenshots-and-media")
+        memes_ch = discord.utils.get(guild.text_channels, name="memes")
+        sug_ch = discord.utils.get(guild.text_channels, name="suggestions")
+        bugs_ch = discord.utils.get(guild.text_channels, name="bugs")
 
         desc = (
             "The Great Empires have fallen.\n\n"
-            "Calradia lies fractured into rival domains, each fighting for survival in the aftermath of total collapse. "
-            "Every warlord—including you—starts from ground zero with an ancestral seat, bare walls, and a lone sword.\n\n"
+            "Calradia lies fractured into 50+ rival micro-realms, each fighting for survival in the aftermath of total collapse. "
+            "Every warlord starts from ground zero with an ancestral seat, bare walls, and a lone sword.\n\n"
             "Rebuild your realm, conquer the fractured lands, and forge a new empire from the dust.\n\n"
             "### 📜 Rules of Engagement\n"
-            "1. **Respect Your Fellow Warlords:** Maintain civil discourse across all channels.\n"
-            f"2. **Channel Discipline:** Keep bug reports in {bug_ch.mention if bug_ch else '#bug-reports'} "
-            f"and balance discussion in {feed_ch.mention if feed_ch else '#feedback-and-ideas'}.\n"
-            "3. **Authentic Conquest:** Keep discussion fair and authentic to the grind.\n\n"
-            "### 🗺️ Useful Resources\n"
-            f"• Check {ann_ch.mention if ann_ch else '#announcements'} for release updates.\n"
-            f"• Check {patch_ch.mention if patch_ch else '#patch-notes'} for current build details.\n"
-            f"• Join the council in {gen_ch.mention if gen_ch else '#general-chat'}!"
+            "1. **Respect Your Fellow Warlords:** Keep discussions civil.\n"
+            f"2. **Channel Discipline:** Report issues in {bugs_ch.mention if bugs_ch else '#bugs'} "
+            f"and balance suggestions in {sug_ch.mention if sug_ch else '#suggestions'}.\n"
+            "3. **Fair Play:** Keep conquest authentic to the grind.\n\n"
+            "### 🗺️ Channels Overview\n"
+            f"• {ann_ch.mention if ann_ch else '#announcements'} — Releases, major updates, and patch notes\n"
+            f"• {dev_ch.mention if dev_ch else '#dev-builds'} — Pre-release test builds and ZIP packages\n"
+            f"• {gen_ch.mention if gen_ch else '#general-chat'} — Main community discussion\n"
+            f"• {media_ch.mention if media_ch else '#screenshots-and-media'} — Share your empire, banners, and clips\n"
+            f"• {memes_ch.mention if memes_ch else '#memes'} — Memes and banter\n"
+            f"• {sug_ch.mention if sug_ch else '#suggestions'} — Ideas and feedback\n"
+            f"• {bugs_ch.mention if bugs_ch else '#bugs'} — Bug reports and crashes"
         )
 
         history = [m async for m in welcome_channel.history(limit=5)]
