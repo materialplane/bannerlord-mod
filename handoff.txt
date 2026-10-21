@@ -2,7 +2,7 @@
                     REALMS OF DUST — AI AGENT HANDOFF DOCUMENT
 ================================================================================
 Timestamp: 2026-10-20
-Current Mod Version: v1.3.1 (Commit: 2ed296f on main)
+Current Mod Version: v1.4.0 (Pending ship.bat on main)
 Primary Working Directory: C:\Users\drew0\Documents\bannerlord-mod
 Target Platform: Mount & Blade II: Bannerlord (v1.2.x+ / .NET 6 / netstandard2.0)
 Steam Workshop ID: 3822706398 (In Moderation Queue — DO NOT TOUCH OR RUN STEAMCMD)
@@ -68,6 +68,13 @@ E. Discord Server Streamlined (8 Channels Total):
    - Preserved message history by renaming channels (#feedback-and-ideas -> #suggestions, #bug-reports -> #bugs, #realm-heraldry -> #screenshots-and-media).
    - Updated `discord-bot/bot.py` and `post_devlog.py`. Bot daemon running in background.
 
+F. v1.4.0 — Bandit Horde Mobility & Pack Mount Logistics:
+   - Added `BanditHordeMountService.cs`: Merged hordes (20+ men) automatically receive 1 pack mount
+     per 5 bandits to carry loot/prisoners without encumbrance penalties.
+   - Absorbs donor party items/mounts during mergers so loot is preserved.
+   - Added `PostPlaguePartySpeedModel.cs`: Guarantees a minimum 3.6 map speed floor for merged hordes.
+     Stops large stacks from crawling at 2.2 while allowing healthy caravans (4.6+) and players to escape safely.
+
 --------------------------------------------------------------------------------
 3. MANDATORY AAA ARCHITECTURAL RULES (CRITICAL — NEVER BREAK)
 --------------------------------------------------------------------------------
@@ -107,11 +114,10 @@ E. Discord Server Streamlined (8 Channels Total):
 - Discord Bot Directory: `discord-bot/` (Token in `discord-bot/.env`)
 
 --------------------------------------------------------------------------------
-5. NEXT ROADMAP ITEMS (PLANNED FOR v1.4.0)
+5. NEXT ROADMAP ITEMS (PLANNED FOR v1.5.0)
 --------------------------------------------------------------------------------
-- Bandit Horde Mobility: Inject pack/sumpter mounts into merged hordes to prevent heavy loot
-  over-encumbrance and slow campaign map crawling.
 - Settlement Realm Guards (Patrols): Enable Guard House projects for Castles and synchronize
   patrol sizes with seasonal horde caps.
+- Border Contiguity War Target Filter: AI kingdoms only declare war on adjacent neighbors.
 - See `design/08_DIPLOMACY_INTEGRATION.txt` for active roadmap details.
 ================================================================================

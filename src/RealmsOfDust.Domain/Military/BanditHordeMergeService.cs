@@ -135,6 +135,9 @@ public class BanditHordeMergeService
             receiver.PrisonRoster?.Add(donor.PrisonRoster);
         }
 
+        BanditHordeMountService.TransferLootAndMounts(receiver, donor);
+        BanditHordeMountService.EnsureHordeMobilityMounts(receiver);
+
         DestroyPartyAction.Apply(null, donor);
     }
 
@@ -159,5 +162,7 @@ public class BanditHordeMergeService
                 transferred += canTake;
             }
         }
+
+        BanditHordeMountService.EnsureHordeMobilityMounts(receiver);
     }
 }

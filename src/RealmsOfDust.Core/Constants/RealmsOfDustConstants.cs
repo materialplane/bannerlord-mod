@@ -94,6 +94,9 @@ public static class RealmsOfDustConstants
     public const float BanditMergeChancePerHour = 0.30f; // 30% chance to merge when within proximity
     public const float BanditLooterSpawnMultiplier = 1.30f; // +30% looter population cap
     public const int BanditHideoutRoamingCap = 4; // 4 roaming parties per hideout (up from vanilla 3)
+    public const int BanditHordeMobilityThreshold = 20; // 20+ troops triggers pack animal logistics & speed floor
+    public const int BanditMenPerPackMount = 5; // 1 pack animal per 5 bandits for carrying loot/prisoners
+    public const float BanditHordeMinSpeedFloor = 3.6f; // Minimum speed floor so large hordes don't snail-crawl
 
     // --- Player Starting Retinue (Anti-Ambush & Difficulty Scaling) ---
     // Realistic (Hardest / Bannerlord Difficulty): 10x T2 (Shielded infantry line)

@@ -72,8 +72,19 @@ This project follows [Semantic Versioning](https://semver.org/) (`vMAJOR.MINOR.P
 
 ---
 
+## [v1.4.0] — 2026-10-20
+
+### Gameplay & Balance Updates
+* **Bandit Horde Mobility & Pack Mount Logistics:**
+  * Merged bandit hordes (20+ troops) now automatically receive cheap pack mounts (1 per 5 bandits) to carry captured loot and prisoners without getting weighed down.
+  * Absorbs all donor party inventory and mounts during mergers so loot isn't lost to the void.
+* **Brigand Mobility Speed Floor:**
+  * Added `PostPlaguePartySpeedModel` to guarantee merged hordes never drop below a 3.6 map speed floor.
+  * Stops massive 40–75 man infantry coalitions from crawling at an immobile 2.2 pace, while keeping them slow enough for healthy caravans (4.6–5.2) and player scouting parties to pull away.
+
+---
+
 ## [Unreleased] — In Development
 
-### Planned for v1.4.0
-* **Bandit Horde Mobility:** Inject pack/sumpter mounts into merged hordes to prevent heavy loot over-encumbrance and sluggish campaign map crawling.
+### Planned for v1.5.0
 * **Settlement Realm Guards (Patrols):** Enable Guard House projects for Castles and synchronize patrol sizes with seasonal horde caps.

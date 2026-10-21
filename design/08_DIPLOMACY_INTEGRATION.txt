@@ -114,8 +114,8 @@ H. SETTLEMENT REALM GUARDS & PATROL PARTIES (ABSORBING "BETTER PATROLS")
 --------------------------------------------------------------------------------
 3. MASTER FEATURE ROADMAP & TO-DO CHECKLIST
 --------------------------------------------------------------------------------
-[IN PROGRESS] Phase 1: Difficulty-Scaled Player Starting Retinue (Anti-Ambush Buffer)
-[ ] Phase 2: Bandit Horde Mobility & Mount Balance (Prevent Snail Crawl)
+[X] Phase 1: Difficulty-Scaled Player Starting Retinue (Anti-Ambush Buffer)
+[X] Phase 2: Bandit Horde Mobility & Mount Balance (Prevent Snail Crawl)
 [ ] Phase 3: Settlement Realm Guards & Local Patrols (Anti-Raid Protection)
 [ ] Phase 4: Border Contiguity War Target Filter (Localized Frontlines)
 [ ] Phase 5: Mandatory Truce Cooldowns (Non-Aggression Post-Peace)
