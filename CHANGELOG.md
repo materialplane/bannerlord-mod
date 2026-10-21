@@ -84,7 +84,23 @@ This project follows [Semantic Versioning](https://semver.org/) (`vMAJOR.MINOR.P
 
 ---
 
+## [v1.5.0] — 2026-10-21
+
+### Gameplay & Balance Updates
+* **Rogue Deserter Companies & Season 0 Grace Period:**
+  * Deserters are completely suppressed during Season 0 (Summer / Days 1–21) to give players and AI realms breathing room to rebuild and clear starter bandit hideouts without getting wiped by rogue soldiers.
+  * Deserter companies become active starting in Season 1 (Autumn / Day 22+).
+* **Anti-Doomstack Merge Rules:**
+  * Only small splinter bands (25 or fewer troops) are eligible to merge into another party.
+  * Once a deserter company reaches 40+ troops, they become locked and stop absorbing smaller bands, ensuring the map always has a healthy variety of small and large targets.
+  * Enforces a strict 60-man hard cap on all deserter companies (overriding vanilla's 120-man blob).
+* **Tactical Outlaws & Military Loot:**
+  * Deserters fight in disciplined shield walls and spear braces, dropping legitimate military armor, weapons, and recruitable Tier 3–4 veterans.
+  * Zero diplomatic consequences, war declarations, or clan feuds from fighting them.
+
+---
+
 ## [Unreleased] — In Development
 
-### Planned for v1.5.0
+### Next in the Chamber
 * **Settlement Realm Guards (Patrols):** Enable Guard House projects for Castles and synchronize patrol sizes with seasonal horde caps.

@@ -62,7 +62,7 @@ E. EXPANSIONISM & COALITION BALANCING (ANTI-SNOWBALL)
      Neighboring micro-realms form temporary defensive pacts against runaway 
      conquerors, maintaining continent-wide equilibrium.
 
-F. DIFFICULTY-SCALED STARTING RETINUE (VETERAN RETINUE QUALITY SCALING)
+F. [COMPLETED - v1.1.0] DIFFICULTY-SCALED STARTING RETINUE (VETERAN RETINUE QUALITY SCALING)
    - Problem: Basic Tier 1 levies have virtually zero armor and terrible combat 
      stats; on Bannerlord difficulty, 10 raw recruits get slaughtered by 11 looters 
      hurling rocks.
@@ -82,14 +82,14 @@ F. DIFFICULTY-SCALED STARTING RETINUE (VETERAN RETINUE QUALITY SCALING)
    - Value: Ensures a player who starts on easier/medium modes has competent 
      bodyguards capable of surviving early skirmishes and protecting the lord.
 
-G. BANDIT HORDE MOBILITY & PACK MOUNT PROVISIONING
+G. [COMPLETED - v1.4.0] BANDIT HORDE MOBILITY & PACK MOUNT PROVISIONING
    - Problem: Large merged bandit hordes (30-60 troops) crawl at 2.5-3.0 speed 
      due to pure infantry weight and looted cargo, making them look sluggish and 
      harmless to caravans.
    - Solution: 
      * Provision merged hordes with a small ration of cheap sumpter/pack horses 
        proportional to their merged size (e.g., 1 pack horse per 4-5 bandits).
-     * Establish a reasonable minimum speed floor (3.7 - 4.0) so hordes move 
+     * Establish a reasonable minimum speed floor (3.6) so hordes move 
        deliberately without outrunning light scouts.
 
 H. SETTLEMENT REALM GUARDS & PATROL PARTIES (ABSORBING "BETTER PATROLS")
@@ -111,17 +111,56 @@ H. SETTLEMENT REALM GUARDS & PATROL PARTIES (ABSORBING "BETTER PATROLS")
    - Value: Eliminates dependency on external patrol mods while perfectly balancing 
      against our aggressive bandit horde ecosystem.
 
+I. ROGUE DESERTER COMPANIES (SOVEREIGN PVE COMBAT & MID-TIER GEAR BRIDGE)
+   - Problem: Starting on Day 1 as a sovereign kingdom removes the vanilla 
+     mercenary freelance grind loop. Players cannot safely fight kingdom armies 
+     without triggering existential wars that risk their capital. Meanwhile, merged 
+     looter hordes provide troop headcounts but throw rocks, fight without formations, 
+     and drop crude vendor junk (sickles and rags) instead of martial combat gear.
+     Furthermore, in vanilla Bannerlord, deserters rarely spawn, and when they do, 
+     they merge uncontrollably into 120-man blobs, vacuuming up every small band 
+     and leaving the rest of the map empty.
+   - Solution & Custom Mechanics:
+     1. Season 0 Suppression (The Rebuilding Grace):
+        * Deserters are completely suppressed during Season 0 (Summer / Days 1-21).
+        * Allows realms and players to rebuild from the Ground Zero reset, clear 
+          starter bandit hideouts, and train initial retinues without early military wipes.
+        * Deserters begin appearing at the end of the first season / start of Season 1 (Day 22+).
+     2. The 25-Troop Merge Eligibility Rule:
+        * Only small splinter bands (<= 25 troops) are eligible to merge into another party.
+        * Ensures small scattered remnants band together for survival (e.g., 20 + 25 -> 45).
+     3. The 40-Troop Company Lock Rule:
+        * Once a deserter company reaches 40+ troops, they are considered an "established 
+          battalion" and become LOCKED from absorbing smaller parties.
+        * Prevents the vanilla "Black Hole" effect where one giant stack swallows every 
+          deserter in the territory, ensuring the map retains a healthy variety of small 
+          (15-25) and large (40-60) targets.
+     4. Strict 60-Man Hard Cap:
+        * Overrides vanilla's 120-man merge limit with a strict hard ceiling of 60 troops.
+        * Provides a formidable, epic mid-game field skirmish for 35-50 man player armies 
+          without ever snowballing into an unbeatable 100+ man doomstack.
+     5. Outlaw Neutral Alignment & Tactical Combat:
+        * Deserters are unaligned brigands; attacking them causes zero diplomatic 
+          blowback, zero war declarations, and zero clan feuds.
+        * Disciplined formations (shield walls, spear braces against cavalry, ranged volleys).
+     6. High-Value Martial Loot & Veteran Replacements:
+        * Yields real military armor (chainmail, kite shields, military blades, riding mounts).
+        * Captured deserters can be recruited directly as seasoned Tier 3-4 frontline veterans.
+   - Value: Bridges the gap between early peasant looters and late-game kingdom warfare, 
+     providing sovereign lords a dangerous, rewarding, and consequence-free combat grind.
+
 --------------------------------------------------------------------------------
 3. MASTER FEATURE ROADMAP & TO-DO CHECKLIST
 --------------------------------------------------------------------------------
-[X] Phase 1: Difficulty-Scaled Player Starting Retinue (Anti-Ambush Buffer)
-[X] Phase 2: Bandit Horde Mobility & Mount Balance (Prevent Snail Crawl)
+[X] Phase 1: Difficulty-Scaled Player Starting Retinue (Anti-Ambush Buffer) — [COMPLETED - v1.1.0]
+[X] Phase 2: Bandit Horde Mobility & Mount Balance (Prevent Snail Crawl) — [COMPLETED - v1.4.0]
 [ ] Phase 3: Settlement Realm Guards & Local Patrols (Anti-Raid Protection)
 [ ] Phase 4: Border Contiguity War Target Filter (Localized Frontlines)
 [ ] Phase 5: Mandatory Truce Cooldowns (Non-Aggression Post-Peace)
 [ ] Phase 6: War Exhaustion & Casualties-Driven Peace Engine
 [ ] Phase 7: Fast Emissary / Messenger Dialogue Service
 [ ] Phase 8: Anti-Snowball Coalition / Defensive Pacts
+[X] Phase 9: Rogue Deserter Companies (Mid-Tier Combat & Gear Bridge) — [COMPLETED - v1.5.0]
 
 --------------------------------------------------------------------------------
 4. ARCHITECTURAL & COMPONENT BREAKDOWN (REALMS OF DUST MANDATES)
@@ -132,15 +171,21 @@ All components adhere to the <200 LOC per file limit and native save persistence
    - IDiplomacyService.cs: Interface for war declarations, truces, and exhaustion.
    - DiplomacyConfig.cs: Tunable constants (TruceDays, ExhaustionWeights, Distance).
    - Models/WarRecord.cs: Relational tracking of casualties, raids, and dates.
+   - RealmsOfDustConstants.cs: Mobility & mount tuning constants. [COMPLETED - v1.4.0]
+   - RealmsOfDustConstants.cs: Deserter merge & lock constants. [COMPLETED - v1.5.0]
 
 2. RealmsOfDust.Domain:
-   - StartingRetinueService.cs: Difficulty-aware culture recruit seeder.
+   - PlayerStartingRetinueService.cs: Difficulty-aware culture recruit seeder. [COMPLETED - v1.1.0]
+   - BanditHordeMountService.cs: Provisions pack animals & transfers loot on merge. [COMPLETED - v1.4.0]
+   - PostPlaguePartySpeedModel.cs: Enforces 3.6 minimum map speed floor for merged hordes. [COMPLETED - v1.4.0]
+   - DeserterCompanyService.cs: Spawns and manages roaming Tier 3-4 rogue military warbands. [COMPLETED - v1.5.0]
    - WarExhaustionService.cs: Daily calculation of war fatigue.
    - BorderProximityWarFilter.cs: Distance checks validating eligible war targets.
    - TruceCooldownService.cs: Enforcing peace treaty durations.
    - AntiSnowballCoalitionService.cs: Dynamic neighbor threat calculations.
 
 3. RealmsOfDust.Engine:
+   - RealmsOfDustDeserterBehavior.cs: Enforces Season 0 grace and 60-man deserter limits. [COMPLETED - v1.5.0]
    - RealmsOfDustDiplomacyBehavior.cs: Subscribes to OnWarDeclared, OnPeaceDeclared,
      OnSettlementOwnerChanged, and DailyTick.
    - SaveableTypeDefiner: Registers diplomatic models for native save compatibility.

@@ -98,6 +98,11 @@ public static class RealmsOfDustConstants
     public const int BanditMenPerPackMount = 5; // 1 pack animal per 5 bandits for carrying loot/prisoners
     public const float BanditHordeMinSpeedFloor = 3.6f; // Minimum speed floor so large hordes don't snail-crawl
 
+    // --- Rogue Deserter Companies (Mid-Tier Combat & Gear Bridge) ---
+    public const int DeserterMergeEligibilityThreshold = 25; // Only parties of 25 or fewer can merge
+    public const int DeserterCompanyLockThreshold = 40;       // Parties of 40+ are locked from absorbing
+    public const int DeserterCompanyHardCap = 60;             // Absolute maximum troop size for deserters
+
     // --- Player Starting Retinue (Anti-Ambush & Difficulty Scaling) ---
     // Realistic (Hardest / Bannerlord Difficulty): 10x T2 (Shielded infantry line)
     public const int RetinueHardT1Count = 0;

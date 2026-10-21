@@ -1,8 +1,8 @@
 ================================================================================
                     REALMS OF DUST — AI AGENT HANDOFF DOCUMENT
 ================================================================================
-Timestamp: 2026-10-20
-Current Mod Version: v1.4.0 (Pending ship.bat on main)
+Timestamp: 2026-10-21
+Current Mod Version: v1.5.0 (Pending ship.bat on main)
 Primary Working Directory: C:\Users\drew0\Documents\bannerlord-mod
 Target Platform: Mount & Blade II: Bannerlord (v1.2.x+ / .NET 6 / netstandard2.0)
 Steam Workshop ID: 3822706398 (In Moderation Queue — DO NOT TOUCH OR RUN STEAMCMD)
@@ -75,6 +75,14 @@ F. v1.4.0 — Bandit Horde Mobility & Pack Mount Logistics:
    - Added `PostPlaguePartySpeedModel.cs`: Guarantees a minimum 3.6 map speed floor for merged hordes.
      Stops large stacks from crawling at 2.2 while allowing healthy caravans (4.6+) and players to escape safely.
 
+G. v1.5.0 — Rogue Deserter Rules & Season 0 Grace:
+   - Added `DeserterCompanyService.cs`: Enforces complete Season 0 suppression (Days 1-21 grace),
+     small party merge eligibility (<= 25 troops), company locking (>= 40 troops locked), and a strict
+     hard cap of 60 troops.
+   - Added `RealmsOfDustDeserterBehavior.cs`: Registered in `RealmsOfDustSubModule.cs` to manage
+     deserter lifecycle independently without bloating existing campaign behaviors.
+   - Bridges the early combat gap between peasant looters and late-game kingdom warfare.
+
 --------------------------------------------------------------------------------
 3. MANDATORY AAA ARCHITECTURAL RULES (CRITICAL — NEVER BREAK)
 --------------------------------------------------------------------------------
@@ -114,10 +122,13 @@ F. v1.4.0 — Bandit Horde Mobility & Pack Mount Logistics:
 - Discord Bot Directory: `discord-bot/` (Token in `discord-bot/.env`)
 
 --------------------------------------------------------------------------------
-5. NEXT ROADMAP ITEMS (PLANNED FOR v1.5.0)
+5. NEXT ROADMAP ITEMS & RELEASE STAGING (SEE design/10_STEAM_RELEASE_STAGING.txt)
 --------------------------------------------------------------------------------
-- Settlement Realm Guards (Patrols): Enable Guard House projects for Castles and synchronize
-  patrol sizes with seasonal horde caps.
-- Border Contiguity War Target Filter: AI kingdoms only declare war on adjacent neighbors.
-- See `design/08_DIPLOMACY_INTEGRATION.txt` for active roadmap details.
+- Steam Update #1 (Upon Moderation Approval): Push v1.4.0 (Starter troops, 2-phase
+  bandit horde scaling, loyalty fix, horde pack mounts & speed floor).
+- Steam Update #2 (v1.5.0): Rogue Deserter Rules (Season 0 grace, 25-merge, 40-lock, 60-cap).
+- Steam Update #3 (v1.6.0): Settlement Realm Guards & Patrols (Castle Guard Houses).
+- Steam Update #4 (v1.7.0): Border Contiguity War Target Filter.
+- Steam Update #5 (v1.8.0): Mandatory Truce Cooldowns (21 days).
+- See `design/10_STEAM_RELEASE_STAGING.txt` for copy-paste Steam change notes.
 ================================================================================

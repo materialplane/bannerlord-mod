@@ -1,0 +1,218 @@
+================================================================================
+REALMS OF DUST — STEAM WORKSHOP RELEASE STAGING & CADENCE PIPELINE
+================================================================================
+Steam Workshop ID: 3822706398
+Target Platform: Mount & Blade II: Bannerlord (v1.2.x+ / .NET 6)
+Current Status on Steam: v1.0.0 (In Moderation Queue — DO NOT TOUCH STEAMCMD)
+Current Staged Git/Local Build: v1.4.0 (Commit 81f739b on main)
+================================================================================
+
+1. THE "CODED-FIRST" RELEASE & ANNOUNCEMENT PROTOCOL
+--------------------------------------------------------------------------------
+To protect developer sanity and maintain 100% credibility with the community:
+
+RULE 1: ZERO PROMISED TIMELINES OR SCHEDULES
+- NEVER tell the public or subscribers "weekly updates", "drops every Friday", 
+  or promise exact calendar dates.
+- Updates drop on Steam purely at developer discretion when the current version 
+  has had enough breathing room and feedback.
+
+RULE 2: THE "CODED-FIRST" PUBLIC TEASER MANDATE
+- NEVER list a feature in public "Upcoming Features" (Steam descriptions, Discord 
+  announcements, or community teasers) unless it is ALREADY 100% coded, compiled, 
+  and tested in our Git staging repository.
+- Distant design concepts, ideas, and unbuilt systems remain strictly in private 
+  internal documentation (`design/08_DIPLOMACY_INTEGRATION.txt`).
+- Public announcements only announce what is already sitting "in the chamber", 
+  guaranteeing zero missed promises or delayed expectations.
+
+RULE 3: INCREMENTAL SINGLE-FEATURE RELEASES
+- Releasing one completed feature per version makes every update feel substantial, 
+  bumps the mod into Steam's "Recently Updated" feed, and isolates bug tracking 
+  to a single isolated domain service.
+
+================================================================================
+2. STAGED RELEASES OVERVIEW
+================================================================================
+
+[STAGE 1: STEAM LAUNCH / MODERATION CLEARS]
+└── STEAM UPDATE #1: Realms of Dust v1.4.0 ("The Ground Zero Survival Update")
+    - Status: 100% CODED, TESTED, AND COMMITTED (Commit 81f739b)
+    - Content: Starter retinues, 2-phase seasonal bandit horde scaling, post-plague 
+      party size rules, capital loyalty/rebellion fix, bandit horde pack mounts & 3.6 speed floor.
+    - Public Status: Ready to push the second moderation approval clears.
+
+[STAGE 2: NEXT IN THE CHAMBER]
+└── STEAM UPDATE #2: Realms of Dust v1.5.0 ("Rogue Deserters & Outlaw Companies")
+    - Status: READY TO CODE
+    - Content: Season 0 suppression (Days 1-21 grace), 25-man merge eligibility, 
+      40-man company lock, strict 60-man hard cap, high-tier loot & veteran recruitment.
+    - Public Status: Once coded and verified, this becomes our ONLY teased "Upcoming Feature".
+
+[STAGE 3: ON DECK]
+└── STEAM UPDATE #3: Realms of Dust v1.6.0 ("Castle Strongholds & Realm Patrols")
+    - Status: DESIGNED / QUEUED
+    - Content: Castle Guard House project unlocked; automated defensive patrols 
+      guarding bound village trade lines; scales with seasonal caps (L1: 15-20, L2: 30-35, L3: 50-60).
+    - Public Status: Remains private in internal docs until v1.5.0 ships and v1.6.0 is coded.
+
+[STAGE 4: INTERNAL BACKLOG — PRIVATE UNTIL CODED]
+- v1.7.0: Border Contiguity War Target Filter (Local Frontlines)
+- v1.8.0: Mandatory Truce Cooldowns (21-Day Peace Pacts)
+- v1.9.0: War Exhaustion & Peace Engine
+- v1.10.0: Emissary & Courier Dispatch
+- v1.11.0: Anti-Snowball Coalitions
+    - Content: Mandatory 21-day non-aggression cooldown following any peace agreement.
+
+[DAY +18 AFTER APPROVAL]
+└── STEAM UPDATE #6: Realms of Dust v1.9.0 ("War Exhaustion & Peace Engine")
+    - Scope: Ends endless forever-wars.
+    - Content: Dynamic 0-100% fatigue score from battle casualties, raids, and captured lords.
+
+[DAY +22 AFTER APPROVAL]
+└── STEAM UPDATE #7: Realms of Dust v1.10.0 ("Emissary & Courier Dispatch")
+    - Scope: Lightweight diplomacy access.
+    - Content: Dispatch messengers from settlements to any known lord with a 1-2 day delay.
+
+[DAY +26 AFTER APPROVAL]
+└── STEAM UPDATE #8: Realms of Dust v1.11.0 ("Anti-Snowball Coalitions")
+    - Scope: Continental equilibrium safeguard.
+    - Content: Dynamic defensive coalitions form if one micro-realm captures 3+ towns early.
+
+================================================================================
+3. READY-TO-PUBLISH STEAM CHANGE NOTES (COPY-PASTE READY)
+================================================================================
+
+--------------------------------------------------------------------------------
+STEAM UPDATE #1: v1.4.0 — "The Ground Zero Survival Update"
+--------------------------------------------------------------------------------
+Steam Change Note text:
+Realms of Dust — Update v1.4.0: "The Ground Zero Survival Update"
+================================================================
+
+Thanks for checking out Realms of Dust! While waiting for Steam Workshop approval, 
+I've been heavily playtesting and tuning early-game survival and economics. 
+Here is what's new in v1.4.0:
+
+Starter Retinues (Anti-Ambush Buffer):
+- No more getting jumped by 12 looters while alone on horseback on Day 1.
+- You now start with an immediate cultural retinue scaled to your difficulty:
+  * Realistic / Bannerlord: 10x Tier-2 Shielded Infantry (holds a tight shield wall).
+  * Warrior: 6x T1, 3x T2, 1x T3.
+  * Freebooter: 4x T1, 4x T2, 4x T3.
+
+Bandit Horde Mobility & Logistics:
+- Merged bandit hordes (20+ troops) now receive pack mounts (1 per 5 bandits) so they 
+  don't crawl at a snail pace when carrying captured loot and prisoners.
+- Set a minimum map speed floor of 3.6 so large hordes move deliberately, while 
+  healthy caravans (4.8+) and player scouts can still easily outrun them.
+
+2-Phase Seasonal Bandit Caps:
+- Bandits scale progressively across the seasons: Summer (15 -> 30), Autumn (30 -> 40), 
+  Winter (45 -> 55), and Year 2+ (65 -> 75).
+
+Capital Loyalty & Culture Fix:
+- Fixed early capital rebellions by matching AI clans to their capital's culture 
+  and adding a Year 1 civic stabilization buffer while garrisons rebuild.
+
+--------------------------------------------------------------------------------
+STEAM UPDATE #2: v1.5.0 — "Rogue Deserters & Outlaw Companies"
+--------------------------------------------------------------------------------
+Steam Change Note text:
+Realms of Dust — Update v1.5.0: "Rogue Deserters & Outlaw Companies"
+===================================================================
+
+This update introduces disciplined military deserter warbands, bridging the gap 
+between early peasant looters and late-game kingdom warfare.
+
+Season 0 Grace Period:
+- Deserters are completely suppressed during Season 0 (Summer / Days 1-21) to give 
+  players and AI lords time to rebuild, clear bandits, and train starter retinues.
+- Deserters begin appearing at the start of Season 1 (Autumn / Day 22+).
+
+Anti-Doomstack Merge Rules:
+- Only small splinter bands (<= 25 troops) can merge together for mutual survival.
+- Once a deserter company reaches 40+ troops, they lock and stop absorbing smaller bands, 
+  preventing one giant blob from vacuuming up every rogue in the territory.
+- Hard ceiling capped at 60 troops max (overriding vanilla's 120-man blob).
+
+Tactical Combat & Military Loot:
+- Deserters fight in disciplined shield walls, spear braces, and ranged volleys.
+- Yields authentic military equipment (chainmail, kite shields, military blades, horses) 
+  and allows recruiting captured veterans directly into your army.
+- Outlaw neutral alignment: zero diplomatic fallout or kingdom wars from attacking them.
+
+--------------------------------------------------------------------------------
+STEAM UPDATE #3: v1.6.0 — "Castle Strongholds & Realm Patrols"
+--------------------------------------------------------------------------------
+Steam Change Note text:
+Realms of Dust — Update v1.6.0: "Castle Strongholds & Realm Patrols"
+===================================================================
+
+Say goodbye to external patrol mod conflicts! Realms of Dust now features native, 
+integrated settlement patrols designed specifically for our 53 micro-realms.
+
+Castle Guard House Parity:
+- Castles can now construct the Guard House settlement project, giving military 
+  strongholds a dedicated defensive purpose.
+
+Automated Village Patrols:
+- Completing Tier 1 of the Guard House immediately deploys a dedicated garrison patrol 
+  outside the castle gates.
+- Patrols stay tethered to their castle and bound villages, defending farmers and 
+  caravans from roaming bandits while leaving the wildlands open for you to hunt.
+
+Seasonal Headcount Scaling:
+- Level 1 Guard House: 15-20 troops (Tier 2-3 shield footmen & archers).
+- Level 2 Guard House: 30-35 troops (Tier 3-4 armored spearmen & crossbows).
+- Level 3 Guard House: 50-60 troops (Tier 4-5 veterans + scout cavalry).
+- 24-Hour Muster: If wiped out, castles automatically muster a replacement after 24 hours.
+
+--------------------------------------------------------------------------------
+STEAM UPDATE #4: v1.7.0 — "Frontline Border Wars"
+--------------------------------------------------------------------------------
+Steam Change Note text:
+Realms of Dust — Update v1.7.0: "Frontline Border Wars"
+======================================================
+
+In standard Bannerlord, AI micro-kingdoms declare war randomly across the entire map. 
+v1.7.0 brings sanity and structure to Calradia's borders.
+
+Border Contiguity War Filter:
+- AI kingdoms can now ONLY declare war on immediate neighbors sharing physical borders 
+  (settlements within ~60 map distance units).
+- Eliminates incoherent cross-continent wars (no more Aserai declaring war on Sturgia 
+  across 15 neutral realms).
+- Creates distinct regional frontlines, border clashes, and localized spheres of power.
+
+--------------------------------------------------------------------------------
+STEAM UPDATE #5: v1.8.0 — "The 21-Day Post-War Truce Accord"
+--------------------------------------------------------------------------------
+Steam Change Note text:
+Realms of Dust — Update v1.8.0: "The 21-Day Post-War Truce Accord"
+=================================================================
+
+No more AI factions signing peace, taking your tribute, and declaring war again 
+48 hours later.
+
+Mandatory 21-Day Non-Aggression Pacts:
+- Signing a peace treaty now enforces a hard 21-in-game-day diplomatic cooldown.
+- Neither party can re-declare war during this grace window.
+- Gives realms guaranteed time to recruit, rebuild shattered garrisons, and let trade recover.
+
+================================================================================
+4. WORKFLOW FOR PUBLISHING AN UPDATE
+================================================================================
+When you are ready to publish an update:
+
+Step 1: Code & Build (Local & GitHub Release)
+  - Verify code compiles cleanly: "dotnet build src\RealmsOfDust.sln"
+  - Execute release script: ship.bat <VERSION> "<MESSAGE>"
+  - (This bumps version in props/xml, compiles, deploys to Bannerlord, and pushes to git).
+
+Step 2: Steam Workshop Publish (ONLY AFTER MODERATION CLEARS!)
+  - Open steamcmd\workshop_item.vdf
+  - Update "changenote" with the corresponding pre-written text from Section 3 above.
+  - Run: "steamcmd\upload.bat"
+  - Check your Steam Workshop page to confirm the changelog and "Recently Updated" bump.
+================================================================================

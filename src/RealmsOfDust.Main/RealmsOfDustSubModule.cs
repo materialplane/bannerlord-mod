@@ -44,6 +44,7 @@ public sealed class RealmsOfDustSubModule : MBSubModuleBase
             if (starterObject is CampaignGameStarter campaignGameStarter)
             {
                 campaignGameStarter.AddBehavior(new RealmsOfDustCampaignBehavior());
+                campaignGameStarter.AddBehavior(new RealmsOfDustDeserterBehavior());
                 campaignGameStarter.AddModel(new PostPlagueSettlementTaxModel());
                 campaignGameStarter.AddModel(new PostPlagueVolunteerModel());
                 campaignGameStarter.AddModel(new PostPlagueClanFinanceModel());
